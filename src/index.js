@@ -1,24 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Switch, Route, BrowserRouter } from "react-router-dom";
-import Landing from "./components/landing.js";
-import Main from "./components/main.js";
-//router page
-
-//render itself
-
-const Router = () => (
-  <main>
-    <Switch>
-      <Route exact path="/" component={Landing} />
-      <Route path="/main" component={Main} />
-    </Switch>
-  </main>
-);
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+//import store from './store/store';
+import App from './componenets/app';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Router />
-  </BrowserRouter>,
-  document.getElementById("app")
+  //<Provider store={store}>
+    <App />
+  //</Provider>
+  ,document.getElementById("app")
 );
