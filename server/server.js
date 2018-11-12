@@ -17,6 +17,10 @@ app.use(
   })
 );
 
+app.get("/*", (err, res) => {
+  res.sendFile(path.join(__dirname, "../dist/index.html"));
+});
+
 app.listen(port, function() {
   console.log("Now listening on port " + port + "!");
 });
