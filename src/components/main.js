@@ -1,4 +1,5 @@
 import React from "react";
+import Nav from "./navBar.js";
 
 class Main extends React.Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class Main extends React.Component {
     return (
       <div>
         <h1>Im the Butterfly Title</h1>
+        <Nav />
       </div>
     );
   }
