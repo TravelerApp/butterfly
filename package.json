@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack --watch",
     "server": "nodemon server/server.js",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "create-db": "createdb butterflies; knex migrate:latest; knex seed:run"
   },
   "author": "",
   "license": "ISC",
@@ -25,9 +26,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+    "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "fs": "0.0.1-security",
+    "knex": "^0.15.2",
     "path": "^0.12.7",
+    "pg": "^7.6.1",
     "react": "^16.6.1",
     "react-dom": "^16.6.1",
     "react-redux": "^5.1.1",
