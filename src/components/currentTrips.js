@@ -31,7 +31,6 @@ class Next extends React.Component {
       </div>
     ) : (
       <div>
-        <h1>Title</h1>
         <Nav />
         <h3>This is The Current Trips Page</h3>
         <Trip click={this.handleTripClick.bind(this)} />
