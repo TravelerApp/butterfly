@@ -1,19 +1,40 @@
 import React from "react";
 import Nav from "./navBar.js";
 import Trip from "./eachTrip.js";
+import Poss from "./possibleConnections.js";
+import SelProfile from "./userProfile.js";
 
 class Next extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      selected: null
+    };
+  }
+  handleTripClick(value) {
+    console.log("handling click", value);
+    this.setState({
+      selected: value
+    });
   }
 
   render() {
-    return (
+    return this.state.selected ? (
+      <div>
+        <h1>Title</h1>
+        <Nav />
+        <h3>{this.state.selected}trip, user profile</h3>
+        <SelProfile />
+        {/* map out possible connections */}
+        <h3>Potential Connections</h3>
+        <Poss />
+      </div>
+    ) : (
       <div>
         <h1>Title</h1>
         <Nav />
         <h3>This is The Current Trips Page</h3>
-        <Trip />
+        <Trip click={this.handleTripClick.bind(this)} />
 
         {/* map out trips trip = {trip} */}
       </div>
