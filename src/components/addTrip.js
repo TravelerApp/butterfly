@@ -5,23 +5,21 @@ class Add extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      allCountries : [],
+      allCountries: [],
       currentCountry: "select a country",
       currentCities: ["select a country to see cities"]
     };
     this.renderCities = this.renderCities.bind(this);
     this.countrySelected = this.countrySelected.bind(this);
   }
-  componentDidMount(){
+  componentDidMount() {
     let uniqueCountries = [];
-    data.forEach(element => {
-      if(!uniqueCountries.includes(element.country)){
+    data.data.forEach(element => {
+      if (!uniqueCountries.includes(element.country)) {
         uniqueCountries.push(element.country);
       }
-    })
-    this.setState({allCountries: uniqueCountries}, () => {
-      this.setState({allCountries: uniqueCountries})
-    })
+    });
+    this.setState({ allCountries: uniqueCountries });
   }
   countrySelected(e) {
     this.setState({ currentCountry: e.target.value }, () => {
@@ -29,14 +27,14 @@ class Add extends React.Component {
     });
   }
 
-  renderCities(countryName){
+  renderCities(countryName) {
     let allCities = [];
     data.forEach(element => {
-      if(element.country === countryName){
+      if (element.country === countryName) {
         allCities.push(element.city);
       }
     });
-    this.setState({currentCities: allCities})
+    this.setState({ currentCities: allCities });
   }
   render() {
     return (
