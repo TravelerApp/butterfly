@@ -10,7 +10,6 @@ class Next extends React.Component {
   render() {
     return (
       <div>
-        <h1>Title</h1>
         <Nav />
         <h3>This is The Current Trips Page</h3>
         <Trip />
