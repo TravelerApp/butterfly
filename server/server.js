@@ -1,13 +1,15 @@
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
 const path = require("path");
+const db = require('../knex/knex.js');
 const app = express();
 
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 3000;
-}
+let port = process.env.PORT || 3000;
+// if (port == null || port == "") {
+//   port = 3000;
+// }
 
 app.use(express.static(__dirname + "/../dist"));
 app.use(bodyParser.json());
