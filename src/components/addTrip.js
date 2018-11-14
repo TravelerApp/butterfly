@@ -1,15 +1,19 @@
 import React from "react";
 import Nav from "./navBar.js";
 import data from "../../data.js";
-import Map from "../components/map.js";
+import AddTripForm from "./addTripForm.js";
+// import Map from "../components/map.js";
+
 class Add extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       allCountries: [],
       currentCountry: "select a country",
-      currentCities: ["select a country to see cities"]
+      currentCities: ["select a country to see cities"],
+      tripAdded: false
     };
+    this.handleAddToMyTripsClick = this.handleAddToMyTripsClick.bind(this);
     this.renderCities = this.renderCities.bind(this);
     this.countrySelected = this.countrySelected.bind(this);
   }
@@ -22,6 +26,7 @@ class Add extends React.Component {
     });
     this.setState({ allCountries: uniqueCountries });
   }
+
   countrySelected(e) {
     this.setState({ currentCountry: e.target.value }, () => {
       this.renderCities(this.state.currentCountry);
@@ -37,8 +42,17 @@ class Add extends React.Component {
     });
     this.setState({ currentCities: allCities });
   }
+  handleAddToMyTripsClick() {
+    this.setState({ tripAdded: true });
+  }
   render() {
-    return (
+    return this.state.tripAdded ? (
+      <div>
+        <Nav />
+        <h3>This is The Add Trips Page</h3>
+        <AddTripForm />
+      </div>
+    ) : (
       <div>
         <Nav />
         <h3>This is The Add Trips Page</h3>
@@ -56,13 +70,15 @@ class Add extends React.Component {
               <option key={i}>{city}</option>
             ))}
           </select>
-
-          <input type="button" value ="Add to my trips"/>
-
+          <input
+            type="button"
+            value="Add to my trips"
+            onClick={() => this.handleAddToMyTripsClick()}
+          />
         </form>
-        <div className= "mapWindow">
+        {/* <div className="mapWindow">
           <Map />
-        </div>
+        </div> */}
       </div>
     );
   }
