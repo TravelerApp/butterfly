@@ -62,7 +62,7 @@ export default class Create extends React.Component {
             placeholder="your name here .."
             onChange={this.fullNameChanged}
           />
-          <p>origin country: </p>
+          <p>Origin country: </p>
           <select onChange={this.orginCountryChanged.bind(this)}>
             <option>{this.state.currentCountry}</option>
             {this.state.allCountries.map((country, i) => (
