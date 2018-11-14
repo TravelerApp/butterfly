@@ -29,7 +29,7 @@ class Add extends React.Component {
 
   renderCities(countryName) {
     let allCities = [];
-    data.forEach(element => {
+    data.data.forEach(element => {
       if (element.country === countryName) {
         allCities.push(element.city);
       }
@@ -55,9 +55,9 @@ class Add extends React.Component {
               <option key={i}>{city}</option>
             ))}
           </select>
-          <input type="text" />
-          <input type="submit" />
-          <div className="mapbox">MapBOX</div>
+
+          <input type="button" value ="Add to my trips"/>
+
         </form>
       </div>
     );
