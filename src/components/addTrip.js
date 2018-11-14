@@ -1,6 +1,7 @@
 import React from "react";
 import Nav from "./navBar.js";
 import data from "../../data.js";
+import Map from "../components/map.js";
 class Add extends React.Component {
   constructor(props) {
     super(props);
@@ -59,6 +60,9 @@ class Add extends React.Component {
           <input type="button" value ="Add to my trips"/>
 
         </form>
+        <div className= "mapWindow">
+          <Map />
+        </div>
       </div>
     );
   }
