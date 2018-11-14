@@ -5,6 +5,6 @@ const knex = require('knex')(options);
 
 // WRITE database modules
 //    module.exports.MODELNAME
-//    knex....
+//       knex.
 
 module.exports = knex;
