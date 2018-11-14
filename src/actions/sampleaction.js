@@ -9,7 +9,21 @@
 actions that dont update state, but are saving data to the database, these are sagas.
 sagas handle asynchronous calls that dont manipulate state
 
+potentially dont need those
 
-update logged in user
+
+
+update logged in user(grab profile/name, set state)
+
+save profile to DB(also set it to state)
+
+add trip(save to current trip state)
+
+select trip(update selected trip state)
+
+select connection (set current user/profile to state)
+
+
+
 
  
