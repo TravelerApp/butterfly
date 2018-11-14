@@ -1,1 +1,1 @@
-console.log("sample");
+Grab all the components with 

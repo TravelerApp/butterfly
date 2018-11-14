@@ -21,9 +21,9 @@ class Next extends React.Component {
   render() {
     return this.state.selected ? (
       <div>
-        <h1>Title</h1>
         <Nav />
         <h3>{this.state.selected}trip, user profile</h3>
+        <button onClick={() => this.handleTripClick(null)}>Go Back</button>
         <SelProfile />
         {/* map out possible connections */}
         <h3>Potential Connections</h3>
