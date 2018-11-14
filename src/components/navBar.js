@@ -35,11 +35,6 @@ const Nav = props => (
             Logout
           </Link>
         </li>
-        <li className="nav-item">
-          <Link className="navbar-brand" to="/">
-            Login
-          </Link>
-        </li>
       </ul>
     </div>
   </nav>

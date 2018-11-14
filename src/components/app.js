@@ -6,6 +6,8 @@ import Add from "./addTrip.js";
 import Next from "./currentTrips.js";
 import Mess from "./messages.js";
 import Create from "./createProfile.js";
+import NotFound from "./notFound.js";
+
 
 const App = () => (
   <BrowserRouter>
@@ -16,6 +18,7 @@ const App = () => (
       <Route path="/next" component={Next} />
       <Route path="/mess" component={Mess} />
       <Route path="/create" component={Create} />
+      <Route component={NotFound} />
     </Switch>
   </BrowserRouter>
 );
