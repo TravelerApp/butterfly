@@ -12,10 +12,10 @@ export default class Create extends React.Component {
       interests: [
         { name: "Hiking", checked: false },
         { name: "Night Life", checked: false },
-        { name: "Meusums and history", checked: false },
+        { name: "Museums and history", checked: false },
         { name: "shopping", checked: false }
       ],
-      currentCountry: "Select your orgin country .."
+      currentCountry: "Select your origin country .."
     };
     this.interestChanged = this.interestChanged.bind(this);
     this.submit = this.submit.bind(this);
@@ -62,7 +62,7 @@ export default class Create extends React.Component {
             placeholder="your name here .."
             onChange={this.fullNameChanged}
           />
-          <p>Orgin country: </p>
+          <p>Origin country: </p>
           <select onChange={this.orginCountryChanged.bind(this)}>
             <option>{this.state.currentCountry}</option>
             {this.state.allCountries.map((country, i) => (
