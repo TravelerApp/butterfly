@@ -15,12 +15,12 @@ const { onUpdateTrigger } = require('../../knexfile.js')
 exports.up = knex =>
   knex.schema.createTable('users', table => {
       table.string('auth_id').unique().notNullable().primary();
-      table.string('username').notNullable();
+      table.string('username')//.notNullable();
       table.string('user_country');
       table.string('picture');
-      table.json('interests').notNullable();
+      table.json('interests')//.notNullable();
       table.boolean('is_guide').defaultTo(false);
-      table.string('primary_lang').notNullable();
+      table.string('primary_lang')//.notNullable();
       table.json('secondary_langs');
       table.timestamps(true, true);
   })
