@@ -6,11 +6,13 @@
 //    - a "current_length" integer that is the current number of messages in array
 //    - a "lastViewed1" integer that represents that last message viewed by user1
 //    - a "lastViewed1" integer that represents that last message viewed by user1
+//    - a "chat_city" foreign key that references the city the two users are visiting
 //    - timestamps for checking if message needs to be updated
-//    - DO WE WANT A FOREIGN KEY THAT REFERENCES A TRIP ID?
 
-exports.up = function(knex, Promise) {
-  return knex.schema.createTable('chats', function(table) {
+const { onUpdateTrigger } = require('../../knexfile.js')
+
+exports.up = knex =>
+  knex.schema.createTable('chats', table => {
       table.increments('chat_id').primary();
       table.string('user1').references('auth_id').inTable('users').notNullable().onDelete('cascade');
       table.string('user2').references('auth_id').inTable('users').notNullable().onDelete('cascade');
@@ -18,10 +20,10 @@ exports.up = function(knex, Promise) {
       table.integer('current_length');
       table.integer('lastViewed1');
       table.integer('lastViewed2');
+      table.integer('chat_city').references('city_id').inTable('cities').notNullable().onDelete('cascade');
       table.timestamps(true, true);
-    });
-};
+  })
+  .then(() => knex.raw(onUpdateTrigger('chats')));
 
-exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('chats');
-};
+
+exports.down = knex => knex.schema.dropTable('chats');
