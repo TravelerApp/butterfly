@@ -19,6 +19,18 @@ app.use(
   })
 );
 
+
+app.get('/initial/:authid', (req, res) => {
+  db.getAllUserInformation(req.params.authid)
+  .then(data => {
+    res.status(200).json(data); //map(object => object.rows)
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).send(err);
+  })
+});
+
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
