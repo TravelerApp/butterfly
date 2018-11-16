@@ -7,7 +7,8 @@ import Next from "./currentTrips.js";
 import Mess from "./messages.js";
 import Create from "./createProfile.js";
 import NotFound from "./notFound.js";
-
+import ViewSelf from "./viewSelf.js";
+import Nav from "./navBar.js";
 
 const App = () => (
   <BrowserRouter>
@@ -18,6 +19,7 @@ const App = () => (
       <Route path="/next" component={Next} />
       <Route path="/mess" component={Mess} />
       <Route path="/create" component={Create} />
+      <Route path="/viewprofile" component={ViewSelf} />
       <Route component={NotFound} />
     </Switch>
   </BrowserRouter>
