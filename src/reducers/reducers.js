@@ -20,3 +20,32 @@ Add Trip Form Data
 Selected Trip
 
 
+State = {
+  cities: allcities,
+  loggedIn: currentuser.id,
+  profile: currentUser profile ,
+  currentTrips: [{
+    Trip: trip 1 data,
+    Trip1Connections: [{
+      possibleConnection1: proflle,
+      possCon1Trip: posCons Trip,
+    }, {
+      possibleConnection2: proflle,
+      possCon2Trip: posCons Trip,
+    }],
+  }, {
+    Trip: trip 2 data,
+    Trip2Connections: [{
+      possibleConnection1: proflle,
+      possCon1Trip: posCons Trip,
+    }, {
+      possibleConnection2: proflle,
+      possCon2Trip: posCons Trip,
+    }],
+  }],
+  messages: [array of each conversation],
+  selectedTrip: null until trip is selected,
+  selectedPossCon: selected Possible Connection,
+  selectedConUser: selected user for messages,
+
+}
