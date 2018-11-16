@@ -10,20 +10,20 @@
 //    - a "secondary_langs" string that will most likely be a stringified array
 //    - timestamps - created/updated? (who knows, might want these later)
 
-exports.up = function(knex, Promise) {
-  return knex.schema.createTable('users', function(table) {
+const { onUpdateTrigger } = require('../../knexfile.js')
+
+exports.up = knex =>
+  knex.schema.createTable('users', table => {
       table.string('auth_id').unique().notNullable().primary();
-      table.string('username').notNullable();
+      table.string('username')//.notNullable();
       table.string('user_country');
       table.string('picture');
-      table.json('interests').notNullable();
+      table.json('interests')//.notNullable();
       table.boolean('is_guide').defaultTo(false);
-      table.string('primary_lang').notNullable();
+      table.string('primary_lang')//.notNullable();
       table.json('secondary_langs');
       table.timestamps(true, true);
-    });
-};
+  })
+  .then(() => knex.raw(onUpdateTrigger('users')));
 
-exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('users');
-};
+exports.down = knex => knex.schema.dropTable('users');

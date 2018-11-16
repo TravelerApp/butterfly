@@ -8,19 +8,17 @@
 //    - a "city_primary_lang" string
 //    - a "city_secondary_langs" string that will most likely be a stringified array
 
-exports.up = function(knex, Promise) {
-  return knex.schema.createTable('cities', function(table) {
+exports.up = knex =>
+  knex.schema.createTable('cities', table => {
       table.increments('city_id').primary();
       table.string('city');
       table.string('state');
       table.string('country');
-      table.json('coordinates');
+      table.decimal('lat', null)
+      table.decimal('long', null)
       table.string('city_primary_lang');
       table.json('city_secondary_langs');
       table.string('city_picture');
-    });
-};
+  });
 
-exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists('cities');
-};
+exports.down = knex => knex.schema.dropTable('cities');

@@ -1,0 +1,93 @@
+State = {
+  // FOLLOWING ITEMS WILL BE SET DURING INTIAL LOGIN CALL
+  cities: allcities,
+
+  loggedIn: currentuser.id,
+
+  profile: {currentUserprofile},
+
+  currentTrips: [
+    {
+      details: {tripdata},
+      connections: [
+        {
+          connection: {conn_proflle},
+          connectionTrip: {conn_trip}
+        },
+        {
+          connection: {conn_proflle},
+          connectionTrip: {conn_trip}
+        }
+      ]
+    },
+    {
+      details: {tripdata},
+      connections: [
+        {
+          connection: {conn_proflle},
+          connectionTrip: {conn_trip}
+        },
+        {
+          connection: {conn_proflle},
+          connectionTrip: {conn_trip}
+        }
+      ]
+    }
+  ],
+
+messages: [array of each conversation object],
+
+  // THESE WILL BE SET AS THE USER INTERACTS WITH THE APP
+  selectedTrip: null until trip is selected,
+  selectedPossCon: selected Possible Connection,
+  selectedConUser: selected user for messages,
+}
+
+
+LOGIN/SIGNUP TIMELINE
+-> returns authid
+-> check database for authid
+  1) if authid is not in the database, save it, redirect to create profile
+  2) if authid IS in database
+      1) authid HAS a username, initiate call to grab profile information (ALL of it)
+          1) hastrips -> redirect to trips page
+          2) notrips -> redirect to add trip
+      2) authID does NOT have a username, redirect to create profile
+
+
+ROUTES:
+//Chris and Alberto
+- GET /user/authId -> initial login route
+    - package described above
+
+//Abdullah for now
+- POST /user -> saves JUST an auth_id
+- PUT /user/:authId -> saving a new user profile, access authID as req.param.authId
+    - could also access authId with req.body.auth_id
+    - timeline: update state first, then post to database
+    - format:
+       {
+        auth_id: '',
+        username: '',
+        user_country: '',
+        picture: '',
+        interests: {a:bool, b:bool, c:bool....},
+        isGuide: bool,
+        primary_lang: '',
+        secondary_langs: {secondary:['','','']}
+      }
+- GET /user (for testing proper insertion in Postman)
+- POST /trip -> saving a new trip for a user
+    - timeline: save trip to database, get connectons for THAT trip, return as payload -> add to state's trips array
+    - format:
+      {
+        trip_user: '',
+        trip_city: INT,
+        trip_start: '',
+        trip_end: '',
+        purpose: ''
+      }
+- GET /trip (for testing proper insertion in Postman)
+- POST /message -> adding a message to an existing chat
+    - format:
+     {TBD}
