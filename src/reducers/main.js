@@ -99,16 +99,12 @@ var rootReducer = (state = initialState, action) => {
     case GRAB_EVERYTHING:
       return Object.assign({}, state, {
         cities: action.payload.cities,
-        loggedIn: action.payload.userID,
         profile: action.payload.profile,
-        currentTrips: action.payload.trips,
+        currentTrips: action.payload.upcomingTrips,
         messages: action.payload.messages,
         selectedTrip: null,
         selectedPossCon: null,
-        selectedConUser: null,
-        countries: null,
-        currentCountry: null,
-        currentCities: null
+        selectedConUser: null
       });
     default:
       return state;
