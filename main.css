@@ -9140,12 +9140,14 @@ input:checked+.slider:before {
   height: 720px;
   width: 950px;
   margin-left: 50px;
+  max-height: 710px;
+  overflow-y: scroll;
 }
 
 .chatBox {
   padding: 0px;
   margin-top: 10px;
-  padding-top: 10px; 
+  padding-top: 10px;
   height: 710px;
   width: 950px;
 }
@@ -9183,7 +9185,8 @@ input:checked+.slider:before {
   list-style-type: none;
   float: left;
 }
-.senderName{
+
+.senderName {
   margin-right: 10px;
   font-weight: bold;
   float: left;

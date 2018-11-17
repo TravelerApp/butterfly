@@ -111,5 +111,3 @@ var rootReducer = (state = initialState, action) => {
 };
 
 export default rootReducer;
-
-console.log("Nik Mentakis is the greatest HiR ever!");

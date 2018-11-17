@@ -17,6 +17,7 @@ class Mess extends React.Component {
     };
     this.send = this.send.bind(this);
     this.onChange = this.onChange.bind(this);
+    this._handleKeyPress = this._handleKeyPress.bind(this);
   }
   send() {
     this.setState(() =>
@@ -27,17 +28,30 @@ class Mess extends React.Component {
         ]
       }))
     );
-    console.log(this.state.messages);
   }
   onChange(e) {
     this.setState({ text: e.target.value });
+  }
+  _handleKeyPress(e) {
+    if (e.key === "Enter") {
+      this.send();
+    }
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+    e.target.reset();
+  }
+
+  componentDidUpdate() {
+    var el = this.refs.wrap;
+    el.scrollTop = el.scrollHeight;
   }
   render() {
     return (
       <div>
         <Nav />
         <div>
-          <div className="chatWindowDiv">
+          <div className="chatWindowDiv" ref="wrap">
             <ul className="chatbox">
               {this.state.messages.map(message => (
                 <li className="message">
@@ -51,18 +65,22 @@ class Mess extends React.Component {
             </ul>
           </div>
           <div className="chatFormDiv">
-            <input
-              type="text"
-              className="chatTextBox"
-              id="chatTextBox"
-              onChange={this.onChange.bind(this)}
-            />
-            <input
-              type="button"
-              value="Send"
-              className="chatSendButton"
-              onClick={() => this.send()}
-            />
+            <form onSubmit={this.handleSubmit.bind(this)}>
+              <input
+                type="text"
+                className="chatTextBox"
+                id="chatTextBox"
+                onKeyPress={this._handleKeyPress.bind(this)}
+                onChange={this.onChange.bind(this)}
+                autocomplete="off"
+              />
+              <input
+                type="button"
+                value="Send"
+                className="chatSendButton"
+                onClick={() => this.send()}
+              />
+            </form>
           </div>
         </div>
         {/* <Connected /> */}
