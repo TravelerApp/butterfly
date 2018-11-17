@@ -11,7 +11,8 @@ import {
   GRAB_COUNTRIES,
   SELECT_COUNTRY,
   SELECT_CITIES,
-  TOGGLE_ADDED
+  TOGGLE_ADDED,
+  LOG_IN
 } from "../actions/actions.js";
 
 const initialState = {
@@ -76,6 +77,10 @@ var rootReducer = (state = initialState, action) => {
     case UNSELECT_TRIP:
       return Object.assign({}, state, {
         selectedTrip: null
+      });
+    case LOG_IN:
+      return Object.assign({}, state, {
+        loggedIn: action.payload
       });
     case LOG_OUT:
       return Object.assign({}, state, {
