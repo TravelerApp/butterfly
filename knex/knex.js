@@ -2,13 +2,6 @@ const environment = process.env.ENVIRONMENT // || 'development';
 const options = require('../knexfile.js')[environment];
 const knex = require('knex')(options);
 
-
-// overlaps = trips.forEach(knex.query trip for overlap)
-// connections = overlap.forEach(knex.query for user profile)
-
-const Queries = {
-}
-
 module.exports = {
   getAllUserInformation: (auth_id) => {
     const initialQueries = [
@@ -29,23 +22,34 @@ module.exports = {
             })
           })
         .then(data => {
-          let finalChatObjects = Promise.all(data.map(getChatObjectWithOtherUser))
-          return finalChatObjects;
+          return Promise.all(data.map(getChatObjectWithOtherUser))
+          .then(data => data)
           }),
       // get trips and all related data
       knex.select().from('trips').where('trip_user', `${auth_id}`)
-        .then(usertrips => {
-          let usertripsArray = usertrips.map(usertrip => {return {details: usertrip, connections: []}});
-          let usertripsWithConnections = Promise.all(usertripsArray.map(getConnections));
-          return usertripsWithConnections;
-          // let fullOverlapObjects = Promise.all(tripsWithOverlaps.map())
-          // return tripsWithOverlaps;
+        .then(userTrips => {
+          let userTripsArray = userTrips.map(userTrip => {return {details: userTrip, connections: []}});
+          return Promise.all(userTripsArray.map(getConnections))
+          .then(trips => {
+            return trips;
+          })
         })
     ]
 
   return Promise.all(initialQueries)
     .then(data => {
-      return data
+      let initialStoreState = {
+        cities: data[0].rows,
+        profile: data[1].rows,
+        messages: data[2].map(tuple => {
+          return {
+            message: tuple[0][0],
+            otheruser: tuple[1][0]
+          }
+        }),
+        upcomingTrips: data[3]
+      }
+      return initialStoreState;
     })
   }
 }
@@ -59,6 +63,9 @@ const getChatObjectWithOtherUser = function(request) {
 }
 const getUserForOverlap = function(overlap) {
   return knex.select().from('users').where('auth_id', overlap.trip_user)
+  .then(profile => {
+    return {connectionTrip: overlap, connectionProfile: profile[0]}
+  })
 }
 
 const getConnections = function(trip) {
@@ -77,13 +84,26 @@ const getConnections = function(trip) {
       user_trip_user: trip.details
     })
   .then(overlaps => {
-    overlaps.rows.forEach(async overlap => {
-      const connectionProfile = await getUserForOverlap(overlap);
-      trip.connections.push({connectionTrip: overlap, connectionProfile: connectionProfile[0]})
+    return Promise.all(overlaps.rows.map(getUserForOverlap))
     })
+  .then(data => {
+    trip.connections = data;
     return trip;
   })
-}
+  }
+
+
+    // let ConnectionObjects = [];
+    // overlaps.rows.forEach(overlap => {
+    //   ConnectionObjects.push(getUserForOverlap(overlap))
+    // })
+    // return Promise.all(ConnectionObjects)
+    // .then((data) => {
+    //   console.log(data[0])
+    // })
+      //trip.connections.push({connectionTrip: overlap, connectionProfile: connectionProfile[0]})
+      //})
+    //return trip;
 
 
 
