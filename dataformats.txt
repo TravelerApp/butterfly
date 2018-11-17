@@ -11,12 +11,14 @@ State = {
       details: {tripdata},
       connections: [
         {
+          connectionTrip: {conn_trip},
           connection: {conn_proflle},
-          connectionTrip: {conn_trip}
+          // PROBABLY NOT connectionChat: {chat}
         },
         {
+          connectionTrip: {conn_trip},
           connection: {conn_proflle},
-          connectionTrip: {conn_trip}
+          // PROBABLY NOT connectionChat: {chat}
         }
       ]
     },
@@ -35,7 +37,7 @@ State = {
     }
   ],
 
-messages: [array of each conversation object],
+//messages: [array of each conversation object],
 
   // THESE WILL BE SET AS THE USER INTERACTS WITH THE APP
   selectedTrip: null until trip is selected,
@@ -91,3 +93,9 @@ ROUTES:
 - POST /message -> adding a message to an existing chat
     - format:
      {TBD}
+
+    {
+      author: ligged in username
+      text: input value
+      timestamp
+    }

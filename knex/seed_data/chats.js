@@ -29,6 +29,1056 @@ module.exports = [{
   chat_city: 5
 },
 {
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
+  user1: '1',
+  user2: '2',
+  messages: {messages:[
+    {
+      author: '1',
+      text: 'Hello! Super pumped to get out to Japan',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'Have you ever been before?',
+      //time:
+    },
+    {
+      author: '2',
+      text: 'Nope, this is my first time visiting',
+      //time:
+    },
+    {
+      author: '1',
+      text: 'What are you most excited for?',
+      //time:
+    }
+  ]},
+  current_length: 4,
+  lastViewed1: 4,
+  lastViewed2: 3,
+  chat_city: 5
+},
+{
   user1: '3',
   user2: '4',
   messages: {messages:[
