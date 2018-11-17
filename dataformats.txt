@@ -11,12 +11,14 @@ State = {
       details: {tripdata},
       connections: [
         {
+          connectionTrip: {conn_trip},
           connection: {conn_proflle},
-          connectionTrip: {conn_trip}
+          // PROBABLY NOT connectionChat: {chat}
         },
         {
+          connectionTrip: {conn_trip},
           connection: {conn_proflle},
-          connectionTrip: {conn_trip}
+          // PROBABLY NOT connectionChat: {chat}
         }
       ]
     },
@@ -35,7 +37,7 @@ State = {
     }
   ],
 
-messages: [array of each conversation object],
+//messages: [array of each conversation object],
 
   // THESE WILL BE SET AS THE USER INTERACTS WITH THE APP
   selectedTrip: null until trip is selected,
@@ -53,41 +55,3 @@ LOGIN/SIGNUP TIMELINE
           1) hastrips -> redirect to trips page
           2) notrips -> redirect to add trip
       2) authID does NOT have a username, redirect to create profile
-
-
-ROUTES:
-//Chris and Alberto
-- GET /user/authId -> initial login route
-    - package described above
-
-//Abdullah for now
-- POST /user -> saves JUST an auth_id
-- PUT /user/:authId -> saving a new user profile, access authID as req.param.authId
-    - could also access authId with req.body.auth_id
-    - timeline: update state first, then post to database
-    - format:
-       {
-        auth_id: '',
-        username: '',
-        user_country: '',
-        picture: '',
-        interests: {a:bool, b:bool, c:bool....},
-        isGuide: bool,
-        primary_lang: '',
-        secondary_langs: {secondary:['','','']}
-      }
-- GET /user (for testing proper insertion in Postman)
-- POST /trip -> saving a new trip for a user
-    - timeline: save trip to database, get connectons for THAT trip, return as payload -> add to state's trips array
-    - format:
-      {
-        trip_user: '',
-        trip_city: INT,
-        trip_start: '',
-        trip_end: '',
-        purpose: ''
-      }
-- GET /trip (for testing proper insertion in Postman)
-- POST /message -> adding a message to an existing chat
-    - format:
-     {TBD}

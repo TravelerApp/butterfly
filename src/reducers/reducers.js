@@ -1,5 +1,3 @@
-
-
 global states needed:
 
 Logged in user(Name and Profile): 
