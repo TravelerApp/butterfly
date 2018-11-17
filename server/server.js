@@ -73,14 +73,12 @@ app.patch("/user", (req, res) => {
 
 
 
-// ---------------TRIPS TABLE---------------
-
+// ----------------TRIPS TABLE----------------
 app.post("/trip", (req, res) => {
-  console.log(req.body)
-  db.insertTrip(req.body)
-  .then(data => {
-    console.log('trip successfully inserted into database, returning trip with connections:', data)
-    res.status(201).send(data)
+  db.createTrip(req.body)
+  .then(trip => {
+    console.log('trip successfully inserted into database, returning trip with connections:', trip);
+    res.status(201).json(trip);
   })
   .catch(err => {
     console.log('error received trying to add trip to database:', err);
@@ -90,7 +88,32 @@ app.post("/trip", (req, res) => {
 
 
 // ---------------MESSAGES TABLE---------------
+app.post("/message", (req, res) => {
+  db.createChat(req.body)
+  .then(chat => {
+    console.log('chat successfully created, returning chat object:', chat);
+    res.status(201).send(chat);
+  })
+  .catch(err => {
+    console.log('error received trying to create new chat:', err);
+    res.status(400).send(err)
+  })
+})
 
+app.patch("/message", (req, res) => {
+  db.updateChat(req.body)
+  .then(chat => {
+    console.log('chat successfully created, returning chat object:', chat);
+    res.status(201).send(chat);
+  })
+  .catch(err => {
+    console.log('error received trying to create new chat:', err);
+    res.status(400).send(err)
+  })
+})
+
+
+// ------------SERVE APP AND LISTEN------------
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
