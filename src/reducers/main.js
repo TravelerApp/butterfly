@@ -11,14 +11,15 @@ import {
   GRAB_COUNTRIES,
   SELECT_COUNTRY,
   SELECT_CITIES,
-  TOGGLE_ADDED
+  TOGGLE_ADDED,
+  LOG_IN
 } from "../actions/actions.js";
 
 const initialState = {
   cities: null,
   loggedIn: null, //user unique id (payload from login return)
   profile: null, // name, picture, country, language, interests
-  currentTrips: null, //array of trips
+  currentTrips: ["France", "Germany", "Poland"], //array of trips
   messages: null, //array of messages
   selectedTrip: null, // current trip view
   selectedPossCon: null, // possible connections user list
@@ -77,6 +78,10 @@ var rootReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         selectedTrip: null
       });
+    case LOG_IN:
+      return Object.assign({}, state, {
+        loggedIn: action.payload
+      });
     case LOG_OUT:
       return Object.assign({}, state, {
         cities: null,
@@ -94,16 +99,12 @@ var rootReducer = (state = initialState, action) => {
     case GRAB_EVERYTHING:
       return Object.assign({}, state, {
         cities: action.payload.cities,
-        loggedIn: action.payload.userID,
         profile: action.payload.profile,
-        currentTrips: action.payload.trips,
+        currentTrips: action.payload.upcomingTrips,
         messages: action.payload.messages,
         selectedTrip: null,
         selectedPossCon: null,
-        selectedConUser: null,
-        countries: null,
-        currentCountry: null,
-        currentCities: null
+        selectedConUser: null
       });
     default:
       return state;
@@ -111,5 +112,3 @@ var rootReducer = (state = initialState, action) => {
 };
 
 export default rootReducer;
-
-console.log("Nik Mentakis is the greatest HiR ever!");

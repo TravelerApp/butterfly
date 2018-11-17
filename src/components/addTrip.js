@@ -26,6 +26,7 @@ class Add extends React.Component {
     this.countrySelected = this.countrySelected.bind(this);
   }
   componentDidMount() {
+    console.log(this.props, "PROPS ON ADD MOUNT");
     let uniqueCountries = [];
     data.data.forEach(element => {
       if (!uniqueCountries.includes(element.country)) {
