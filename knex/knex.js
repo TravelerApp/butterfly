@@ -2,6 +2,7 @@ const environment = process.env.ENVIRONMENT; // || 'development';
 const options = require("../knexfile.js")[environment];
 const knex = require("knex")(options);
 
+
 // ----------------HELPER FUNCTIONS----------------
 const getChatObjectWithOtherUser = function(request) {
   return Promise.all([
@@ -39,8 +40,9 @@ const getConnections = function(trip) {
   })
   }
 
+
 // ----------------INITIAL QUERY----------------
-const getAllUserInformation = (auth_id) => {
+const getAllUserInformation = auth_id => {
   const initialQueries = [
     // get all cities
     knex.raw(`SELECT * FROM cities`),
@@ -93,41 +95,75 @@ const getAllUserInformation = (auth_id) => {
 
 
 // ----------------USER CREATE AND UPDATE----------------
+// add user's auth_id to database
 postUser = id => knex("users").insert({ auth_id: id });
 
-updateUserProfile = body => {
+// update auth_id entry with all profile information
+updateUserProfile = profile => {
   return knex("users").where({ auth_id: body.auth_id })
     .update({
-      username: body.username,
-      user_country: body.user_country,
-      picture: body.picture,
-      interests: body.inserts,
-      is_guide: body.is_guide,
-      primary_lang: body.primary_lang,
-      secondary_langs: body.secondary_langs
+      username: profile.username,
+      user_country: profile.user_country,
+      picture: profile.picture,
+      interests: profile.inserts,
+      is_guide: profile.is_guide,
+      primary_lang: profile.primary_lang,
+      secondary_langs: profile.secondary_langs
     })
 };
 
+
 // ----------------TRIP CREATE----------------
-insertTrip = body => {
-  knex("trips")
-    .insert({
+// add a new trip to db, and return that trip with connections
+createTrip = trip => {
+  return knex("trips").insert({
+      trip_user: trip.trip_user,
+      trip_city: trip.trip_city,
+      trip_start: trip.trip_start,
+      trip_end: trip.trip_end,
+      purpose: trip.purpose
+  }).returning('*')
+  .then(createdTrip => {
+    return getConnections({details: createdTrip[0], connections: []});
+  })
+};
+
+
+// ----------------MESSAGES CREATE/UPDATE----------------
+createChat = chat => {
+  return knex("chats").insert({
+      user1: chat.sender,
+      user2: chat.receiver,
+      messages: {messages: chat.messages},
+      current_length: 1,
+      lastViewed1: 1,
+      lastViewed2: 0,
+      chat_city: chat.chat_city,
+  }).returning('*')
+  .then(createdChat => {
+    return getConnections({details: trip[0], connections: []});
+  })
+};
+
+updateChat = body => {
+  return knex("trips").insert({
       trip_user: body.trip_user,
       trip_city: body.trip_city,
       trip_start: body.trip_start,
       trip_end: body.trip_end,
       purpose: body.purpose
-    })
-    .then(console.log("trip was inserted"));
+  }).returning('*')
+  .then(trip => {
+    return getConnections({details: trip[0], connections: []});
+  })
 };
 
-
 module.exports = {
-  // getUsers,
-  // getTrips,
   postUser,
   updateUserProfile,
-  insertTrip,
-  getAllUserInformation
+  createTrip,
+  getAllUserInformation,
+  createChat,
+  updateChat
 };
 
