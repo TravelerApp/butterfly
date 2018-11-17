@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const axios = require("axios");
 const path = require("path");
 const db = require("../knex/knex.js");
+//const db = require('../knex/knex.js');
 const app = express();
 
 let port = process.env.PORT || 3000;

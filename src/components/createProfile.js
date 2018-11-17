@@ -1,8 +1,11 @@
 import React from "react";
 import Nav from "./navBar.js";
 import data from "../../data.js";
+import { Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { SAVE_PROFILE } from "../actions/actions.js";
 
-export default class Create extends React.Component {
+class Create extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -50,11 +53,24 @@ export default class Create extends React.Component {
   }
   submit() {
     console.log(this.state);
+    const payload = {
+      name: this.state.fullName,
+      country: this.state.originCountry,
+      language: this.state.primaryLanguage,
+      interests: this.state.interests
+    };
+    this.props.saveProfileAction(payload);
+    setTimeout(() => {
+      console.log(this.props);
+    }, 1000);
   }
   render() {
-    return (
+    return this.props.profile ? (
+      <Redirect to="/add" />
+    ) : (
       <div>
-        <Nav />
+        <h1>THANK YOU FOR JOINING US!</h1>
+        <h1>PLEASE CREATE YOUR PROFILE!</h1>
         <form className="createProfileForm">
           <p>Full name: </p>
           <input
@@ -103,3 +119,21 @@ export default class Create extends React.Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    profile: state.profile,
+    countries: state.countries
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    saveProfileAction: profile => {
+      dispatch({ type: SAVE_PROFILE, payload: profile });
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Create);
