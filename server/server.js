@@ -18,6 +18,18 @@ app.use(
   })
 );
 
+
+app.get('/initial/:authid', (req, res) => {
+  db.getAllUserInformation(req.params.authid)
+  .then(data => {
+    res.status(200).json(data); //map(object => object.rows)
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).send(err);
+  })
+});
+
 // users table
 app.post("/addUser", (req, res) => {
   db.postUser(req.body.auth_id);
