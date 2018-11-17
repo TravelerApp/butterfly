@@ -11,3 +11,5 @@ const Connected = props => {
 };
 
 export default Connected;
+
+//needs to be remade to 'map' out each connected user
