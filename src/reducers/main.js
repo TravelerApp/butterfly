@@ -18,7 +18,7 @@ const initialState = {
   cities: null,
   loggedIn: null, //user unique id (payload from login return)
   profile: null, // name, picture, country, language, interests
-  currentTrips: null, //array of trips
+  currentTrips: ["France", "Germany", "Poland"], //array of trips
   messages: null, //array of messages
   selectedTrip: null, // current trip view
   selectedPossCon: null, // possible connections user list
