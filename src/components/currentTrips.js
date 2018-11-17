@@ -17,6 +17,9 @@ class Next extends React.Component {
     //   selected: null
     // };
   }
+  componentDidMount() {
+    console.log(this.props, "<----props are here");
+  }
   handleTripClick(value) {
     console.log("redux", value);
     // this.setState({
@@ -33,19 +36,22 @@ class Next extends React.Component {
     return this.props.selectedTrip ? (
       <div>
         <Nav />
-        <h3>{this.props.selectedTrip}trip, user profile</h3>
+        <h3>Your Trip to: {this.props.selectedTrip}</h3>
         <button onClick={() => this.handleTripClick(null)}>Go Back</button>
+
         <SelProfile />
         {/* map out possible connections */}
         <h3>Potential Connections</h3>
+
         <Poss handleClick={this.handlePossConClick.bind(this)} />
       </div>
     ) : (
       <div>
         <Nav />
         <h3>This is The Current Trips Page</h3>
-        <Trip click={this.handleTripClick.bind(this)} />
-
+        {this.props.currentTrips.map((trip, i) => (
+          <Trip trip={trip} key={i} click={this.handleTripClick.bind(this)} />
+        ))}
         {/* map out trips trip = {trip} */}
       </div>
     );
