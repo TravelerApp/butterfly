@@ -11,7 +11,8 @@ import {
   GRAB_COUNTRIES,
   SELECT_COUNTRY,
   SELECT_CITIES,
-  TOGGLE_ADDED
+  TOGGLE_ADDED,
+  LOG_IN
 } from "../actions/actions.js";
 
 const initialState = {
@@ -77,6 +78,10 @@ var rootReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         selectedTrip: null
       });
+    case LOG_IN:
+      return Object.assign({}, state, {
+        loggedIn: action.payload
+      });
     case LOG_OUT:
       return Object.assign({}, state, {
         cities: null,
@@ -111,5 +116,3 @@ var rootReducer = (state = initialState, action) => {
 };
 
 export default rootReducer;
-
-console.log("Nik Mentakis is the greatest HiR ever!");

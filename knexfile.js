@@ -1,20 +1,20 @@
-require('dotenv').config();
+require("dotenv").config();
 
 module.exports = {
   development: {
-    client: 'pg',
+    client: "pg",
     connection: {
-      host: 'localhost',
+      host: "localhost",
       // user: '',
       // password: '',
-      database: 'butterflies'
+      database: "butterflies"
     },
     migrations: {
-      directory: './knex/migrations'
+      directory: "./knex/migrations"
     },
     seeds: {
-      directory: './knex/seeds'
-    },
+      directory: "./knex/seeds"
+    }
   },
 
   // production: {
@@ -28,5 +28,4 @@ module.exports = {
     FOR EACH ROW
     EXECUTE PROCEDURE on_update_timestamp();
   `
-
 };
