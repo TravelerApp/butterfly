@@ -13,8 +13,15 @@ class Mess extends React.Component {
       text: "",
       picture:
         "https://media.licdn.com/dms/image/C4E03AQGqjIkmMliOeg/profile-displayphoto-shrink_200_200/0?e=1547683200&v=beta&t=h6jgkQL1djAVlNSctWQ5Cv3t1EHdNXYpuPIM4Cih0-k",
-      messages: []
+      messages: [],
+      
+        sender: 'loggedInAuthId', // from store - loggedinUser
+        receiver: 'selectedProfileAuthId', // from store - selected connection profile
+        message: {author: 'loggedInAuthId', text: 'some text', timestamp: 'time now'},
+        chat_city: '[trip_city]' // from store of currently selected trip
+        
     };
+
     this.send = this.send.bind(this);
     this.onChange = this.onChange.bind(this);
     this._handleKeyPress = this._handleKeyPress.bind(this);
@@ -43,6 +50,7 @@ class Mess extends React.Component {
   }
 
   componentDidUpdate() {
+    console.log('wierd shit : ', this.props.auth_Id);
     var el = this.refs.wrap;
     el.scrollTop = el.scrollHeight;
   }
@@ -93,6 +101,7 @@ const mapStateToProps = state => {
   return {
     messages: state.messages,
     profile: state.profile,
+    auth_Id: state.loggedIn,
     selectedConUser: state.selectedConUser
   };
 };

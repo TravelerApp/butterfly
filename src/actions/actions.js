@@ -13,4 +13,8 @@ export const SELECT_CITIES = "SELECT_CITIES";
 export const TOGGLE_ADDED = "TOGGLE_ADDED";
 export const LOG_IN = "LOG_IN";
 
+// abdullah's actions :
+
+export const GET_MESSAGES = "GET_MESSAGES";
+
 //store.dispatch({type: ACTION_TYPE, payload: DATA_YOURE_SENDING})
