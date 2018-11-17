@@ -9,8 +9,8 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-        <h1>Im the Butterfly Title</h1>
         <Nav />
+        <div>PLEASE WAIT AS WE LOAD YOUR INFORMATION!</div>
       </div>
     );
   }

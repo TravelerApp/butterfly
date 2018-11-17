@@ -26,8 +26,8 @@ const Nav = props => (
           </Link>
         </li>
         <li className="nav-item">
-          <Link className="navbar-brand" to="/create">
-            profile
+          <Link className="navbar-brand" to="/viewprofile">
+            Profile
           </Link>
         </li>
         <li className="nav-item">
