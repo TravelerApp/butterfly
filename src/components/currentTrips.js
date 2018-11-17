@@ -26,6 +26,7 @@ class Next extends React.Component {
     //   selected: value
     // });
     this.props.selectTripAction(value);
+    this.props.selectPossConAction(null);
   }
   handlePossConClick(value) {
     console.log(value, "clicked user");
@@ -36,29 +37,44 @@ class Next extends React.Component {
     return this.props.selectedTrip ? (
       <div>
         <Nav />
-        <h3>Your Trip to: {this.props.selectedTrip}</h3>
+        <h3>
+          Your Trip to:{" "}
+          {this.props.cities[this.props.selectedTrip.details.trip_city].city}
+        </h3>
         <button onClick={() => this.handleTripClick(null)}>Go Back</button>
-
-        <SelProfile />
-        {/* map out possible connections */}
+        <SelProfile data={this.props.selectedPossCon} />
         <h3>Potential Connections</h3>
-
-        <Poss handleClick={this.handlePossConClick.bind(this)} />
+        {this.props.selectedTrip.connections.map((possCon, i) => (
+          <Poss
+            value={possCon}
+            connection={possCon.connectionProfile.username}
+            from={possCon.connectionProfile.user_country}
+            key={i}
+            click={this.handlePossConClick.bind(this)}
+          />
+        ))}
       </div>
     ) : (
       <div>
         <Nav />
-        <h3>This is The Current Trips Page</h3>
+        <h3>Your Upcoming Trips</h3>
+        <h5>Click to View Connections!</h5>
         {this.props.currentTrips.map((trip, i) => (
-          <Trip trip={trip} key={i} click={this.handleTripClick.bind(this)} />
+          <Trip
+            value={trip}
+            trip={this.props.cities[trip.details.trip_city].city}
+            country={this.props.cities[trip.details.trip_city].country}
+            key={i}
+            click={this.handleTripClick.bind(this)}
+          />
         ))}
-        {/* map out trips trip = {trip} */}
       </div>
     );
   }
 }
 const mapStateToProps = state => {
   return {
+    cities: state.cities,
     currentTrips: state.currentTrips,
     selectedTrip: state.selectedTrip,
     selectedPossCon: state.selectedPossCon
