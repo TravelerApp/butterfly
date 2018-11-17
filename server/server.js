@@ -74,18 +74,19 @@ app.patch("/user", (req, res) => {
 
 
 // ---------------TRIPS TABLE---------------
-app.post("/addTrip", (req, res) => {
-  db.insertTrip(req.body);
-  res.sendStatus(201);
-});
 
-// probably do not need this route
-// if so, need some sort of trip id parameter on route /trip/:trip_id
-// app.get("/trip", (req, res) => {
-//   db.getTrips(data => {
-//     res.send(data);
-//   });
-// });
+app.post("/trip", (req, res) => {
+  console.log(req.body)
+  db.insertTrip(req.body)
+  .then(data => {
+    console.log('trip successfully inserted into database, returning trip with connections:', data)
+    res.status(201).send(data)
+  })
+  .catch(err => {
+    console.log('error received trying to add trip to database:', err);
+    res.status(400).send(err);
+  })
+});
 
 
 // ---------------MESSAGES TABLE---------------

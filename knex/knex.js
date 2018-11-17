@@ -2,6 +2,7 @@ const environment = process.env.ENVIRONMENT; // || 'development';
 const options = require("../knexfile.js")[environment];
 const knex = require("knex")(options);
 
+
 // ----------------HELPER FUNCTIONS----------------
 const getChatObjectWithOtherUser = function(request) {
   return Promise.all([
@@ -38,6 +39,7 @@ const getConnections = function(trip) {
     return trip;
   })
   }
+
 
 // ----------------INITIAL QUERY----------------
 const getAllUserInformation = (auth_id) => {
@@ -93,8 +95,10 @@ const getAllUserInformation = (auth_id) => {
 
 
 // ----------------USER CREATE AND UPDATE----------------
+// add user's auth_id to database
 postUser = id => knex("users").insert({ auth_id: id });
 
+// update auth_id entry with all profile information
 updateUserProfile = body => {
   return knex("users").where({ auth_id: body.auth_id })
     .update({
@@ -108,19 +112,24 @@ updateUserProfile = body => {
     })
 };
 
+
 // ----------------TRIP CREATE----------------
+// add a new trip to db, and return that trip with connections
 insertTrip = body => {
-  knex("trips")
-    .insert({
+  return knex("trips").insert({
       trip_user: body.trip_user,
       trip_city: body.trip_city,
       trip_start: body.trip_start,
       trip_end: body.trip_end,
       purpose: body.purpose
-    })
-    .then(console.log("trip was inserted"));
+  }).returning('*')
+  .then(trip => {
+    return getConnections({details: trip[0], connections: []});
+  })
 };
 
+
+// ----------------MESSAGES CREATE/UPDATE----------------
 
 module.exports = {
   // getUsers,
