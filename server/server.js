@@ -4,9 +4,7 @@ const bodyParser = require("body-parser");
 const axios = require("axios");
 const path = require("path");
 const db = require("../knex/knex.js");
-//const db = require('../knex/knex.js');
 const app = express();
-
 let port = process.env.PORT || 3000;
 // if (port == null || port == "") {
 //   port = 3000;
@@ -19,10 +17,6 @@ app.use(
     extended: false
   })
 );
-
-// app.get("/*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../dist/index.html"));
-// });
 
 // users table
 app.post("/addUser", (req, res) => {
@@ -52,4 +46,8 @@ app.get("/getTrips", (req, res) => {
 
 app.listen(port, function() {
   console.log("Now listening on port " + port + "!");
+});
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
