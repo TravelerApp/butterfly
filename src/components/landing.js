@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import GoogleLogin from "react-google-login";
 import { connect } from "react-redux";
 import axios from "axios";
@@ -8,31 +8,21 @@ import { LOG_IN } from "../actions/actions.js";
 class Landing extends Component {
   render() {
     const responseGoogle = response => {
-      this.props.saveGoogleId(response.googleId);
-      axios
-        .post("/user", {
-          auth_id: response.googleId
-        })
-        .then(res => {
-          console.log(res, " res..");
-        })
-        .catch(err => {
-          console.log("Error: ", err);
-        });
-      console.log(response);
+      this.props.saveGoogleId(1); //response.googleId
     };
 
     const failure = response => {
-      alert("Refresh Page");
+      console.log("failing, ", response);
     };
-    return (
+    return this.props.loggedIn ? (
+      <Redirect to="/main" />
+    ) : (
       <div>
         {/* // conditionially render redirect 'if statement' */}
         <div className="landingContainer">
-          <Link to="/main">Login / Signup</Link>
           <GoogleLogin
-            clientId="113602967153-tol5bh2efbf4cgqqqcodmj138s1plh8d.apps.googleusercontent.com"
-            buttonText="LOGn"
+            clientId="602387760234-beo1e7542ieb47m24do30g4ick9bp9kl.apps.googleusercontent.com"
+            buttonText="Login / Signup"
             onSuccess={responseGoogle}
             onFailure={failure}
           />
