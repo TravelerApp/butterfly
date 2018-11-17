@@ -40,14 +40,14 @@ const knex = require("knex")(options);
     .then(data => {
       let initialStoreState = {
         cities: data[0].rows,
-        profile: data[1].rows,
-        messages: data[2].map(tuple => {
+        profile: data[1].rows.length ? data[1].rows[0] : null,
+        messages: data[2].length ? data[2].map(tuple => {
           return {
             message: tuple[0][0],
             otheruser: tuple[1][0]
           }
-        }),
-        upcomingTrips: data[3]
+        }) : null,
+        upcomingTrips: data[3].length ? data[3] : null
       }
       return initialStoreState;
     })
