@@ -52,7 +52,6 @@ const knex = require("knex")(options);
       return initialStoreState;
     })
   }
-}
 
 const getChatObjectWithOtherUser = function(request) {
   return Promise.all([
@@ -203,7 +202,7 @@ module.exports = {
   getTrips,
   postUser,
   updateUserProfile,
-  insertTrip
+  insertTrip,
   getAllUserInformation
 };
 
