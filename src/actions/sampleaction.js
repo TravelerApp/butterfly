@@ -12,6 +12,7 @@ sagas handle asynchronous calls that dont manipulate state
 potentially dont need those
 
 
+grab all initial data(set state initially)
 
 update logged in user(grab profile/name, set state)
 
@@ -22,6 +23,10 @@ add trip(save to current trips array in state)
 select trip(update selected trip state)
 
 select connection (set connectipn user/profile to state)
+
+select connected user(set users convo to state)
+
+send message(update db and state)
 
 
 
