@@ -10,7 +10,7 @@ class Landing extends Component {
     const responseGoogle = response => {
       this.props.saveGoogleId(response.googleId);
       axios
-        .post("/addUser", {
+        .post("/user", {
           auth_id: response.googleId
         })
         .then(res => {
