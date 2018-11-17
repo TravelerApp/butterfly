@@ -6,9 +6,6 @@ const path = require("path");
 const db = require("../knex/knex.js");
 const app = express();
 let port = process.env.PORT || 3000;
-// if (port == null || port == "") {
-//   port = 3000;
-// }
 
 app.use(express.static(__dirname + "/../dist"));
 app.use(bodyParser.json());

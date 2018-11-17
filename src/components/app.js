@@ -9,6 +9,7 @@ import Create from "./createProfile.js";
 import NotFound from "./notFound.js";
 import ViewSelf from "./viewSelf.js";
 import Nav from "./navBar.js";
+import Messages from './messages.js';
 
 const App = () => (
   <BrowserRouter>
@@ -19,6 +20,7 @@ const App = () => (
       <Route path="/next" component={Next} />
       <Route path="/mess" component={Mess} />
       <Route path="/create" component={Create} />
+      <Route path="/messages" component={Messages} />
       <Route path="/viewprofile" component={ViewSelf} />
       <Route component={NotFound} />
     </Switch>
