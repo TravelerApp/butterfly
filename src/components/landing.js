@@ -8,6 +8,7 @@ import { LOG_IN } from "../actions/actions.js";
 class Landing extends Component {
   render() {
     const responseGoogle = response => {
+      sessionStorage.setItem("banana", response.profileObj.givenName);
       this.props.saveGoogleId(1); //response.googleId
     };
 
