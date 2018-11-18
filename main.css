@@ -9136,12 +9136,14 @@ input:checked+.slider:before {
 
 .chatWindowDiv {
   padding: 10px;
-  background-color: wheat;
+  background-color: rgb(247, 237, 218);
   height: 720px;
   width: 950px;
   margin-left: 50px;
   max-height: 710px;
   overflow-y: scroll;
+  float: left;
+
 }
 
 .chatBox {
@@ -9178,16 +9180,56 @@ input:checked+.slider:before {
   float: left;
 }
 
-.message {
+.senderMessage {
   white-space: nowrap;
   width: 920px;
   margin-top: 10px;
   list-style-type: none;
   float: left;
 }
+.receiverMessage {
+  white-space: nowrap;
+  width: 920px;
+  margin-top: 10px;
+  list-style-type: none;
+  float: left;
+  margin-left: 400px;
+}
 
 .senderName {
   margin-right: 10px;
   font-weight: bold;
+  float: left;
+}
+
+.senderMessageText {
+  background-color: rgb(44, 144, 243);
+  color: white;
+  display: inline-block;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 0.5em;
+  box-shadow: black 0.1em 0.1em 0.1em;
+}
+
+.receiverMessageText {
+  background-color: rgb(185, 252, 124);
+  color: rgb(5, 5, 5);
+  display: inline-block;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 0.5em;
+  box-shadow: black 0.05em 0.05em 0.05em;
+}
+
+.connectionsDiv {
+  height: 720px;
+  width: 330px;
+
+  float: left;
+}
+
+.containerDiv {
+
   float: left;
 }

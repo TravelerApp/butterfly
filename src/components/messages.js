@@ -13,20 +13,29 @@ class Mess extends React.Component {
       text: "",
       picture:
         "https://media.licdn.com/dms/image/C4E03AQGqjIkmMliOeg/profile-displayphoto-shrink_200_200/0?e=1547683200&v=beta&t=h6jgkQL1djAVlNSctWQ5Cv3t1EHdNXYpuPIM4Cih0-k",
-      messages: [],
-      
-        sender: 'loggedInAuthId', // from store - loggedinUser
-        receiver: 'selectedProfileAuthId', // from store - selected connection profile
-        message: {author: 'loggedInAuthId', text: 'some text', timestamp: 'time now'},
-        chat_city: '[trip_city]' // from store of currently selected trip
-        
+      messages: []
     };
 
     this.send = this.send.bind(this);
     this.onChange = this.onChange.bind(this);
     this._handleKeyPress = this._handleKeyPress.bind(this);
   }
+  componentDidMount(){
+    console.log(this.props);
+  }
+  handleClick(value){
+    
+  }
   send() {
+    // {
+    //   chat_id: chat_id,
+    //   message: {
+    //     author: "[authID]",
+    //     text: '.....',
+    //     timestamp: Date
+    //   }
+    // } 
+
     this.setState(() =>
       this.setState(prevState => ({
         messages: [
@@ -50,7 +59,6 @@ class Mess extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log('wierd shit : ', this.props.auth_Id);
     var el = this.refs.wrap;
     el.scrollTop = el.scrollHeight;
   }
@@ -58,39 +66,62 @@ class Mess extends React.Component {
     return (
       <div>
         <Nav />
-        <div>
-          <div className="chatWindowDiv" ref="wrap">
-            <ul className="chatbox">
-              {this.state.messages.map(message => (
-                <li className="message">
-                  <div>
-                    <img src={this.state.picture} className="chatPicture" />
-                    <p className="senderName">{message.sender}: </p>
-                    <p className="messageText">{message.text}</p>
-                  </div>
-                </li>
-              ))}
+        <div className="containerDiv">
+          <div>
+            <div className="chatWindowDiv" ref="wrap">
+              <ul className="chatbox">
+                {this.state.messages.map((message, i) => (
+                  <li
+                    className={
+                      i % 2 === 0 ? "senderMessage" : "receiverMessage"
+                    }
+                  >
+                    <div>
+                      <img src={this.state.picture} className="chatPicture" />
+                      <p className="senderName">{message.sender}: </p>
+                      <p
+                        className={
+                          i % 2 === 0
+                            ? "senderMessageText"
+                            : "receiverMessageText"
+                        }
+                      >
+                        {message.text}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="chatFormDiv">
+              <form onSubmit={this.handleSubmit.bind(this)}>
+                <input
+                  type="text"
+                  className="chatTextBox"
+                  id="chatTextBox"
+                  onKeyPress={this._handleKeyPress.bind(this)}
+                  onChange={this.onChange.bind(this)}
+                  autocomplete="off"
+                />
+                <input
+                  type="button"
+                  value="Send"
+                  className="chatSendButton"
+                  onClick={() => this.send()}
+                />
+              </form>
+            </div>
+          </div>
+          <div className="connectionsDiv">
+            <h3>your connections :</h3>
+            <ul>
+              <li>James</li>
+              <li>Chris</li>
+              <li>Alberto</li>
             </ul>
           </div>
-          <div className="chatFormDiv">
-            <form onSubmit={this.handleSubmit.bind(this)}>
-              <input
-                type="text"
-                className="chatTextBox"
-                id="chatTextBox"
-                onKeyPress={this._handleKeyPress.bind(this)}
-                onChange={this.onChange.bind(this)}
-                autocomplete="off"
-              />
-              <input
-                type="button"
-                value="Send"
-                className="chatSendButton"
-                onClick={() => this.send()}
-              />
-            </form>
-          </div>
         </div>
+
         {/* <Connected /> */}
       </div>
     );
@@ -101,7 +132,7 @@ const mapStateToProps = state => {
   return {
     messages: state.messages,
     profile: state.profile,
-    auth_Id: state.loggedIn,
+    loggedIn: state.loggedIn,
     selectedConUser: state.selectedConUser
   };
 };
