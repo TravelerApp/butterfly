@@ -20,12 +20,10 @@ class Mess extends React.Component {
     this.onChange = this.onChange.bind(this);
     this._handleKeyPress = this._handleKeyPress.bind(this);
   }
-  componentDidMount(){
+  componentDidMount() {
     console.log(this.props);
   }
-  handleClick(value){
-    
-  }
+  handleClick(value) {}
   send() {
     // {
     //   chat_id: chat_id,
@@ -34,7 +32,7 @@ class Mess extends React.Component {
     //     text: '.....',
     //     timestamp: Date
     //   }
-    // } 
+    // }
 
     this.setState(() =>
       this.setState(prevState => ({
@@ -70,27 +68,42 @@ class Mess extends React.Component {
           <div>
             <div className="chatWindowDiv" ref="wrap">
               <ul className="chatbox">
-                {this.state.messages.map((message, i) => (
-                  <li
-                    className={
-                      i % 2 === 0 ? "senderMessage" : "receiverMessage"
-                    }
-                  >
-                    <div>
-                      <img src={this.state.picture} className="chatPicture" />
-                      <p className="senderName">{message.sender}: </p>
+                {this.props.messages[0].message.messages.messages.map(
+                  (message, i) => (
+                    <li
+                      key={i}
+                      className={
+                        this.props.profile.auth_id === message.author
+                          ? "senderMessage"
+                          : "receiverMessage"
+                      }
+                    >
+                      <img
+                        src={
+                          this.props.profile.auth_id === message.author
+                            ? this.props.profile.picture
+                            : this.props.messages[0].otheruser.picture
+                        }
+                        className="chatPicture"
+                      />
+                      <p className="senderName">
+                        {this.props.profile.auth_id !== message.author
+                          ? this.props.messages[0].otheruser.username
+                          : this.props.profile.username}
+                        :{" "}
+                      </p>
                       <p
                         className={
-                          i % 2 === 0
-                            ? "senderMessageText"
-                            : "receiverMessageText"
+                          this.props.profile.auth_id === message.author
+                            ? "receiverMessageText"
+                            : "senderMessageText"
                         }
                       >
                         {message.text}
                       </p>
-                    </div>
-                  </li>
-                ))}
+                    </li>
+                  )
+                )}
               </ul>
             </div>
             <div className="chatFormDiv">
