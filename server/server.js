@@ -23,8 +23,8 @@ app.use(
 app.get('/initial/:authid', (req, res) => {
   // probably want to pull authid from passport session if possible
   db.getAllUserInformation(req.params.authid)
-  .then(data => {
-    res.status(200).json(data);
+  .then(allTheStuff => {
+    res.status(200).json(allTheStuff);
   })
   .catch(err => {
     console.log(err);
@@ -48,7 +48,7 @@ app.post("/user", (req, res) => {
   db.postUser(req.body.auth_id)
   .then(data => {
     console.log('user auth_id successfully inserted into users database')
-    res.status(201).send(data)
+    res.sendStatus(201);
   })
   .catch(err => {
     console.log('error received trying to insert auth_id into database:', err);
@@ -58,9 +58,9 @@ app.post("/user", (req, res) => {
 
 app.patch("/user", (req, res) => {
   db.updateUserProfile(req.body)
-  .then(data => {
+  .then(profile => {
     console.log('user\'s profile successfully updated')
-    res.status(200).json(data)
+    res.status(200).json(profile[0])
   })
   .catch(err => {
     console.log('error received trying to update user\'s profile:', err);
