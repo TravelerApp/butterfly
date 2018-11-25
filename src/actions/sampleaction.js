@@ -1,32 +1,32 @@
- Actions:
- Any time data is manipulated, it goes here.
+//  Actions:
+//  Any time data is manipulated, it goes here.
 
- the only functions that should remain in the components are handle click functions, 
-    which will dispatch the actions.
-
-
-
-actions that dont update state, but are saving data to the database, these are sagas.
-sagas handle asynchronous calls that dont manipulate state
-
-potentially dont need those
+//  the only functions that should remain in the components are handle click functions, 
+//     which will dispatch the actions.
 
 
-grab all initial data(set state initially)
 
-update logged in user(grab profile/name, set state)
+// actions that dont update state, but are saving data to the database, these are sagas.
+// sagas handle asynchronous calls that dont manipulate state
 
-save profile to DB on creation(also set it to state)
+// potentially dont need those
 
-add trip(save to current trips array in state)
 
-select trip(update selected trip state)
+// grab all initial data(set state initially)
 
-select connection (set connectipn user/profile to state)
+// update logged in user(grab profile/name, set state)
 
-select connected user(set users convo to state)
+// save profile to DB on creation(also set it to state)
 
-send message(update db and state)
+// add trip(save to current trips array in state)
+
+// select trip(update selected trip state)
+
+// select connection (set connectipn user/profile to state)
+
+// select connected user(set users convo to state)
+
+// send message(update db and state)
 
 
 

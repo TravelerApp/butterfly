@@ -12,7 +12,8 @@ import {
   SELECT_COUNTRY,
   SELECT_CITIES,
   TOGGLE_ADDED,
-  LOG_IN
+  LOG_IN,
+  GET_MESSAGES
 } from "../actions/actions.js";
 
 const initialState = {
@@ -106,6 +107,8 @@ var rootReducer = (state = initialState, action) => {
         selectedPossCon: null,
         selectedConUser: null
       });
+      case GET_MESSAGES:
+      console.log("reducer called");
     default:
       return state;
   }
