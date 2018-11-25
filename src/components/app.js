@@ -9,6 +9,7 @@ import Create from "./createProfile.js";
 import NotFound from "./notFound.js";
 import ViewSelf from "./viewSelf.js";
 import Nav from "./navBar.js";
+import Messages from './messages.js';
 
 const App = () => (
   <BrowserRouter>
