@@ -1,6 +1,7 @@
 import React from "react";
 import Nav from "./navBar.js";
 import Trip from "./eachTrip.js";
+import axios from "axios";
 import Poss from "./possibleConnections.js";
 import SelProfile from "./userProfile.js";
 import { connect } from "react-redux";
@@ -35,6 +36,29 @@ class Next extends React.Component {
   handleConnectButton(value) {
     //do stuff
     console.log("Making a Connection with: ", value);
+    axios
+      .post("/message", {
+        sender: this.props.loggedIn,
+        receiver: value.connectionProfile.auth_id,
+        messages: {
+          messages: [
+            {
+              author: this.props.loggedIn,
+              text: `Hey there, ${
+                this.props.profile.username
+              } would like to connect with you!`,
+              timestamp: "now"
+            }
+          ]
+        },
+        chat_city: value.connectionTrip.trip_city
+      })
+      .then(chat => {
+        console.log("successful initial chat", chat);
+      })
+      .catch(err => {
+        console.log("error in initial chat request", err);
+      });
   }
 
   render() {
@@ -88,7 +112,9 @@ const mapStateToProps = state => {
     cities: state.cities,
     currentTrips: state.currentTrips,
     selectedTrip: state.selectedTrip,
-    selectedPossCon: state.selectedPossCon
+    selectedPossCon: state.selectedPossCon,
+    loggedIn: state.loggedIn,
+    profile: state.profile
   };
 };
 const mapDispatchToProps = dispatch => {
