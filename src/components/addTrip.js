@@ -1,14 +1,17 @@
 import React from "react";
+import axios from "axios";
 import Nav from "./navBar.js";
 import data from "../../data.js";
 import AddTripForm from "./addTripForm.js";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   ADD_TRIP,
   GRAB_COUNTRIES,
   SELECT_COUNTRY,
   SELECT_CITIES,
-  TOGGLE_ADDED
+  TOGGLE_ADDED,
+  SELECT_CITY
 } from "../actions/actions.js";
 // import Map from "../components/map.js";
 
@@ -48,27 +51,61 @@ class Add extends React.Component {
       this.renderCities(this.props.currentCountry);
     }, 100); //on state/props did update?
   }
+  citySelected(e) {
+    console.log(e.target.value, "<--see me?");
+    this.props.selectCityAction(e.target.value);
+  }
 
   renderCities(countryName) {
     console.log("tick", countryName);
     let allCities = [];
     data.data.forEach(element => {
       if (element.country === countryName) {
-        allCities.push(element.city);
+        allCities.push(element);
       }
     });
     //this.setState({ currentCities: allCities });
     console.log(allCities, "<---cities");
     this.props.selectCitiesAction(allCities);
+    this.props.selectCityAction(allCities[0].city);
   }
   handleAddToMyTripsClick() {
+    console.log("adding to trips");
     console.log(this.props, "clicked!");
+
     //this.setState({ tripAdded: true });
+
+    //this.props.selectCityAction(document.getElementById("reason").value);
     this.props.toggleTripAddedAction(true);
   }
   handleSaveTripClick(value) {
-    console.log(value, "<---saving this as a trip");
-    //save trip to DB .then()
+    console.log(this.props, "props here");
+    let indexOfCity;
+    this.props.cities.forEach(element => {
+      if (element.city === this.props.currentCity) {
+        indexOfCity = element.city_id;
+      }
+    });
+    console.log(indexOfCity, "<--- success?");
+    value.Destination = this.props.currentCity;
+    axios
+      .post("/trip", {
+        trip_user: this.props.loggedIn,
+        trip_city: indexOfCity,
+        trip_start: value.Start,
+        trip_end: value.End,
+        purpose: value.Reason
+      })
+      .then(res => {
+        console.log("after request", res.data);
+        this.props.addTripAction(res.data);
+        this.props.toggleTripAddedAction(false);
+
+        //addtrip action, update state, redirect to upcoming trips
+      })
+      .catch(err => {
+        console.log("error in save trip request", err);
+      });
   }
   render() {
     return this.props.tripAdded ? (
@@ -92,9 +129,9 @@ class Add extends React.Component {
               </option>
             ))}
           </select>
-          <select>
+          <select onChange={this.citySelected.bind(this)}>
             {this.props.currentCities.map((city, i) => (
-              <option key={i}>{city}</option>
+              <option key={i}>{city.city}</option>
             ))}
           </select>
           <input
@@ -113,12 +150,14 @@ class Add extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    loggedIn: state.loggedIn,
     cities: state.cities,
     currentTrips: state.currentTrips,
     countries: state.countries,
     currentCities: state.currentCities,
     currentCountry: state.currentCountry,
-    tripAdded: state.tripAdded
+    tripAdded: state.tripAdded,
+    currentCity: state.currentCity
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -137,6 +176,9 @@ const mapDispatchToProps = dispatch => {
     },
     toggleTripAddedAction: bool => {
       dispatch({ type: TOGGLE_ADDED, payload: bool });
+    },
+    selectCityAction: city => {
+      dispatch({ type: SELECT_CITY, payload: city });
     }
   };
 };

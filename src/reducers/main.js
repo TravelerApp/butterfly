@@ -3,6 +3,7 @@ import {
   SAVE_PROFILE,
   ADD_TRIP,
   SELECT_TRIP,
+  SELECT_CITY,
   SELECT_POSS_CON,
   SELECT_CON_USER,
   SEND_MESSAGE,
@@ -54,9 +55,13 @@ var rootReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         currentCities: action.payload
       });
+    case SELECT_CITY:
+      return Object.assign({}, state, {
+        currentCity: action.payload
+      });
     case ADD_TRIP:
       return Object.assign({}, state, {
-        currentTrips: action.payload
+        currentTrips: [...state.currentTrips, action.payload]
       });
     case SELECT_TRIP:
       return Object.assign({}, state, {
