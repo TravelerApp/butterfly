@@ -11,6 +11,9 @@ class Main extends React.Component {
   }
   componentDidMount() {
     console.log(this.props, "props on main mount");
+    // make axios call to insert loggedIn id to database
+    // if insertion was successful, redirect to /createprofile
+    // otherwise/if error code = 23505, then make initial axios call below
     axios
       .get(`/initial/${this.props.loggedIn}`)
       .then(res => {
