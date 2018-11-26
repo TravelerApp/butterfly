@@ -5,7 +5,7 @@ import {
   SELECT_TRIP,
   SELECT_CITY,
   SELECT_POSS_CON,
-  SELECT_CON_USER,
+  SELECT_CONNECTION,
   SEND_MESSAGE,
   UNSELECT_TRIP,
   LOG_OUT,
@@ -14,7 +14,6 @@ import {
   SELECT_CITIES,
   TOGGLE_ADDED,
   LOG_IN,
-  GET_MESSAGES
 } from "../actions/actions.js";
 
 const initialState = {
@@ -25,7 +24,7 @@ const initialState = {
   messages: null, // array of messages
   selectedTrip: null, // current trip view
   selectedPossCon: null, // possible connections user list
-  selectedConUser: null, // this is the connection whose message history you are currently viewing
+  selectedConnection: null, // this is the connection whose message history you are currently viewing
   countries: ["test"],
   currentCountry: "select a country",
   currentCity: null,
@@ -71,13 +70,13 @@ var rootReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         selectedPossCon: action.payload
       });
-    case SELECT_CON_USER:
+    case SELECT_CONNECTION:
       return Object.assign({}, state, {
-        selectedConUser: action.payload
+        selectedConnection: action.payload
       });
     case SEND_MESSAGE:
       return Object.assign({}, state, {
-        messages: [...state.messages, action.payload] //needs fixing
+        selectedConnection: {...selectedConnection, } //needs fixing
       });
     //spread op
     case UNSELECT_TRIP:
@@ -97,7 +96,7 @@ var rootReducer = (state = initialState, action) => {
         messages: null,
         selectedTrip: null,
         selectedPossCon: null,
-        selectedConUser: null,
+        selectedConnection: null,
         countries: null,
         currentCountry: null,
         currentCities: null
@@ -110,10 +109,8 @@ var rootReducer = (state = initialState, action) => {
         messages: action.payload.messages,
         selectedTrip: null,
         selectedPossCon: null,
-        selectedConUser: null
+        selectedConnection: null
       });
-    case GET_MESSAGES: // WHAT IS THIS FOR?
-      console.log("reducer called");
     default:
       return state;
   }
