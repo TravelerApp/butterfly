@@ -2,6 +2,7 @@ export const GRAB_EVERYTHING = "GRAB_EVERYTHING";
 export const SAVE_PROFILE = "SAVE_PROFILE";
 export const ADD_TRIP = "ADD_TRIP";
 export const SELECT_TRIP = "SELECT_TRIP";
+export const SELECT_CITY = "SELECT_CITY";
 export const SELECT_POSS_CON = "SELECT_POSS_CON";
 export const SELECT_CON_USER = "SELECT_CON_USER";
 export const SEND_MESSAGE = "SEND_MESSAGE";
