@@ -31,6 +31,7 @@ class Add extends React.Component {
   componentDidMount() {
     console.log(this.props, "PROPS ON ADD MOUNT");
     let uniqueCountries = [];
+    // change this to use cities from store ************************
     data.data.forEach(element => {
       if (!uniqueCountries.includes(element.country)) {
         uniqueCountries.push(element.country);
@@ -111,6 +112,8 @@ class Add extends React.Component {
       <div>
         <Nav />
         <h3>This is The Add Trips Page</h3>
+        {/* ADD selected city to store for reference in this component */}
+        {/* <span>Details for your trip to {this.props.current}</span> */}
         <AddTripForm handleClick={this.handleSaveTripClick.bind(this)} />
       </div>
     ) : (
