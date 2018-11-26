@@ -4,48 +4,56 @@ import Connected from "./connected.js";
 import { connect } from "react-redux";
 import { SELECT_CON_USER, SEND_MESSAGE } from "../actions/actions.js";
 
+// get rid of state
+// change hardcoded connected users to collection of OTHERUSERS from messages objects
+// those profiles are clickable - if clicked, render profile information
+// Reuse POSS and USERPROFILE componenets if possbiel
+// messages rendering kosher?
+// write final save new message route to DB.
+
 class Mess extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      sender: "Abdullah Alabasi",
-      text: "",
-      picture:
-        "https://media.licdn.com/dms/image/C4E03AQGqjIkmMliOeg/profile-displayphoto-shrink_200_200/0?e=1547683200&v=beta&t=h6jgkQL1djAVlNSctWQ5Cv3t1EHdNXYpuPIM4Cih0-k",
-      messages: []
+      // sender: "Abdullah Alabasi",
+      // text: "",
+      // picture:
+      //   "https://media.licdn.com/dms/image/C4E03AQGqjIkmMliOeg/profile-displayphoto-shrink_200_200/0?e=1547683200&v=beta&t=h6jgkQL1djAVlNSctWQ5Cv3t1EHdNXYpuPIM4Cih0-k",
+      // messages: []
     };
 
-    this.send = this.send.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this._handleKeyPress = this._handleKeyPress.bind(this);
+    //this.send = this.send.bind(this);
+    //this.onChange = this.onChange.bind(this);
+    //this._handleKeyPress = this._handleKeyPress.bind(this);
   }
   componentDidMount() {
     console.log(this.props);
   }
-  handleClick(value) {}
-  send() {
-    // {
-    //   chat_id: chat_id,
-    //   message: {
-    //     author: "[authID]",
-    //     text: '.....',
-    //     timestamp: Date
-    //   }
-    // }
+  // handleClick(value) {}
+  // send() {
+  //   // {
+  //   //   chat_id: chat_id,
+  //   //   message: {
+  //   //     author: "[authID]",
+  //   //     text: '.....',
+  //   //     timestamp: Date
+  //   //   }
+  //   // }
 
-    this.setState(() =>
-      this.setState(prevState => ({
-        messages: [
-          ...prevState.messages,
-          { sender: this.state.sender, text: this.state.text }
-        ]
-      }))
-    );
-  }
+  //   this.setState(() =>
+  //     this.setState(prevState => ({
+  //       messages: [
+  //         ...prevState.messages,
+  //         { sender: this.state.sender, text: this.state.text }
+  //       ]
+  //     }))
+  //   );
+  // }
+
   onChange(e) {
     this.setState({ text: e.target.value });
   }
+
   _handleKeyPress(e) {
     if (e.key === "Enter") {
       this.send();
@@ -60,15 +68,21 @@ class Mess extends React.Component {
     var el = this.refs.wrap;
     el.scrollTop = el.scrollHeight;
   }
+
+  handleConnectionClick(message) {
+    console.log('connection clicked in messages tab!', message);
+    this.props.selectConUserAction(message);
+  }
+
+
   render() {
     return (
       <div>
         <Nav />
         <div className="containerDiv">
-          <div>
             <div className="chatWindowDiv" ref="wrap">
               <ul className="chatbox">
-                {this.props.messages[0].message.messages.messages.map(
+                {this.props.messages[0].chat.messages.messages.map(
                   (message, i) => (
                     <li
                       key={i}
@@ -126,17 +140,18 @@ class Mess extends React.Component {
             </div>
           </div>
           <div className="connectionsDiv">
-            <h3>your connections :</h3>
-            <ul>
-              <li>James</li>
-              <li>Chris</li>
-              <li>Alberto</li>
-            </ul>
-          </div>
+              <h3>Connections:</h3>
+              <ul>
+                {this.props.messages.map((message, i) =>
+                  <li
+                    key={i}
+                    onClick={this.handleConnectionClick.bind(this, message)}
+                  >
+                  {message.otheruser.username}....will add city here once included in initial message
+                  </li>)}
+              </ul>
+            </div>
         </div>
-
-        {/* <Connected /> */}
-      </div>
     );
   }
 }
@@ -151,8 +166,13 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    selectConUserAction: connection => {
+      dispatch({ type: SELECT_CON_USER, payload: connection });
+    }
+  };
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

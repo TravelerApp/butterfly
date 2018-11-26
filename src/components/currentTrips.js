@@ -59,6 +59,7 @@ class Next extends React.Component {
             value={possCon}
             connection={possCon.connectionProfile.username}
             from={possCon.connectionProfile.user_country}
+            purpose={possCon.connectionTrip.purpose}
             key={i}
             click={this.handlePossConClick.bind(this)}
           />
