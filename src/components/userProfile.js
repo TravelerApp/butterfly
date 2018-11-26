@@ -7,6 +7,10 @@ const UserProfile = props => {
       <div>From: {props.data.connectionProfile.user_country}</div>
       <div>Language: {props.data.connectionProfile.primary_lang}</div>
       {/* Interests: need to go through interest object, display true elements */}
+      <button onClick={() => props.handleClick(props.data)}>
+        Make Connection
+      </button>{" "}
+      {/*pass down func onClick, send out all the deets in a payload */}
     </div>
   ) : (
     <div>
@@ -16,3 +20,4 @@ const UserProfile = props => {
 };
 
 export default UserProfile;
+//doodoodeedoo

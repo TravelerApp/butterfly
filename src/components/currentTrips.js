@@ -32,6 +32,10 @@ class Next extends React.Component {
     console.log(value, "clicked user");
     this.props.selectPossConAction(value);
   }
+  handleConnectButton(value) {
+    //do stuff
+    console.log("Making a Connection with: ", value);
+  }
 
   render() {
     return this.props.selectedTrip ? (
@@ -39,10 +43,16 @@ class Next extends React.Component {
         <Nav />
         <h3>
           Your Trip to:{" "}
-          {this.props.cities[this.props.selectedTrip.details.trip_city].city}
+          {
+            this.props.cities[this.props.selectedTrip.details.trip_city - 1]
+              .city
+          }
         </h3>
         <button onClick={() => this.handleTripClick(null)}>Go Back</button>
-        <SelProfile data={this.props.selectedPossCon} />
+        <SelProfile
+          data={this.props.selectedPossCon}
+          handleClick={this.handleConnectButton.bind(this)}
+        />
         <h3>Potential Connections</h3>
         {this.props.selectedTrip.connections.map((possCon, i) => (
           <Poss
@@ -62,8 +72,8 @@ class Next extends React.Component {
         {this.props.currentTrips.map((trip, i) => (
           <Trip
             value={trip}
-            trip={this.props.cities[trip.details.trip_city].city}
-            country={this.props.cities[trip.details.trip_city].country}
+            trip={this.props.cities[trip.details.trip_city - 1].city}
+            country={this.props.cities[trip.details.trip_city - 1].country}
             key={i}
             click={this.handleTripClick.bind(this)}
           />
