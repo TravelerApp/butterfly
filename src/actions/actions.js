@@ -13,6 +13,7 @@ export const SELECT_COUNTRY = "SELECT_COUNTRY";
 export const SELECT_CITIES = "SELECT_CITIES";
 export const TOGGLE_ADDED = "TOGGLE_ADDED";
 export const LOG_IN = "LOG_IN";
+export const NEW_USER = "NEW_USER";
 
 // abdullah's actions :
 

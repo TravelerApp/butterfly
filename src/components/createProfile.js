@@ -16,7 +16,7 @@ class Create extends React.Component {
         { name: "Hiking", checked: false },
         { name: "Night Life", checked: false },
         { name: "Museums and history", checked: false },
-        { name: "shopping", checked: false }
+        { name: "Shopping", checked: false }
       ],
       currentCountry: "Select your origin country .."
     };
@@ -60,6 +60,7 @@ class Create extends React.Component {
       interests: this.state.interests
     };
     this.props.saveProfileAction(payload);
+    //save to db
     setTimeout(() => {
       console.log(this.props);
     }, 1000);

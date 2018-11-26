@@ -108,6 +108,9 @@ class Add extends React.Component {
       });
   }
   render() {
+    if (this.props.newUser) {
+      return <Redirect to="/create" />;
+    }
     return this.props.tripAdded ? (
       <div>
         <Nav />
@@ -157,7 +160,8 @@ const mapStateToProps = state => {
     currentCities: state.currentCities,
     currentCountry: state.currentCountry,
     tripAdded: state.tripAdded,
-    currentCity: state.currentCity
+    currentCity: state.currentCity,
+    newUser: state.newUser
   };
 };
 const mapDispatchToProps = dispatch => {

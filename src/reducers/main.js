@@ -15,6 +15,7 @@ import {
   TOGGLE_ADDED,
   LOG_IN,
   GET_MESSAGES
+  NEW_USER
 } from "../actions/actions.js";
 
 const initialState = {
@@ -30,7 +31,9 @@ const initialState = {
   currentCountry: "select a country",
   currentCity: null,
   currentCities: ["select a country to see cities"],
-  tripAdded: false
+  tripAdded: false,
+  newUser: true
+
 };
 
 var rootReducer = (state = initialState, action) => {
