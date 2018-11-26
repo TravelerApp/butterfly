@@ -100,7 +100,7 @@ app.post("/message", (req, res) => {
 app.patch("/message", (req, res) => {
   db.updateChat(req.body)
   .then(chat => {
-    console.log('chat successfully created, returning chat object:', chat);
+    console.log('chat successfully updated, returning chat object:', chat);
     res.status(201).send(chat);
   })
   .catch(err => {

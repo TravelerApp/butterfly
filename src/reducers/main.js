@@ -21,11 +21,11 @@ const initialState = {
   loggedIn: null, //user unique id (payload from login return)
   profile: null, // name, picture, country, language, interests
   currentTrips: ["France", "Germany", "Poland"], //array of trips
-  messages: null, //array of messages
+  messages: null, // array of messages
   selectedTrip: null, // current trip view
   selectedPossCon: null, // possible connections user list
-  selectedConUser: null, //list of already connected users
-  countries: ["test"], //
+  selectedConUser: null, // this is the connection whose message history you are currently viewing
+  countries: ["test"],
   currentCountry: "select a country",
   currentCity: null,
   currentCities: ["select a country to see cities"],
@@ -107,7 +107,7 @@ var rootReducer = (state = initialState, action) => {
         selectedPossCon: null,
         selectedConUser: null
       });
-      case GET_MESSAGES:
+    case GET_MESSAGES: // WHAT IS THIS FOR?
       console.log("reducer called");
     default:
       return state;
