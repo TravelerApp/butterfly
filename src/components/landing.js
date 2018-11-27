@@ -20,25 +20,73 @@ class Landing extends Component {
     ) : (
       <div>
         {/* // conditionially render redirect 'if statement' */}
-        <div className="landingContainer">
+        {/* <div className="landingContainer">
           <GoogleLogin
             clientId="602387760234-beo1e7542ieb47m24do30g4ick9bp9kl.apps.googleusercontent.com"
             buttonText="Login / Signup"
             onSuccess={responseGoogle}
             onFailure={failure}
           />
+        </div> */}
+        {/* <div className="nav-div"> */}
+        <ul class="cb-slideshow">
+          <li>
+            <span>Image 01</span>
+            <div>
+              <h3>Travel</h3>
+            </div>
+          </li>
+          <li>
+            <span>Image 02</span>
+            <div>
+              <h3>Explore The World</h3>
+            </div>
+          </li>
+          <li>
+            <span>Image 03</span>
+            <div>
+              <h3>Make new friends</h3>
+            </div>
+          </li>
+          <li>
+            <span>Image 04</span>
+            <div>
+              <h3>Make unforgettable memories</h3>
+            </div>
+          </li>
+          <li>
+            <span>Image 05</span>
+            <div>
+              <h3>Find people with same interests</h3>
+            </div>
+          </li>
+          <li>
+            <span>Image 06</span>
+            <div>
+              <h3>Live the adventure</h3>
+            </div>
+          </li>
+        </ul>
+        {/* </div> */}
 
-          <p className="landingPar">
-            Are you taking a trip anytime soon? If so, where will you be
-            traveling? Plan your trip ahead and meet some great people with
-            similar interests
-          </p>
-          <img
-            className="travelingImg"
-            src="https://storage.googleapis.com/twg-content/images/mobile-influence-travel-decision-making-hero-.width-1200.jpg"
-          />
+        <div class="container">
+          <div class="codrops-top">
+            <a>
+              <p>THE TRAVELER APP</p>
+            </a>
+            <span class="right">
+              <GoogleLogin
+                className="login"
+                clientId="602387760234-beo1e7542ieb47m24do30g4ick9bp9kl.apps.googleusercontent.com"
+                buttonText="Login / Signup"
+                onSuccess={responseGoogle}
+                onFailure={failure}
+              />
+            </span>
+            <div class="clr" />
+          </div>
+          <header />
         </div>
-        >
       </div>
     );
   }

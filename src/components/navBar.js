@@ -8,35 +8,38 @@ const Nav = props => {
     console.log("it worked!");
   };
   return (
-    <nav className="navbar navbar-expand navbar-dark bg-dark mb-4">
-      <div className="container">
-        <a className="navbar-brand" href="/">
-          Traveler App
-        </a>
-      </div>
-      <div className="collapse navbar-collapse">
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
+    <div>
+      <ul className="nav-ul">
+        <li className="nav-li">
+          <a>
             <Link className="navbar-brand" to="/add">
               Add Trip
             </Link>
-          </li>
-          <li className="nav-item">
+          </a>
+        </li>
+        <li className="nav-li">
+          <a>
             <Link className="navbar-brand" to="/next">
               Upcoming Trips
             </Link>
-          </li>
-          <li className="nav-item">
+          </a>
+        </li>
+        <li className="nav-li">
+          <a>
             <Link className="navbar-brand" to="/mess">
               Messages
             </Link>
-          </li>
-          <li className="nav-item">
+          </a>
+        </li>
+        <li className="nav-li">
+          <a>
             <Link className="navbar-brand" to="/viewprofile">
               Profile
             </Link>
-          </li>
-          <li className="nav-item">
+          </a>
+        </li>
+        <li className="nav-li">
+          <a>
             <Link
               onClick={() => handleLogout()}
               className="navbar-brand"
@@ -44,15 +47,16 @@ const Nav = props => {
             >
               Logout
             </Link>
-            {/* <GoogleLogout
+          </a>
+
+          {/* <GoogleLogout
               onClick={() => this.handleLogout()}
               buttonText="Logout"
               onLogoutSuccess=
             /> */}
-          </li>
-        </ul>
-      </div>
-    </nav>
+        </li>
+      </ul>
+    </div>
   );
 };
 export default Nav;
