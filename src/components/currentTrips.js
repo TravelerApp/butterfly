@@ -88,7 +88,10 @@ class Next extends React.Component {
           />
         ))}
       </div>
-    ) : (
+    ) : 
+    // ADD condition here so that if there are NO current trips saved, we display somehting like
+    // "add trips to view possible connections"
+    (
       <div>
         <Nav />
         <h3>Your Upcoming Trips</h3>

@@ -21,9 +21,7 @@ class Mess extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     if (this.props.messages) {
-      // let sortedMessages = this.props.messages.sort((a, b) => new Date(b.chat.updated_at) - new Date(a.chat.updated_at));
       this.props.selectConUserAction(this.props.messages[0]);
     }
   }
@@ -55,7 +53,6 @@ class Mess extends React.Component {
       chat: chatToUpdate
     })
     .then(updatedMessages => {
-      console.log('returned from db after update:', updatedMessages)
       // update store's messages array
       this.props.updateMessagesAction(updatedMessages.data);
     })
@@ -81,23 +78,19 @@ class Mess extends React.Component {
   }
 
   handleConnectionClick(user) {
-    console.log('connection clicked in messages tab!', user);
     this.props.selectConUserAction(user);
-    console.log(this.props.selectedConnection);
   }
 
   render() {
-    let connectionProfile = this.props.selectedConnection ?
-      (<ProfileBox profile={this.props.selectedConnection.otheruser}/>) : '';
 
-    let chatToRender = this.props.selectedConnection ? this.props.selectedConnection
-      : this.props.messages.length ? this.props.messages[0] : null;
-
-    let chatWindow = chatToRender ?
-      (<div className="containerDiv">
+    return this.props.selectedConnection ?
+    (
+      <div>
+        <Nav />
+        <div className="containerDiv">
             <div className="chatWindowDiv" ref="wrap">
               <ul className="chatbox">
-                {chatToRender.chat.messages.messages.map(
+                {this.props.selectedConnection.chat.messages.messages.map(
                   (message, i) => (
                     <li
                       key={i}
@@ -111,13 +104,13 @@ class Mess extends React.Component {
                         src={
                           this.props.profile.auth_id === message.author
                             ? this.props.profile.picture
-                            : chatToRender.otheruser.picture
+                            : this.props.selectedConnection.otheruser.picture
                         }
                         className="chatPicture"
                       />
                       <p className="senderName">
                         {this.props.profile.auth_id !== message.author
-                          ? chatToRender.otheruser.username
+                          ? this.props.selectedConnection.otheruser.username
                           : this.props.profile.username}
                         :{" "}
                       </p>
@@ -151,17 +144,8 @@ class Mess extends React.Component {
                 />
               </form>
             </div>
-          </div>) :
-          (<div>
-            Find people heading to the same places you are and then you can chat with them here!
-          </div>)
-
-
-    return (
-      <div>
-        <Nav />
-        {chatWindow}
-        {connectionProfile}
+          </div>
+        <ProfileBox profile={this.props.selectedConnection.otheruser}/>
         <div className="connectionsDiv">
           <h3>Connections:</h3>
           <ul>
@@ -175,7 +159,11 @@ class Mess extends React.Component {
           </ul>
         </div>
       </div>
-    );
+    ) :
+    (<div>
+      <Nav />
+      Find people heading to the same places you are and then you can chat with them here!
+    </div>);
   }
 }
 
