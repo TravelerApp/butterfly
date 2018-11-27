@@ -13,7 +13,7 @@ import {
   SELECT_COUNTRY,
   SELECT_CITIES,
   TOGGLE_ADDED,
-  LOG_IN,
+  LOG_IN
 } from "../actions/actions.js";
 
 const initialState = {
@@ -76,7 +76,7 @@ var rootReducer = (state = initialState, action) => {
       });
     case SEND_MESSAGE:
       return Object.assign({}, state, {
-        selectedConnection: {...selectedConnection, } //needs fixing
+        //selectedConnection: {...selectedConnection, } //needs fixing
       });
     //spread op
     case UNSELECT_TRIP:
