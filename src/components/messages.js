@@ -3,7 +3,7 @@ import Nav from "./navBar.js";
 import Connected from "./connected.js";
 import ProfileBox from './profileBox.js';
 import { connect } from "react-redux";
-import { SELECT_CONNECTION, NEW_MESSAGE } from "../actions/actions.js";
+import { SELECT_CONNECTION, NEW_MESSAGE, UPDATE_MESSAGES } from "../actions/actions.js";
 import axios from 'axios';
 
 // write final save new message route to DB.
@@ -47,16 +47,17 @@ class Mess extends React.Component {
       [userViewToUpdate]: newLength
     });
     // dispatch action to update store 'selectedConnection' for immediate rendering
-    this.props.newMessageAction(chatToUpdate);
+    this.props.renderNewMessageAction(chatToUpdate);
     // send call to database to update chat object
     axios.patch('/message', {
       user: this.props.loggedIn,
       viewCountToUpdate: userViewToUpdate,
       chat: chatToUpdate
     })
-    .then(updatedChat => {
-      console.log('sC chat after store update:', this.props.selectedConnection.chat)
-      console.log('returned from db after update:', updatedChat)
+    .then(updatedMessages => {
+      console.log('returned from db after update:', updatedMessages)
+      // update store's messages array
+      this.props.updateMessagesAction(updatedMessages.data);
     })
     .catch(err => {
       console.log('error returned from call to update chat in database:', err);
@@ -192,8 +193,11 @@ const mapDispatchToProps = dispatch => {
     selectConUserAction: connection => {
       dispatch({ type: SELECT_CONNECTION, payload: connection });
     },
-    newMessageAction: message => {
+    renderNewMessageAction: message => {
       dispatch({ type: NEW_MESSAGE, payload: message});
+    },
+    updateMessagesAction: messages => {
+      dispatch({ type: UPDATE_MESSAGES, payload: messages });
     }
   };
 };

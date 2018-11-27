@@ -100,9 +100,9 @@ app.post("/message", (req, res) => {
 
 app.patch("/message", (req, res) => {
   db.updateChat(req.body)
-    .then(updatedChat => {
-      console.log("chat successfully created, returning chat object:", updatedChat);
-      res.status(201).send(updatedChat);
+    .then(updatedMessages => {
+      console.log("chat successfully created, returning chat object:", updatedMessages);
+      res.status(201).send(updatedMessages);
     })
     .catch(err => {
       console.log("error received trying to create new chat:", err);

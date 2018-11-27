@@ -7,6 +7,7 @@ import {
   SELECT_POSS_CON,
   SELECT_CONNECTION,
   NEW_MESSAGE,
+  UPDATE_MESSAGES,
   UNSELECT_TRIP,
   LOG_OUT,
   GRAB_COUNTRIES,
@@ -80,6 +81,10 @@ var rootReducer = (state = initialState, action) => {
       })
       return Object.assign({}, state, {
         selectedConnection: newSelectedConnection
+      });
+    case UPDATE_MESSAGES:
+      return Object.assign({}, state, {
+        messages: action.payload
       });
     case UNSELECT_TRIP:
       return Object.assign({}, state, {

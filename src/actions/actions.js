@@ -7,6 +7,7 @@ export const SELECT_POSS_CON = "SELECT_POSS_CON"
 export const SELECT_CONNECTION = "SELECT_CONNECTION";
 export const SELECT_CON_USER = "SELECT_CON_USER";
 export const NEW_MESSAGE = "NEW_MESSAGE";
+export const UPDATE_MESSAGES = "UPDATE_MESSAGES";
 export const UNSELECT_TRIP = "UNSELECT_TRIP";
 export const LOG_OUT = "LOG_OUT";
 export const GRAB_COUNTRIES = "GRAB_COUNTRIES";

@@ -128,7 +128,7 @@ createTrip = trip => {
 };
 
 
-// ----------------MESSAGES CREATE/UPDATE----------------
+// ----------------MESSAGES CREATE/UPDATE/FETCH----------------
 createChat = chat => {
   return knex("chats").insert({
       user1: chat.sender,
@@ -151,7 +151,10 @@ updateChat = update => {
       messages: update.chat.messages,
       current_length: update.chat.current_length,
       [update.viewCountToUpdate]: update.chat[update.viewCountToUpdate]
-  }).returning('*')
+  })
+  .then(data => {
+    return getChatsForUser(`${update.user}`);
+  })
 };
 
 module.exports = {
