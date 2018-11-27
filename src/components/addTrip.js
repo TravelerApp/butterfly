@@ -32,7 +32,7 @@ class Add extends React.Component {
     console.log(this.props, "PROPS ON ADD MOUNT");
     let uniqueCountries = [];
     // change this to use cities from store ************************
-    data.data.forEach(element => {
+    this.props.cities.forEach(element => {
       if (!uniqueCountries.includes(element.country)) {
         uniqueCountries.push(element.country);
       }
@@ -121,7 +121,10 @@ class Add extends React.Component {
         <Nav />
         <h3>This is The Add Trips Page</h3>
         <form>
-          <select onChange={this.countrySelected.bind(this)}>
+          <select
+            className="styled-select blue semi-square"
+            onChange={this.countrySelected.bind(this)}
+          >
             <option>{this.props.currentCountry}</option>
             {this.props.countries.map((country, i) => (
               <option key={i} value={country}>
@@ -129,12 +132,16 @@ class Add extends React.Component {
               </option>
             ))}
           </select>
-          <select onChange={this.citySelected.bind(this)}>
+          <select
+            className="styled-select blue semi-square"
+            onChange={this.citySelected.bind(this)}
+          >
             {this.props.currentCities.map((city, i) => (
               <option key={i}>{city.city}</option>
             ))}
           </select>
           <input
+            className="actionButton"
             type="button"
             value="Add to my trips"
             onClick={() => this.handleAddToMyTripsClick()}
@@ -157,7 +164,8 @@ const mapStateToProps = state => {
     currentCities: state.currentCities,
     currentCountry: state.currentCountry,
     tripAdded: state.tripAdded,
-    currentCity: state.currentCity
+    currentCity: state.currentCity,
+    newUser: state.newUser
   };
 };
 const mapDispatchToProps = dispatch => {

@@ -1,6 +1,7 @@
 import React from "react";
 import Nav from "./navBar.js";
 import data from "../../data.js";
+import axios from "axios";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { SAVE_PROFILE } from "../actions/actions.js";
@@ -16,7 +17,8 @@ class Create extends React.Component {
         { name: "Hiking", checked: false },
         { name: "Night Life", checked: false },
         { name: "Museums and history", checked: false },
-        { name: "shopping", checked: false }
+        { name: "Shopping", checked: false },
+        { name: "Food", checked: false }
       ],
       currentCountry: "Select your origin country .."
     };
@@ -52,20 +54,31 @@ class Create extends React.Component {
     });
   }
   submit() {
-    console.log(this.state);
+    const formattedInterests = {};
+    this.state.interests.forEach(int => {
+      formattedInterests[int.name] = int.checked;
+    });
     const payload = {
-      name: this.state.fullName,
-      country: this.state.originCountry,
-      language: this.state.primaryLanguage,
-      interests: this.state.interests
+      auth_id: this.props.loggedIn,
+      username: this.state.fullName,
+      user_country: this.state.originCountry,
+      primary_lang: this.state.primaryLanguage,
+      interests: formattedInterests
     };
-    this.props.saveProfileAction(payload);
-    setTimeout(() => {
-      console.log(this.props);
-    }, 1000);
+    //save to db
+    console.log(payload, "<-- payload here before patch");
+    axios
+      .patch("/user", payload)
+      .then(response => {
+        console.log(response, "<--returned profile");
+        this.props.saveProfileAction(response.data);
+      })
+      .catch(err => {
+        console.log("Error in profile creation: ", err);
+      });
   }
   render() {
-    return this.props.profile ? (
+    return this.props.profile.username ? (
       <Redirect to="/add" />
     ) : (
       <div>
@@ -122,7 +135,8 @@ class Create extends React.Component {
 const mapStateToProps = state => {
   return {
     profile: state.profile,
-    countries: state.countries
+    countries: state.countries,
+    loggedIn: state.loggedIn
   };
 };
 const mapDispatchToProps = dispatch => {
