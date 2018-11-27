@@ -32,8 +32,7 @@ app.get("/initial/:authid", (req, res) => {
 
 // ---------------USERS TABLE---------------
 
-// endpoint below ONLY adds a user's auth_id to database
-// in the end, we probably won't have this as an endpoint?
+// endpoint below ONLY adds a ut?
 //    instead, db.method called from within the auth route to determine which future actions to take
 //    the error thrown will indicate that the auth_id already exists (error.code === '23505')
 //    can use this error code on client to trigger a call to the "big initial query"

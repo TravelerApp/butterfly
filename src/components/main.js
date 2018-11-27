@@ -11,41 +11,12 @@ class Main extends React.Component {
   }
   componentDidMount() {
     console.log(this.props, "props on main mount");
-    axios
-      .post("/user", { auth_id: this.props.loggedIn })
-      .then(results => {
-        console.log("success!");
-        //redirect to create here
-      })
-      .catch(err => {
-        console.log("error!", err);
-        axios
-          .get(`/initial/${this.props.loggedIn}`)
-          .then(res => {
-            if (!res.profile.username) {
-              this.props.newUserAction(true);
-            }
-            console.log(res.data, " res..");
-            setTimeout(() => {
-              this.props.grabEverythingAction(res.data);
-            }, 1000);
-            setTimeout(() => {
-              console.log(this.props, "props after request");
-            }, 2500);
-          })
-          .catch(err => {
-            console.log("Error: ", err);
-          });
-      });
   }
   render() {
     return this.props.profile.username ? (
       <Redirect to="/add" />
     ) : (
-      <div>
-        <Nav />
-        <div>PLEASE WAIT AS WE LOAD YOUR INFORMATION!</div>
-      </div>
+      <Redirect to="/create" />
     );
   }
 }

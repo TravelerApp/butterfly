@@ -3,19 +3,43 @@ import { Link, Redirect } from "react-router-dom";
 import GoogleLogin from "react-google-login";
 import { connect } from "react-redux";
 import axios from "axios";
-import { LOG_IN } from "../actions/actions.js";
+import { LOG_IN, GRAB_EVERYTHING } from "../actions/actions.js";
 
 class Landing extends Component {
   render() {
     const responseGoogle = response => {
       sessionStorage.setItem("banana", response.profileObj.givenName);
       this.props.saveGoogleId(response.googleId); //response.googleId
+      axios
+        .post("/user", { auth_id: response.googleId })
+        .then(results => {
+          console.log("success!");
+          console.log(this.props);
+          console.log(results, "results from new user request");
+        })
+        .catch(err => {
+          console.log("User Exists!", err);
+        });
+      axios
+        .get(`/initial/${this.props.loggedIn}`)
+        .then(res => {
+          console.log(res.data, " res..");
+          setTimeout(() => {
+            this.props.grabEverythingAction(res.data);
+          }, 1000);
+          setTimeout(() => {
+            console.log(this.props, "props after request");
+          }, 2500);
+        })
+        .catch(err => {
+          console.log("Error: ", err);
+        });
     };
 
     const failure = response => {
       console.log("failing, ", response);
     };
-    return this.props.loggedIn ? (
+    return this.props.profile ? (
       <Redirect to="/main" />
     ) : (
       <div>
@@ -45,13 +69,17 @@ class Landing extends Component {
 }
 const mapStateToProps = state => {
   return {
-    loggedIn: state.loggedIn
+    loggedIn: state.loggedIn,
+    profile: state.profile
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     saveGoogleId: googleId => {
       dispatch({ type: LOG_IN, payload: googleId });
+    },
+    grabEverythingAction: goodies => {
+      dispatch({ type: GRAB_EVERYTHING, payload: goodies });
     }
   };
 };

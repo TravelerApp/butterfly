@@ -32,7 +32,7 @@ class Add extends React.Component {
     console.log(this.props, "PROPS ON ADD MOUNT");
     let uniqueCountries = [];
     // change this to use cities from store ************************
-    data.data.forEach(element => {
+    this.props.cities.forEach(element => {
       if (!uniqueCountries.includes(element.country)) {
         uniqueCountries.push(element.country);
       }
@@ -108,9 +108,6 @@ class Add extends React.Component {
       });
   }
   render() {
-    if (this.props.newUser) {
-      return <Redirect to="/create" />;
-    }
     return this.props.tripAdded ? (
       <div>
         <Nav />
