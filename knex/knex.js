@@ -46,6 +46,22 @@ const getConnections = function(trip) {
   })
   }
 
+  const getChatsForUser = function(auth_id) {
+    return knex.select('chat_id', 'user1', 'user2', 'updated_at').from('chats')
+      .then(allChats => {
+          let myChats = allChats.filter(chat => Object.values(chat).includes(auth_id));
+          let sortedChats = myChats.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+          let chatRequests = sortedChats.map(chat => {
+            let otheruser = chat.user1 === `${auth_id}` ? chat.user2 : chat.user1;
+            return {
+              chat_id: chat.chat_id,
+              otheruser
+            }
+          })
+        return Promise.all(chatRequests.map(getChatObjectWithOtherUser))
+      })
+  }
+
 
 // ----------------INITIAL QUERY----------------
 const getAllUserInformation = auth_id => {
@@ -55,18 +71,7 @@ const getAllUserInformation = auth_id => {
     // get user profile
     knex.raw(`SELECT * FROM users WHERE auth_id = :auth_id`, {auth_id: `${auth_id}`}),
     //get user's chats
-    knex.select('chat_id', 'user1', 'user2').from('chats')
-      .then(allChats => {
-          let myChats = allChats.filter(chat => Object.values(chat).includes(auth_id));
-          let chatRequests = myChats.map(chat => {
-            let otheruser = chat.user1 === `${auth_id}` ? chat.user2 : chat.user1;
-            return {
-              chat_id: chat.chat_id,
-              otheruser
-            }
-          })
-        return Promise.all(chatRequests.map(getChatObjectWithOtherUser))
-      }),
+    getChatsForUser(auth_id),
     // get trips and all related data
     knex.select().from('trips').where('trip_user', `${auth_id}`)
       .then(userTrips => {

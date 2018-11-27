@@ -23,12 +23,12 @@ class Mess extends React.Component {
   componentDidMount() {
     console.log(this.props);
     if (this.props.messages) {
+      // let sortedMessages = this.props.messages.sort((a, b) => new Date(b.chat.updated_at) - new Date(a.chat.updated_at));
       this.props.selectConUserAction(this.props.messages[0]);
     }
   }
 
   send() {
-    console.log('old Chat before updated:', this.props.selectedConnection.chat)
     // create new message object to add to array
     let newMessage = {
       author: `${this.props.loggedIn}`,
@@ -50,6 +50,7 @@ class Mess extends React.Component {
     this.props.newMessageAction(chatToUpdate);
     // send call to database to update chat object
     axios.patch('/message', {
+      user: this.props.loggedIn,
       viewCountToUpdate: userViewToUpdate,
       chat: chatToUpdate
     })
