@@ -20,7 +20,7 @@ const initialState = {
   cities: null,
   loggedIn: null, //user unique id (payload from login return)
   profile: null, // name, picture, country, language, interests
-  currentTrips: ["France", "Germany", "Poland"], //array of trips
+  currentTrips: [], //array of trips
   messages: null, // array of messages
   selectedTrip: null, // current trip view
   selectedPossCon: null, // possible connections user list
@@ -29,7 +29,8 @@ const initialState = {
   currentCountry: "select a country",
   currentCity: null,
   currentCities: ["select a country to see cities"],
-  tripAdded: false
+  tripAdded: false,
+  newUser: true
 };
 
 var rootReducer = (state = initialState, action) => {
@@ -77,6 +78,7 @@ var rootReducer = (state = initialState, action) => {
     case SEND_MESSAGE:
       return Object.assign({}, state, {
         // selectedConnection: {...selectedConnection, } //needs fixing
+
       });
     //spread op
     case UNSELECT_TRIP:
@@ -105,7 +107,7 @@ var rootReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         cities: action.payload.cities,
         profile: action.payload.profile,
-        currentTrips: action.payload.upcomingTrips,
+        currentTrips: action.payload.upcomingTrips || [],
         messages: action.payload.messages,
         selectedTrip: null,
         selectedPossCon: null,
