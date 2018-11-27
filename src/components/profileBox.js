@@ -1,7 +1,8 @@
 import React from "react";
 
 const ProfileBox = ({profile}) => {
-  return (
+  return profile === null ? ""
+  : (
     <div>
       <div>Name: {profile.username}</div>
       <div>From: {profile.user_country}</div>
