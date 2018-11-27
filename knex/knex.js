@@ -9,8 +9,14 @@ const getChatObjectWithOtherUser = function(request) {
     knex.select().from('chats').where('chat_id', request.chat_id),
     knex.select().from('users').where('auth_id', request.otheruser)
   ])
-  .then(data => data)
+  .then(chatTuple => {
+    return {
+      chat: chatTuple[0][0],
+      otheruser: chatTuple[1][0]
+    }
+  })
 }
+
 const getUserForOverlap = function(overlap) {
   return knex.select().from('users').where('auth_id', overlap.trip_user)
   .then(profile => {
@@ -34,8 +40,8 @@ const getConnections = function(trip) {
   .then(overlaps => {
     return Promise.all(overlaps.rows.map(getUserForOverlap))
     })
-  .then(data => {
-    trip.connections = data;
+  .then(formattedConnections => {
+    trip.connections = formattedConnections;
     return trip;
   })
   }
@@ -52,43 +58,31 @@ const getAllUserInformation = auth_id => {
     knex.select('chat_id', 'user1', 'user2').from('chats')
       .then(allChats => {
           let myChats = allChats.filter(chat => Object.values(chat).includes(auth_id));
-          return myChats.map(chat => {
+          let chatRequests = myChats.map(chat => {
             let otheruser = chat.user1 === `${auth_id}` ? chat.user2 : chat.user1;
             return {
               chat_id: chat.chat_id,
               otheruser
             }
           })
-        })
-      .then(data => {
-        return Promise.all(data.map(getChatObjectWithOtherUser))
-        .then(data => data)
-        }),
+        return Promise.all(chatRequests.map(getChatObjectWithOtherUser))
+      }),
     // get trips and all related data
     knex.select().from('trips').where('trip_user', `${auth_id}`)
       .then(userTrips => {
         let userTripsArray = userTrips.map(userTrip => {return {details: userTrip, connections: []}});
         return Promise.all(userTripsArray.map(getConnections))
-        .then(trips => {
-          return trips;
-        })
       })
   ]
 
   return Promise.all(initialQueries)
-  .then(data => {
-    let initialStoreState = {
-      cities: data[0].rows,
-      profile: data[1].rows.length ? data[1].rows[0] : null,
-      messages: data[2].length ? data[2].map(tuple => {
-        return {
-          message: tuple[0][0],
-          otheruser: tuple[1][0]
-        }
-      }) : null,
-      upcomingTrips: data[3].length ? data[3] : null
+  .then(completedQueries => {
+    return {
+      cities: completedQueries[0].rows,
+      profile: completedQueries[1].rows.length ? completedQueries[1].rows[0] : null,
+      messages: completedQueries[2].length ? completedQueries[2]: null,
+      upcomingTrips: completedQueries[3].length ? completedQueries[3] : null
     }
-    return initialStoreState;
   })
   .catch(err => ('error received from get initial query:', err))
 }
@@ -100,7 +94,7 @@ postUser = id => knex("users").insert({ auth_id: id });
 
 // update auth_id entry with all profile information
 updateUserProfile = profile => {
-  return knex("users").where({ auth_id: body.auth_id })
+  return knex("users").where({auth_id: profile.auth_id})
     .update({
       username: profile.username,
       user_country: profile.user_country,
@@ -109,7 +103,7 @@ updateUserProfile = profile => {
       is_guide: profile.is_guide,
       primary_lang: profile.primary_lang,
       secondary_langs: profile.secondary_langs
-    })
+    }).returning('*')
 };
 
 
@@ -134,28 +128,30 @@ createChat = chat => {
   return knex("chats").insert({
       user1: chat.sender,
       user2: chat.receiver,
-      messages: {messages: chat.messages},
+      messages: chat.messages,
       current_length: 1,
       lastViewed1: 1,
       lastViewed2: 0,
       chat_city: chat.chat_city,
-  }).returning('*')
-  .then(createdChat => {
-    return getConnections({details: trip[0], connections: []});
+  }).returning(['chat_id', 'user2'])
+  .then(chatInfo => {
+    return getChatObjectWithOtherUser({chat_id: chatInfo[0].chat_id, otheruser: chatInfo[0].user2})
   })
 };
 
-updateChat = body => {
-  return knex("trips").insert({
-      trip_user: body.trip_user,
-      trip_city: body.trip_city,
-      trip_start: body.trip_start,
-      trip_end: body.trip_end,
-      purpose: body.purpose
-  }).returning('*')
-  .then(trip => {
-    return getConnections({details: trip[0], connections: []});
-  })
+updateChat = message => {
+  console.log(message);
+  // return knex("chats").where({chat_id: message.chat_id})
+  //   .update({
+  //     trip_user: body.trip_user,
+  //     trip_city: body.trip_city,
+  //     trip_start: body.trip_start,
+  //     trip_end: body.trip_end,
+  //     purpose: body.purpose
+  // }).returning('*')
+  // .then(trip => {
+  //   return getConnections({details: trip[0], connections: []});
+  // })
 };
 
 module.exports = {

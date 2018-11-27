@@ -1,74 +1,82 @@
 import React from "react";
 import Nav from "./navBar.js";
 import Connected from "./connected.js";
+import ProfileBox from './profileBox.js';
 import { connect } from "react-redux";
-import { SELECT_CON_USER, SEND_MESSAGE } from "../actions/actions.js";
+import { SELECT_CONNECTION, SEND_MESSAGE } from "../actions/actions.js";
+
+// messages rendering kosher?
+// write final save new message route to DB.
 
 class Mess extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      sender: "Abdullah Alabasi",
       text: "",
-      picture:
-        "https://media.licdn.com/dms/image/C4E03AQGqjIkmMliOeg/profile-displayphoto-shrink_200_200/0?e=1547683200&v=beta&t=h6jgkQL1djAVlNSctWQ5Cv3t1EHdNXYpuPIM4Cih0-k",
-      messages: []
     };
 
     this.send = this.send.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
-    this._handleKeyPress = this._handleKeyPress.bind(this);
   }
+
   componentDidMount() {
     console.log(this.props);
+    if (this.props.messages) {
+      this.props.selectConUserAction(this.props.messages[0]);
+    }
   }
-  handleClick(value) {}
-  send() {
-    // {
-    //   chat_id: chat_id,
-    //   message: {
-    //     author: "[authID]",
-    //     text: '.....',
-    //     timestamp: Date
-    //   }
-    // }
 
-    this.setState(() =>
-      this.setState(prevState => ({
-        messages: [
-          ...prevState.messages,
-          { sender: this.state.sender, text: this.state.text }
-        ]
-      }))
-    );
+  send() {
+    let newMessage = {
+      author: this.props.loggedIn,
+      text: this.state.text,
+      timestamp: Date.now()
+    }
+    console.log('this is the new message:', newMessage);
+    console.log('old messages:', this.props.selectedConnection.chat.messages.messages);
+    let chatToUpdate = this.props.selectedConnection.chat;
+    chatToUpdate.messages.messages.push(newMessage);
+    console.log('new messages:', chatToUpdate);
+    console.log('new store:', this.props)
+    //this.props.sendMessageAction(newMessage);
+    //   chat_id: chat_id,
   }
+
   onChange(e) {
     this.setState({ text: e.target.value });
   }
-  _handleKeyPress(e) {
-    if (e.key === "Enter") {
-      this.send();
-    }
-  }
+
   handleSubmit(e) {
     e.preventDefault();
+    this.send();
     e.target.reset();
+    this.setState({text: ""});
   }
 
   componentDidUpdate() {
     var el = this.refs.wrap;
     el.scrollTop = el.scrollHeight;
   }
+
+  handleConnectionClick(user) {
+    console.log('connection clicked in messages tab!', user);
+    this.props.selectConUserAction(user);
+    console.log(this.props.selectedConnection);
+  }
+
   render() {
-    return (
-      <div>
-        <Nav />
-        <div className="containerDiv">
-          <div>
+    let connectionProfile = this.props.selectedConnection ?
+      (<ProfileBox profile={this.props.selectedConnection.otheruser}/>) : '';
+
+    let chatToRender = this.props.selectedConnection ? this.props.selectedConnection
+      : this.props.messages.length ? this.props.messages[0] : null;
+
+    let chatWindow = chatToRender ?
+      (<div className="containerDiv">
             <div className="chatWindowDiv" ref="wrap">
               <ul className="chatbox">
-                {this.props.messages[0].message.messages.messages.map(
+                {chatToRender.chat.messages.messages.map(
                   (message, i) => (
                     <li
                       key={i}
@@ -82,13 +90,13 @@ class Mess extends React.Component {
                         src={
                           this.props.profile.auth_id === message.author
                             ? this.props.profile.picture
-                            : this.props.messages[0].otheruser.picture
+                            : chatToRender.otheruser.picture
                         }
                         className="chatPicture"
                       />
                       <p className="senderName">
                         {this.props.profile.auth_id !== message.author
-                          ? this.props.messages[0].otheruser.username
+                          ? chatToRender.otheruser.username
                           : this.props.profile.username}
                         :{" "}
                       </p>
@@ -107,35 +115,45 @@ class Mess extends React.Component {
               </ul>
             </div>
             <div className="chatFormDiv">
-              <form onSubmit={this.handleSubmit.bind(this)}>
+              <form onSubmit={this.handleSubmit}>
                 <input
                   type="text"
                   className="chatTextBox"
                   id="chatTextBox"
-                  onKeyPress={this._handleKeyPress.bind(this)}
-                  onChange={this.onChange.bind(this)}
+                  // onKeyPress={this._handleKeyPress}
+                  onChange={this.onChange}
                   autocomplete="off"
                 />
                 <input
-                  type="button"
+                  type="submit"
                   value="Send"
                   className="chatSendButton"
-                  onClick={() => this.send()}
                 />
               </form>
             </div>
-          </div>
-          <div className="connectionsDiv">
-            <h3>your connections :</h3>
-            <ul>
-              <li>James</li>
-              <li>Chris</li>
-              <li>Alberto</li>
-            </ul>
-          </div>
-        </div>
+          </div>) :
+          (<div>
+            Find people heading to the same places you are and then you can chat with them here!
+          </div>)
 
-        {/* <Connected /> */}
+
+    return (
+      <div>
+        <Nav />
+        {chatWindow}
+        {connectionProfile}
+        <div className="connectionsDiv">
+          <h3>Connections:</h3>
+          <ul>
+            {this.props.messages.map((message, i) =>
+              <li
+                key={i}
+                onClick={this.handleConnectionClick.bind(this, message)}
+              >
+                {message.otheruser.username}
+              </li>)}
+          </ul>
+        </div>
       </div>
     );
   }
@@ -146,13 +164,21 @@ const mapStateToProps = state => {
     messages: state.messages,
     profile: state.profile,
     loggedIn: state.loggedIn,
-    selectedConUser: state.selectedConUser
+    selectedConnection: state.selectedConnection
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    selectConUserAction: connection => {
+      dispatch({ type: SELECT_CONNECTION, payload: connection });
+    },
+    sendMessageAction: message => {
+      dispatch({ type: SEND_MESSAGE, payload: message});
+    }
+  };
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

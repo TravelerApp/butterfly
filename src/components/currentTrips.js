@@ -1,6 +1,7 @@
 import React from "react";
 import Nav from "./navBar.js";
 import Trip from "./eachTrip.js";
+import axios from "axios";
 import Poss from "./possibleConnections.js";
 import SelProfile from "./userProfile.js";
 import { connect } from "react-redux";
@@ -32,6 +33,33 @@ class Next extends React.Component {
     console.log(value, "clicked user");
     this.props.selectPossConAction(value);
   }
+  handleConnectButton(value) {
+    //do stuff
+    console.log("Making a Connection with: ", value);
+    axios
+      .post("/message", {
+        sender: this.props.loggedIn,
+        receiver: value.connectionProfile.auth_id,
+        messages: {
+          messages: [
+            {
+              author: this.props.loggedIn,
+              text: `Hey there, ${
+                this.props.profile.username
+              } would like to connect with you!`,
+              timestamp: "now"
+            }
+          ]
+        },
+        chat_city: value.connectionTrip.trip_city
+      })
+      .then(chat => {
+        console.log("successful initial chat", chat);
+      })
+      .catch(err => {
+        console.log("error in initial chat request", err);
+      });
+  }
 
   render() {
     return this.props.selectedTrip ? (
@@ -39,16 +67,23 @@ class Next extends React.Component {
         <Nav />
         <h3>
           Your Trip to:{" "}
-          {this.props.cities[this.props.selectedTrip.details.trip_city].city}
+          {
+            this.props.cities[this.props.selectedTrip.details.trip_city - 1]
+              .city
+          }
         </h3>
         <button onClick={() => this.handleTripClick(null)}>Go Back</button>
-        <SelProfile data={this.props.selectedPossCon} />
+        <SelProfile
+          data={this.props.selectedPossCon}
+          handleClick={this.handleConnectButton.bind(this)}
+        />
         <h3>Potential Connections</h3>
         {this.props.selectedTrip.connections.map((possCon, i) => (
           <Poss
             value={possCon}
             connection={possCon.connectionProfile.username}
             from={possCon.connectionProfile.user_country}
+            purpose={possCon.connectionTrip.purpose}
             key={i}
             click={this.handlePossConClick.bind(this)}
           />
@@ -62,8 +97,8 @@ class Next extends React.Component {
         {this.props.currentTrips.map((trip, i) => (
           <Trip
             value={trip}
-            trip={this.props.cities[trip.details.trip_city].city}
-            country={this.props.cities[trip.details.trip_city].country}
+            trip={this.props.cities[trip.details.trip_city - 1].city}
+            country={this.props.cities[trip.details.trip_city - 1].country}
             key={i}
             click={this.handleTripClick.bind(this)}
           />
@@ -77,7 +112,9 @@ const mapStateToProps = state => {
     cities: state.cities,
     currentTrips: state.currentTrips,
     selectedTrip: state.selectedTrip,
-    selectedPossCon: state.selectedPossCon
+    selectedPossCon: state.selectedPossCon,
+    loggedIn: state.loggedIn,
+    profile: state.profile
   };
 };
 const mapDispatchToProps = dispatch => {

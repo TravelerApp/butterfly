@@ -3,8 +3,9 @@ import {
   SAVE_PROFILE,
   ADD_TRIP,
   SELECT_TRIP,
+  SELECT_CITY,
   SELECT_POSS_CON,
-  SELECT_CON_USER,
+  SELECT_CONNECTION,
   SEND_MESSAGE,
   UNSELECT_TRIP,
   LOG_OUT,
@@ -13,7 +14,6 @@ import {
   SELECT_CITIES,
   TOGGLE_ADDED,
   LOG_IN,
-  GET_MESSAGES
 } from "../actions/actions.js";
 
 const initialState = {
@@ -21,11 +21,11 @@ const initialState = {
   loggedIn: null, //user unique id (payload from login return)
   profile: null, // name, picture, country, language, interests
   currentTrips: ["France", "Germany", "Poland"], //array of trips
-  messages: null, //array of messages
+  messages: null, // array of messages
   selectedTrip: null, // current trip view
   selectedPossCon: null, // possible connections user list
-  selectedConUser: null, //list of already connected users
-  countries: ["test"], //
+  selectedConnection: null, // this is the connection whose message history you are currently viewing
+  countries: ["test"],
   currentCountry: "select a country",
   currentCity: null,
   currentCities: ["select a country to see cities"],
@@ -54,9 +54,13 @@ var rootReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         currentCities: action.payload
       });
+    case SELECT_CITY:
+      return Object.assign({}, state, {
+        currentCity: action.payload
+      });
     case ADD_TRIP:
       return Object.assign({}, state, {
-        currentTrips: action.payload
+        currentTrips: [...state.currentTrips, action.payload]
       });
     case SELECT_TRIP:
       return Object.assign({}, state, {
@@ -66,13 +70,13 @@ var rootReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         selectedPossCon: action.payload
       });
-    case SELECT_CON_USER:
+    case SELECT_CONNECTION:
       return Object.assign({}, state, {
-        selectedConUser: action.payload
+        selectedConnection: action.payload
       });
     case SEND_MESSAGE:
       return Object.assign({}, state, {
-        messages: [...state.messages, action.payload] //needs fixing
+        selectedConnection: {...selectedConnection, } //needs fixing
       });
     //spread op
     case UNSELECT_TRIP:
@@ -92,7 +96,7 @@ var rootReducer = (state = initialState, action) => {
         messages: null,
         selectedTrip: null,
         selectedPossCon: null,
-        selectedConUser: null,
+        selectedConnection: null,
         countries: null,
         currentCountry: null,
         currentCities: null
@@ -105,10 +109,8 @@ var rootReducer = (state = initialState, action) => {
         messages: action.payload.messages,
         selectedTrip: null,
         selectedPossCon: null,
-        selectedConUser: null
+        selectedConnection: null
       });
-      case GET_MESSAGES:
-      console.log("reducer called");
     default:
       return state;
   }
