@@ -6,7 +6,7 @@ import {
   SELECT_CITY,
   SELECT_POSS_CON,
   SELECT_CONNECTION,
-  SEND_MESSAGE,
+  NEW_MESSAGE,
   UNSELECT_TRIP,
   LOG_OUT,
   GRAB_COUNTRIES,
@@ -74,11 +74,13 @@ var rootReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         selectedConnection: action.payload
       });
-    case SEND_MESSAGE:
+    case NEW_MESSAGE:
+      let newSelectedConnection = Object.assign({}, state.selectedConnection, {
+        chat: action.payload
+      })
       return Object.assign({}, state, {
-        selectedConnection: {...selectedConnection, } //needs fixing
+        selectedConnection: newSelectedConnection
       });
-    //spread op
     case UNSELECT_TRIP:
       return Object.assign({}, state, {
         selectedTrip: null

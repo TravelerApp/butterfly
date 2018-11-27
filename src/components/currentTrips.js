@@ -34,7 +34,6 @@ class Next extends React.Component {
     this.props.selectPossConAction(value);
   }
   handleConnectButton(value) {
-    //do stuff
     console.log("Making a Connection with: ", value);
     axios
       .post("/message", {
@@ -47,7 +46,7 @@ class Next extends React.Component {
               text: `Hey there, ${
                 this.props.profile.username
               } would like to connect with you!`,
-              timestamp: "now"
+              timestamp: Date.now()
             }
           ]
         },

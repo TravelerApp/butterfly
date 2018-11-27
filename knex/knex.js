@@ -99,7 +99,7 @@ updateUserProfile = profile => {
       username: profile.username,
       user_country: profile.user_country,
       picture: profile.picture,
-      interests: profile.inserts,
+      interests: profile.interests,
       is_guide: profile.is_guide,
       primary_lang: profile.primary_lang,
       secondary_langs: profile.secondary_langs
@@ -139,19 +139,14 @@ createChat = chat => {
   })
 };
 
-updateChat = message => {
-  console.log(message);
-  // return knex("chats").where({chat_id: message.chat_id})
-  //   .update({
-  //     trip_user: body.trip_user,
-  //     trip_city: body.trip_city,
-  //     trip_start: body.trip_start,
-  //     trip_end: body.trip_end,
-  //     purpose: body.purpose
-  // }).returning('*')
-  // .then(trip => {
-  //   return getConnections({details: trip[0], connections: []});
-  // })
+updateChat = update => {
+  console.log(update);
+  return knex("chats").where({chat_id: update.chat.chat_id})
+    .update({
+      messages: update.chat.messages,
+      current_length: update.chat.current_length,
+      [update.viewCountToUpdate]: update.chat[update.viewCountToUpdate]
+  }).returning('*')
 };
 
 module.exports = {

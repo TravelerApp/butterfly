@@ -3,9 +3,9 @@ import Nav from "./navBar.js";
 import Connected from "./connected.js";
 import ProfileBox from './profileBox.js';
 import { connect } from "react-redux";
-import { SELECT_CONNECTION, SEND_MESSAGE } from "../actions/actions.js";
+import { SELECT_CONNECTION, NEW_MESSAGE } from "../actions/actions.js";
+import axios from 'axios';
 
-// messages rendering kosher?
 // write final save new message route to DB.
 
 class Mess extends React.Component {
@@ -28,19 +28,38 @@ class Mess extends React.Component {
   }
 
   send() {
+    console.log('old Chat before updated:', this.props.selectedConnection.chat)
+    // create new message object to add to array
     let newMessage = {
-      author: this.props.loggedIn,
+      author: `${this.props.loggedIn}`,
       text: this.state.text,
       timestamp: Date.now()
     }
-    console.log('this is the new message:', newMessage);
-    console.log('old messages:', this.props.selectedConnection.chat.messages.messages);
-    let chatToUpdate = this.props.selectedConnection.chat;
-    chatToUpdate.messages.messages.push(newMessage);
-    console.log('new messages:', chatToUpdate);
-    console.log('new store:', this.props)
-    //this.props.sendMessageAction(newMessage);
-    //   chat_id: chat_id,
+    // craft new chat object with which to update state and database
+    let oldChat =this.props.selectedConnection.chat;
+    let newMessagesArray = oldChat.messages.messages.slice();
+    newMessagesArray.push(newMessage);
+    let newLength = oldChat.current_length + 1;
+    let userViewToUpdate = oldChat.user1 === this.props.loggedIn ? 'lastViewed1' : 'lastViewed2';
+    let chatToUpdate = Object.assign({}, oldChat, {
+      messages: {messages: newMessagesArray},
+      current_length: newLength,
+      [userViewToUpdate]: newLength
+    });
+    // dispatch action to update store 'selectedConnection' for immediate rendering
+    this.props.newMessageAction(chatToUpdate);
+    // send call to database to update chat object
+    axios.patch('/message', {
+      viewCountToUpdate: userViewToUpdate,
+      chat: chatToUpdate
+    })
+    .then(updatedChat => {
+      console.log('sC chat after store update:', this.props.selectedConnection.chat)
+      console.log('returned from db after update:', updatedChat)
+    })
+    .catch(err => {
+      console.log('error returned from call to update chat in database:', err);
+    })
   }
 
   onChange(e) {
@@ -120,7 +139,6 @@ class Mess extends React.Component {
                   type="text"
                   className="chatTextBox"
                   id="chatTextBox"
-                  // onKeyPress={this._handleKeyPress}
                   onChange={this.onChange}
                   autocomplete="off"
                 />
@@ -173,8 +191,8 @@ const mapDispatchToProps = dispatch => {
     selectConUserAction: connection => {
       dispatch({ type: SELECT_CONNECTION, payload: connection });
     },
-    sendMessageAction: message => {
-      dispatch({ type: SEND_MESSAGE, payload: message});
+    newMessageAction: message => {
+      dispatch({ type: NEW_MESSAGE, payload: message});
     }
   };
 };
