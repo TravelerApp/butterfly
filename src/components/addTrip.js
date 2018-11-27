@@ -32,7 +32,7 @@ class Add extends React.Component {
     console.log(this.props, "PROPS ON ADD MOUNT");
     let uniqueCountries = [];
     // change this to use cities from store ************************
-    data.data.forEach(element => {
+    this.props.cities.forEach(element => {
       if (!uniqueCountries.includes(element.country)) {
         uniqueCountries.push(element.country);
       }
@@ -157,7 +157,8 @@ const mapStateToProps = state => {
     currentCities: state.currentCities,
     currentCountry: state.currentCountry,
     tripAdded: state.tripAdded,
-    currentCity: state.currentCity
+    currentCity: state.currentCity,
+    newUser: state.newUser
   };
 };
 const mapDispatchToProps = dispatch => {

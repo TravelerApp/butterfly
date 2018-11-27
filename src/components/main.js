@@ -1,7 +1,7 @@
 import React from "react";
 import Nav from "./navBar.js";
 import { connect } from "react-redux";
-import { GRAB_EVERYTHING } from "../actions/actions.js";
+import { GRAB_EVERYTHING, NEW_USER } from "../actions/actions.js";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 
@@ -11,33 +11,12 @@ class Main extends React.Component {
   }
   componentDidMount() {
     console.log(this.props, "props on main mount");
-    // make axios call to insert loggedIn id to database
-    // if insertion was successful, redirect to /createprofile
-    // otherwise/if error code = 23505, then make initial axios call below
-    axios
-      .get(`/initial/${this.props.loggedIn}`)
-      .then(res => {
-        console.log(res.data, " res..");
-        setTimeout(() => {
-          this.props.grabEverythingAction(res.data);
-        }, 1000);
-        setTimeout(() => {
-          console.log(this.props, "props after request");
-        }, 2500);
-      })
-      .catch(err => {
-        console.log("Error: ", err);
-      });
   }
-
   render() {
-    return this.props.profile ? (
+    return this.props.profile.username ? (
       <Redirect to="/add" />
     ) : (
-      <div>
-        <Nav />
-        <div>PLEASE WAIT AS WE LOAD YOUR INFORMATION!</div>
-      </div>
+      <Redirect to="/create" />
     );
   }
 }
@@ -48,13 +27,17 @@ const mapStateToProps = state => {
     cities: state.cities,
     profile: state.profile,
     currentTrips: state.currentTrips,
-    messages: state.messages
+    messages: state.messages,
+    newUser: state.newUser
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     grabEverythingAction: goodies => {
       dispatch({ type: GRAB_EVERYTHING, payload: goodies });
+    },
+    newUserAction: bool => {
+      dispatch({ type: NEW_USER, payload: bool });
     }
   };
 };
