@@ -9,7 +9,7 @@ class Landing extends Component {
   render() {
     const responseGoogle = response => {
       sessionStorage.setItem("banana", response.profileObj.givenName);
-      this.props.saveGoogleId(4); //response.googleId
+      this.props.saveGoogleId(4);
     };
 
     const failure = response => {
@@ -19,16 +19,6 @@ class Landing extends Component {
       <Redirect to="/main" />
     ) : (
       <div>
-        {/* // conditionially render redirect 'if statement' */}
-        {/* <div className="landingContainer">
-          <GoogleLogin
-            clientId="602387760234-beo1e7542ieb47m24do30g4ick9bp9kl.apps.googleusercontent.com"
-            buttonText="Login / Signup"
-            onSuccess={responseGoogle}
-            onFailure={failure}
-          />
-        </div> */}
-        {/* <div className="nav-div"> */}
         <ul class="cb-slideshow">
           <li>
             <span>Image 01</span>
@@ -67,7 +57,6 @@ class Landing extends Component {
             </div>
           </li>
         </ul>
-        {/* </div> */}
 
         <div class="container">
           <div class="codrops-top">

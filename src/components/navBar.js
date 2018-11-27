@@ -5,57 +5,24 @@ import { GoogleLogout } from "react-google-login";
 const Nav = props => {
   const handleLogout = () => {
     sessionStorage.clear();
-    console.log("it worked!");
   };
   return (
-    <div>
-      <ul className="nav-ul">
-        <li className="nav-li">
-          <a>
-            <Link className="navbar-brand" to="/add">
-              Add Trip
-            </Link>
-          </a>
-        </li>
-        <li className="nav-li">
-          <a>
-            <Link className="navbar-brand" to="/next">
-              Upcoming Trips
-            </Link>
-          </a>
-        </li>
-        <li className="nav-li">
-          <a>
-            <Link className="navbar-brand" to="/mess">
-              Messages
-            </Link>
-          </a>
-        </li>
-        <li className="nav-li">
-          <a>
-            <Link className="navbar-brand" to="/viewprofile">
-              Profile
-            </Link>
-          </a>
-        </li>
-        <li className="nav-li">
-          <a>
-            <Link
-              onClick={() => handleLogout()}
-              className="navbar-brand"
-              to="/"
-            >
-              Logout
-            </Link>
-          </a>
-
-          {/* <GoogleLogout
-              onClick={() => this.handleLogout()}
-              buttonText="Logout"
-              onLogoutSuccess=
-            /> */}
-        </li>
-      </ul>
+    <div className="nav-div">
+      <Link className="nav-link" to="/add">
+        Add Trip
+      </Link>
+      <Link className="nav-link" to="/next">
+        Upcoming Trips
+      </Link>
+      <Link className="nav-link" to="/mess">
+        Messages
+      </Link>
+      <Link className="nav-link" to="/viewprofile">
+        Profile
+      </Link>
+      <Link className="nav-link" onClick={() => handleLogout()} to="/">
+        Logout
+      </Link>
     </div>
   );
 };
