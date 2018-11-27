@@ -77,7 +77,8 @@ var rootReducer = (state = initialState, action) => {
       });
     case SEND_MESSAGE:
       return Object.assign({}, state, {
-        selectedConnection: { ...selectedConnection } //needs fixing
+        // selectedConnection: {...selectedConnection, } //needs fixing
+
       });
     //spread op
     case UNSELECT_TRIP:
