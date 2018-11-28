@@ -5,6 +5,11 @@ import { GoogleLogout } from "react-google-login";
 const Nav = props => {
   const handleLogout = () => {
     sessionStorage.clear();
+    localStorage.clear();
+    let auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(() => {
+      auth2.disconnect().then(window.location.reload());
+    });
   };
   return (
     <div className="nav-div">
@@ -20,9 +25,7 @@ const Nav = props => {
       <Link className="nav-link" to="/viewprofile">
         Profile
       </Link>
-      <Link className="nav-link" onClick={() => handleLogout()} to="/">
-        Logout
-      </Link>
+      <GoogleLogout onLogoutSuccess={handleLogout} />
     </div>
   );
 };
