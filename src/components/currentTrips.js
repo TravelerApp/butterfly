@@ -34,7 +34,6 @@ class Next extends React.Component {
     this.props.selectPossConAction(value);
   }
   handleConnectButton(value) {
-    //do stuff
     console.log("Making a Connection with: ", value);
     axios
       .post("/message", {
@@ -47,7 +46,7 @@ class Next extends React.Component {
               text: `Hey there, ${
                 this.props.profile.username
               } would like to connect with you!`,
-              timestamp: "now"
+              timestamp: Date.now()
             }
           ]
         },
@@ -89,7 +88,10 @@ class Next extends React.Component {
           />
         ))}
       </div>
-    ) : (
+    ) : 
+    // ADD condition here so that if there are NO current trips saved, we display somehting like
+    // "add trips to view possible connections"
+    (
       <div>
         <Nav />
         <h3>Your Upcoming Trips</h3>
