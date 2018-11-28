@@ -43,14 +43,14 @@ app.get("/initial/:authid", (req, res) => {
 app.post("/user", (req, res) => {
   db.postUser(req.body.auth_id)
     .then(data => {
-      console.log("user auth_id successfully inserted into users database");
+      //console.log("user auth_id successfully inserted into users database");
       res.sendStatus(201); //res.status(201).send(data);
     })
     .catch(err => {
-      console.log(
-        "error received trying to insert auth_id into database:",
-        err
-      );
+      // console.log(
+      //   "error received trying to insert auth_id into database:",
+      //   err
+      // );
       res.status(409).send(err);
     });
 });
@@ -58,28 +58,28 @@ app.post("/user", (req, res) => {
 app.patch("/user", (req, res) => {
   db.updateUserProfile(req.body)
     .then(profile => {
-      console.log("user's profile successfully updated");
+      //console.log("user's profile successfully updated");
       res.status(200).json(profile[0]);
     })
     .catch(err => {
-      console.log("error received trying to update user's profile:", err);
+      //console.log("error received trying to update user's profile:", err);
       res.status(400).send(err);
     });
 });
 
 // ----------------TRIPS TABLE----------------
 app.post("/trip", (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
   db.createTrip(req.body)
     .then(trip => {
-      console.log(
-        "trip successfully inserted into database, returning trip with connections:",
-        trip
-      );
+      // console.log(
+      //   "trip successfully inserted into database, returning trip with connections:",
+      //   trip
+      // );
       res.status(201).json(trip);
     })
     .catch(err => {
-      console.log("error received trying to add trip to database:", err);
+      // console.log("error received trying to add trip to database:", err);
       res.status(400).send(err);
     });
 });
@@ -88,11 +88,11 @@ app.post("/trip", (req, res) => {
 app.post("/message", (req, res) => {
   db.createChat(req.body)
     .then(chat => {
-      console.log("chat successfully created, returning chat object:", chat);
+      // console.log("chat successfully created, returning chat object:", chat);
       res.status(201).send(chat);
     })
     .catch(err => {
-      console.log("error received trying to create new chat:", err);
+      // console.log("error received trying to create new chat:", err);
       res.status(400).send(err);
     });
 });
@@ -100,11 +100,11 @@ app.post("/message", (req, res) => {
 app.patch("/message", (req, res) => {
   db.updateChat(req.body)
     .then(updatedMessages => {
-      console.log("chat successfully created, returning chat object:", updatedMessages);
+      // console.log("chat successfully created, returning chat object:", updatedMessages);
       res.status(201).send(updatedMessages);
     })
     .catch(err => {
-      console.log("error received trying to create new chat:", err);
+      // console.log("error received trying to create new chat:", err);
       res.status(400).send(err);
     });
 });

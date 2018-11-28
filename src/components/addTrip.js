@@ -29,7 +29,7 @@ class Add extends React.Component {
     this.countrySelected = this.countrySelected.bind(this);
   }
   componentDidMount() {
-    console.log(this.props, "PROPS ON ADD MOUNT");
+    //console.log(this.props, "PROPS ON ADD MOUNT");
     let uniqueCountries = [];
     // change this to use cities from store ************************
     this.props.cities.forEach(element => {
@@ -47,17 +47,17 @@ class Add extends React.Component {
     // });
     this.props.selectCountryAction(e.target.value);
     setTimeout(() => {
-      console.log(this.props.currentCountry, "delayed");
+      //console.log(this.props.currentCountry, "delayed");
       this.renderCities(this.props.currentCountry);
     }, 100); //on state/props did update?
   }
   citySelected(e) {
-    console.log(e.target.value, "<--see me?");
+    //console.log(e.target.value, "<--see me?");
     this.props.selectCityAction(e.target.value);
   }
 
   renderCities(countryName) {
-    console.log("tick", countryName);
+    //console.log("tick", countryName);
     let allCities = [];
     data.data.forEach(element => {
       if (element.country === countryName) {
@@ -65,13 +65,13 @@ class Add extends React.Component {
       }
     });
     //this.setState({ currentCities: allCities });
-    console.log(allCities, "<---cities");
+    //console.log(allCities, "<---cities");
     this.props.selectCitiesAction(allCities);
     this.props.selectCityAction(allCities[0].city);
   }
   handleAddToMyTripsClick() {
-    console.log("adding to trips");
-    console.log(this.props, "clicked!");
+    // console.log("adding to trips");
+    // console.log(this.props, "clicked!");
 
     //this.setState({ tripAdded: true });
 
@@ -79,14 +79,14 @@ class Add extends React.Component {
     this.props.toggleTripAddedAction(true);
   }
   handleSaveTripClick(value) {
-    console.log(this.props, "props here");
+    //console.log(this.props, "props here");
     let indexOfCity;
     this.props.cities.forEach(element => {
       if (element.city === this.props.currentCity) {
         indexOfCity = element.city_id;
       }
     });
-    console.log(indexOfCity, "<--- success?");
+    //console.log(indexOfCity, "<--- success?");
     value.Destination = this.props.currentCity;
     axios
       .post("/trip", {
@@ -97,14 +97,14 @@ class Add extends React.Component {
         purpose: value.Reason
       })
       .then(res => {
-        console.log("after request", res.data);
+        // console.log("after request", res.data);
         this.props.addTripAction(res.data);
         this.props.toggleTripAddedAction(false);
 
         //addtrip action, update state, redirect to upcoming trips
       })
       .catch(err => {
-        console.log("error in save trip request", err);
+        // console.log("error in save trip request", err);
       });
   }
   render() {
