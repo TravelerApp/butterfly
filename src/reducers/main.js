@@ -6,7 +6,8 @@ import {
   SELECT_CITY,
   SELECT_POSS_CON,
   SELECT_CONNECTION,
-  SEND_MESSAGE,
+  NEW_MESSAGE,
+  UPDATE_MESSAGES,
   UNSELECT_TRIP,
   LOG_OUT,
   GRAB_COUNTRIES,
@@ -20,7 +21,7 @@ const initialState = {
   cities: null,
   loggedIn: null, //user unique id (payload from login return)
   profile: null, // name, picture, country, language, interests
-  currentTrips: ["France", "Germany", "Poland"], //array of trips
+  currentTrips: [], //array of trips
   messages: null, // array of messages
   selectedTrip: null, // current trip view
   selectedPossCon: null, // possible connections user list
@@ -29,7 +30,8 @@ const initialState = {
   currentCountry: "select a country",
   currentCity: null,
   currentCities: ["select a country to see cities"],
-  tripAdded: false
+  tripAdded: false,
+  newUser: true
 };
 
 var rootReducer = (state = initialState, action) => {
@@ -74,11 +76,17 @@ var rootReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         selectedConnection: action.payload
       });
-    case SEND_MESSAGE:
-      return Object.assign({}, state, {
-        //selectedConnection: {...selectedConnection, } //needs fixing
+    case NEW_MESSAGE:
+      let newSelectedConnection = Object.assign({}, state.selectedConnection, {
+        chat: action.payload
       });
-    //spread op
+      return Object.assign({}, state, {
+        selectedConnection: newSelectedConnection
+      });
+    case UPDATE_MESSAGES:
+      return Object.assign({}, state, {
+        messages: action.payload
+      });
     case UNSELECT_TRIP:
       return Object.assign({}, state, {
         selectedTrip: null
@@ -105,7 +113,7 @@ var rootReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         cities: action.payload.cities,
         profile: action.payload.profile,
-        currentTrips: action.payload.upcomingTrips,
+        currentTrips: action.payload.upcomingTrips || [],
         messages: action.payload.messages,
         selectedTrip: null,
         selectedPossCon: null,
