@@ -51,11 +51,28 @@ const getConnections = function(trip) {
     .then(overlaps => {
       return Promise.all(overlaps.rows.map(getUserForOverlap));
     })
-    .then(formattedConnections => {
-      trip.connections = formattedConnections;
-      return trip;
-    });
-};
+  .then(formattedConnections => {
+    trip.connections = formattedConnections;
+    return trip;
+  })
+  }
+
+  const getChatsForUser = function(auth_id) {
+    return knex.select('chat_id', 'user1', 'user2', 'updated_at').from('chats')
+      .then(allChats => {
+          let myChats = allChats.filter(chat => Object.values(chat).includes(auth_id));
+          let sortedChats = myChats.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+          let chatRequests = sortedChats.map(chat => {
+            let otheruser = chat.user1 === `${auth_id}` ? chat.user2 : chat.user1;
+            return {
+              chat_id: chat.chat_id,
+              otheruser
+            }
+          })
+        return Promise.all(chatRequests.map(getChatObjectWithOtherUser))
+      })
+  }
+
 
 // ----------------INITIAL QUERY----------------
 const getAllUserInformation = auth_id => {
@@ -63,26 +80,9 @@ const getAllUserInformation = auth_id => {
     // get all cities
     knex.raw(`SELECT * FROM cities`),
     // get user profile
-    knex.raw(`SELECT * FROM users WHERE auth_id = :auth_id`, {
-      auth_id: `${auth_id}`
-    }),
+    knex.raw(`SELECT * FROM users WHERE auth_id = :auth_id`, {auth_id: `${auth_id}`}),
     //get user's chats
-    knex
-      .select("chat_id", "user1", "user2")
-      .from("chats")
-      .then(allChats => {
-        let myChats = allChats.filter(chat =>
-          Object.values(chat).includes(auth_id)
-        );
-        let chatRequests = myChats.map(chat => {
-          let otheruser = chat.user1 === `${auth_id}` ? chat.user2 : chat.user1;
-          return {
-            chat_id: chat.chat_id,
-            otheruser
-          };
-        });
-        return Promise.all(chatRequests.map(getChatObjectWithOtherUser));
-      }),
+    getChatsForUser(auth_id),
     // get trips and all related data
     knex
       .select()
@@ -147,7 +147,8 @@ createTrip = trip => {
     });
 };
 
-// ----------------MESSAGES CREATE/UPDATE----------------
+
+// ----------------MESSAGES CREATE/UPDATE/FETCH----------------
 createChat = chat => {
   return knex("chats")
     .insert({
@@ -168,19 +169,17 @@ createChat = chat => {
     });
 };
 
-updateChat = message => {
-  console.log(message);
-  // return knex("chats").where({chat_id: message.chat_id})
-  //   .update({
-  //     trip_user: body.trip_user,
-  //     trip_city: body.trip_city,
-  //     trip_start: body.trip_start,
-  //     trip_end: body.trip_end,
-  //     purpose: body.purpose
-  // }).returning('*')
-  // .then(trip => {
-  //   return getConnections({details: trip[0], connections: []});
-  // })
+updateChat = update => {
+  console.log(update);
+  return knex("chats").where({chat_id: update.chat.chat_id})
+    .update({
+      messages: update.chat.messages,
+      current_length: update.chat.current_length,
+      [update.viewCountToUpdate]: update.chat[update.viewCountToUpdate]
+  })
+  .then(data => {
+    return getChatsForUser(`${update.user}`);
+  })
 };
 
 module.exports = {
