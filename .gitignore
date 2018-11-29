@@ -3,3 +3,7 @@ dist/
 package-lock.json
 config.js
 .env
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
