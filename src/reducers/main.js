@@ -23,6 +23,7 @@ const initialState = {
   profile: null, // name, picture, country, language, interests
   currentTrips: [], //array of trips
   messages: null, // array of messages
+  // messagesToRender: null, // messages filtered for message length > 1
   selectedTrip: null, // current trip view
   selectedPossCon: null, // possible connections user list
   selectedConnection: null, // this is the connection whose message history you are currently viewing
@@ -102,6 +103,7 @@ var rootReducer = (state = initialState, action) => {
         profile: null,
         currentTrips: null,
         messages: null,
+        // messagesToRender: null,
         selectedTrip: null,
         selectedPossCon: null,
         selectedConnection: null,
@@ -110,11 +112,13 @@ var rootReducer = (state = initialState, action) => {
         currentCities: null
       });
     case GRAB_EVERYTHING:
+      // build up connectedUsers object
       return Object.assign({}, state, {
         cities: action.payload.cities,
         profile: action.payload.profile,
         currentTrips: action.payload.upcomingTrips || [],
         messages: action.payload.messages,
+        // connectedUsers: object built above
         selectedTrip: null,
         selectedPossCon: null,
         selectedConnection: null

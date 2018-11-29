@@ -16,6 +16,7 @@ exports.up = knex =>
       table.increments('chat_id').primary();
       table.string('user1').references('auth_id').inTable('users').notNullable().onDelete('cascade');
       table.string('user2').references('auth_id').inTable('users').notNullable().onDelete('cascade');
+      table.boolean('connected').defaultTo(false);
       table.json('messages');
       table.integer('current_length');
       table.integer('lastViewed1');

@@ -49,6 +49,7 @@ const getConnections = function(trip) {
       }
     )
     .then(overlaps => {
+      //filter overlaps.rows agains blocked array/object
       return Promise.all(overlaps.rows.map(getUserForOverlap));
     })
   .then(formattedConnections => {
@@ -57,9 +58,13 @@ const getConnections = function(trip) {
   })
   }
 
-  const getChatsForUser = function(auth_id) {
+  const getAllChatsForUser = function(auth_id) {
+    // given an auth_id, get that profile, access the blocked users array/object
     return knex.select('chat_id', 'user1', 'user2', 'updated_at').from('chats')
-      .then(allChats => {
+    .then(allChats => {
+          // chat=> chat[user1] === auth_id || chat[user2] === auth_id
+          // add to filter - && !blockedarray.includes(chat[user1]) || !blockedarray.includes(chat[user2])
+          // add to filter - && !(chat[user1] in blockedObject) || !(chat[user2] in blockedObject)
           let myChats = allChats.filter(chat => Object.values(chat).includes(auth_id));
           let sortedChats = myChats.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
           let chatRequests = sortedChats.map(chat => {
@@ -82,9 +87,10 @@ const getAllUserInformation = auth_id => {
     // get user profile
     knex.raw(`SELECT * FROM users WHERE auth_id = :auth_id`, {auth_id: `${auth_id}`}),
     //get user's chats
-    getChatsForUser(auth_id),
+    getAllChatsForUser(auth_id),
     // get trips and all related data
     knex
+    // given an auth_id, get that profile, access the blocked users array
       .select()
       .from("trips")
       .where("trip_user", `${auth_id}`)
@@ -92,6 +98,7 @@ const getAllUserInformation = auth_id => {
         let userTripsArray = userTrips.map(userTrip => {
           return { details: userTrip, connections: [] };
         });
+        // make getConnections take an array of blocked users?
         return Promise.all(userTripsArray.map(getConnections));
       })
   ];
@@ -178,7 +185,7 @@ updateChat = update => {
       [update.viewCountToUpdate]: update.chat[update.viewCountToUpdate]
   })
   .then(data => {
-    return getChatsForUser(`${update.user}`);
+    return getAllChatsForUser(`${update.user}`);
   })
 };
 

@@ -14,16 +14,18 @@ class Mess extends React.Component {
     this.state = {
       text: "",
     };
-
     this.send = this.send.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
-    if (this.props.messages) {
-      this.props.selectConUserAction(this.props.messages[0]);
-    }
+    // if (this.props.messages) {
+    //   let messagesToRender = this.props.messages.filter(message => !(message.chat.messages.messages.length === 1 && message.chat.messages.messages[0].author === this.props.loggedIn));
+    //   if (messagesToRender.length) {
+    //   this.props.selectConUserAction(messagesToRender[0]);
+    //   }
+    // }
   }
 
   send() {
@@ -55,6 +57,7 @@ class Mess extends React.Component {
     .then(updatedMessages => {
       // update store's messages array
       this.props.updateMessagesAction(updatedMessages.data);
+      // need to rebuild connetedUsers object in store************************************************
     })
     .catch(err => {
       console.log('error returned from call to update chat in database:', err);
@@ -87,9 +90,11 @@ class Mess extends React.Component {
     (
       <div>
         <Nav />
+      <h1>THIS IS YOUR TRIP WITH {this.props.selectedConnection.otheruser.username} TO {this.props.cities[this.props.selectedConnection.chat.chat_city - 1].city}</h1>
         <div className="containerDiv">
             <div className="chatWindowDiv" ref="wrap">
               <ul className="chatbox">
+              {/* // if messages array is empty, render dummy heading message - "start a conversation!" */}
                 {this.props.selectedConnection.chat.messages.messages.map(
                   (message, i) => (
                     <li
@@ -149,6 +154,7 @@ class Mess extends React.Component {
         <div className="connectionsDiv">
           <h3>Connections:</h3>
           <ul>
+            {/* // before rendering out connections, filter for message objects where "connection:true" */}
             {this.props.messages.map((message, i) =>
               <li
                 key={i}

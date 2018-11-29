@@ -41,13 +41,13 @@ class Next extends React.Component {
         receiver: value.connectionProfile.auth_id,
         messages: {
           messages: [
-            {
-              author: this.props.loggedIn,
-              text: `Hey there, ${
-                this.props.profile.username
-              } would like to connect with you!`,
-              timestamp: Date.now()
-            }
+            // {
+            //   author: this.props.loggedIn,
+            //   text: `Hey there, ${
+            //     this.props.profile.username
+            //   } would like to connect with you!`,
+            //   timestamp: Date.now()
+            // }
           ]
         },
         chat_city: value.connectionTrip.trip_city
@@ -77,6 +77,7 @@ class Next extends React.Component {
           handleClick={this.handleConnectButton.bind(this)}
         />
         <h3>Potential Connections</h3>
+        {/*  before mapping out, filter selectedTrip connections for users who are in the connected users array */}
         {this.props.selectedTrip.connections.map((possCon, i) => (
           <Poss
             value={possCon}
@@ -88,14 +89,14 @@ class Next extends React.Component {
           />
         ))}
       </div>
-    ) : 
-    // ADD condition here so that if there are NO current trips saved, we display somehting like
-    // "add trips to view possible connections"
+    ) :
+    // ADD another ternary here that checks if if there are NO current trips saved (either array is empty or value is null),
+    //   -> we display somehting like "add trips to view possible connections"
     (
       <div>
         <Nav />
         <h3>Your Upcoming Trips</h3>
-        <h5>Click to View Connections!</h5>
+        <h5>CLICK SEE OTHER COOL PEOPLE TRAVELLING TO THE SAME PLACE AT THE SAME TIME!</h5>
         {this.props.currentTrips.map((trip, i) => (
           <Trip
             value={trip}
