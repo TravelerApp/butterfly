@@ -11,7 +11,7 @@
   ],
   "Volumes": [
     {
-      "HostDirectory": "/var/app/butterfly"
+      "HostDirectory": "/var/lib/docker/containers"
     }
   ]
 }
