@@ -11,7 +11,8 @@
   ],
   "Volumes": [
     {
-      "HostDirectory": "/var/lib/docker/containers"
+      "HostDirectory": "/var/app/current/",
+      "ContainerDirectory": "/var/lib/docker/containers"
     }
   ]
 }
