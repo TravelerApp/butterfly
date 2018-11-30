@@ -27,6 +27,34 @@ module.exports = [{
   purpose: 'planning on eating my weight in croissants'
 },
 {
+  trip_user: '1',
+  trip_city: 10,
+  trip_start: '2019-07-14',
+  trip_end: '2019-07-25',
+  purpose: 'i wonder which city this is'
+},
+{
+  trip_user: '1',
+  trip_city: 11,
+  trip_start: '2019-08-14',
+  trip_end: '2019-08-25',
+  purpose: 'i have no idea where I am going'
+},
+{
+  trip_user: '1',
+  trip_city: 12,
+  trip_start: '2020-08-14',
+  trip_end: '2020-08-25',
+  purpose: 'give me some overlaps'
+},
+{
+  trip_user: '1',
+  trip_city: 13,
+  trip_start: '2020-08-14',
+  trip_end: '2020-08-25',
+  purpose: 'i want to swim with sharks'
+},
+{
   trip_user: '2',
   trip_city: 1,
   trip_start: '2018-12-18',
@@ -83,6 +111,34 @@ module.exports = [{
   purpose: 'want to make practice my japanese as much as possible'
 },
 {
+  trip_user: '3',
+  trip_city: 10,
+  trip_start: '2019-07-18',
+  trip_end: '2019-07-28',
+  purpose: 'i just want to do fun things'
+},
+{
+  trip_user: '3',
+  trip_city: 11,
+  trip_start: '2019-08-16',
+  trip_end: '2019-08-22',
+  purpose: 'this sucks lets go to mexico'
+},
+{
+  trip_user: '3',
+  trip_city: 12,
+  trip_start: '2020-08-14',
+  trip_end: '2020-08-25',
+  purpose: 'give me some overlaps'
+},
+{
+  trip_user: '3',
+  trip_city: 13,
+  trip_start: '2020-08-14',
+  trip_end: '2020-08-25',
+  purpose: 'i want to swim with sharks'
+},
+{
   trip_user: '4',
   trip_city: 1,
   trip_start: '2018-12-22',
@@ -109,5 +165,33 @@ module.exports = [{
   trip_start: '2019-10-14',
   trip_end: '2019-10-20',
   purpose: 'das boooooooot'
-}
+},
+{
+  trip_user: '4',
+  trip_city: 10,
+  trip_start: '2019-07-18',
+  trip_end: '2019-07-28',
+  purpose: 'do i have any friends?'
+},
+{
+  trip_user: '4',
+  trip_city: 11,
+  trip_start: '2019-08-16',
+  trip_end: '2019-08-22',
+  purpose: 'noone wants to hang out with me :((('
+},
+{
+  trip_user: '4',
+  trip_city: 12,
+  trip_start: '2020-08-14',
+  trip_end: '2020-08-25',
+  purpose: 'give me some overlaps'
+},
+{
+  trip_user: '4',
+  trip_city: 13,
+  trip_start: '2020-08-14',
+  trip_end: '2020-08-25',
+  purpose: 'i want to swim with sharks'
+},
 ]

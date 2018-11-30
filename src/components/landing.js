@@ -24,13 +24,12 @@ class Landing extends Component {
       axios
         .get(`/initial/${this.props.loggedIn}`)
         .then(res => {
-          console.log(res.data, " res..");
-          setTimeout(() => {
+          //setTimeout(() => {
             this.props.grabEverythingAction(res.data);
-          }, 1000);
-          setTimeout(() => {
-            console.log(this.props, "props after request");
-          }, 2500);
+          //}, 1000);
+          ////setTimeout(() => {
+            //console.log(this.props, "props after request");
+          //}, 2500);
         })
         .catch(err => {
           console.log("Error: ", err);

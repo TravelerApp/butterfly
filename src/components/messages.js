@@ -20,13 +20,12 @@ class Mess extends React.Component {
   }
 
   componentDidMount() {
-    // if (this.props.messages) {
-    //   let messagesToRender = this.props.messages.filter(message => !(message.chat.messages.messages.length === 1 && message.chat.messages.messages[0].author === this.props.loggedIn));
-    //   if (messagesToRender.length) {
-    //   this.props.selectConUserAction(messagesToRender[0]);
-    //   }
-    // }
-  }
+    if (this.props.messages) {
+      console.log('allmessages:', this.props.messages)
+      console.log('messages[0]:', this.props.messages[0])
+      this.props.selectConUserAction(this.props.messages[0]);
+      }
+    }
 
   send() {
     // create new message object to add to array
@@ -57,7 +56,6 @@ class Mess extends React.Component {
     .then(updatedMessages => {
       // update store's messages array
       this.props.updateMessagesAction(updatedMessages.data);
-      // need to rebuild connetedUsers object in store************************************************
     })
     .catch(err => {
       console.log('error returned from call to update chat in database:', err);
@@ -76,8 +74,10 @@ class Mess extends React.Component {
   }
 
   componentDidUpdate() {
-    var el = this.refs.wrap;
-    el.scrollTop = el.scrollHeight;
+    if (this.refs.wrap) {
+      var el = this.refs.wrap;
+      el.scrollTop = el.scrollHeight;
+    }
   }
 
   handleConnectionClick(user) {
@@ -85,6 +85,13 @@ class Mess extends React.Component {
   }
 
   render() {
+    console.log('selectedConnection:', this.props.selectedConnection);
+    let messagesToRender;
+    if (this.props.selectedConnection === null) {
+      messagesToRender = null
+    } else {
+      messagesToRender = this.props.selectedConnection.chat.messages.messages.length ? this.props.selectedConnection.chat.messages.messages : null;
+    }
 
     return this.props.selectedConnection ?
     (
@@ -92,10 +99,10 @@ class Mess extends React.Component {
         <Nav />
       <h1>THIS IS YOUR TRIP WITH {this.props.selectedConnection.otheruser.username} TO {this.props.cities[this.props.selectedConnection.chat.chat_city - 1].city}</h1>
         <div className="containerDiv">
-            <div className="chatWindowDiv" ref="wrap">
+            { messagesToRender ?
+              (<div className="chatWindowDiv" ref="wrap">
               <ul className="chatbox">
-              {/* // if messages array is empty, render dummy heading message - "start a conversation!" */}
-                {this.props.selectedConnection.chat.messages.messages.map(
+                {messagesToRender.map(
                   (message, i) => (
                     <li
                       key={i}
@@ -132,7 +139,9 @@ class Mess extends React.Component {
                   )
                 )}
               </ul>
-            </div>
+            </div>) :
+          (<div>SEND A MESSAGE, GET THE CONVERSATION GOING!!!!!!!!</div>)
+          }
             <div className="chatFormDiv">
               <form onSubmit={this.handleSubmit}>
                 <input
@@ -154,8 +163,8 @@ class Mess extends React.Component {
         <div className="connectionsDiv">
           <h3>Connections:</h3>
           <ul>
-            {/* // before rendering out connections, filter for message objects where "connection:true" */}
-            {this.props.messages.map((message, i) =>
+            {this.props.messages.filter(message => message.chat.connected === true)
+            .map((message, i) =>
               <li
                 key={i}
                 onClick={this.handleConnectionClick.bind(this, message)}
@@ -175,6 +184,7 @@ class Mess extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    cities: state.cities,
     messages: state.messages,
     profile: state.profile,
     loggedIn: state.loggedIn,

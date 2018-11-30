@@ -96,29 +96,39 @@ module.exports = [{
   user2: '4',
   connected: true,
   messages: {messages:[]},
-  current_length: 4,
-  lastViewed1: 4,
-  lastViewed2: 2,
+  current_length: 0,
+  lastViewed1: 0,
+  lastViewed2: 0,
   chat_city: 3
 },
 {
-  user1: '2',
-  user2: '4',
+  user1: '4',
+  user2: '1',
   connected: false,
   messages: {messages:[]},
-  current_length: 4,
-  lastViewed1: 4,
-  lastViewed2: 2,
-  chat_city: 4
+  current_length: 0,
+  lastViewed1: 0,
+  lastViewed2: 0,
+  chat_city: 10
 },
 {
-  user1: '2',
+  user1: '1',
   user2: '4',
   connected: false,
   messages: {messages:[]},
-  current_length: 4,
-  lastViewed1: 4,
-  lastViewed2: 2,
-  chat_city: 4
+  current_length: 0,
+  lastViewed1: 0,
+  lastViewed2: 0,
+  chat_city: 11
+},
+{
+  user1: '1',
+  user2: '4',
+  connected: false,
+  messages: {messages:[]},
+  current_length: 0,
+  lastViewed1: 0,
+  lastViewed2: 0,
+  chat_city: 12
 }
 ]

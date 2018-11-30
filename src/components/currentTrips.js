@@ -19,7 +19,7 @@ class Next extends React.Component {
     // };
   }
   componentDidMount() {
-    console.log(this.props, "<----props are here");
+    console.log('currentTrips mounting props:', this.props);
   }
   handleTripClick(value) {
     console.log("redux", value);
@@ -117,7 +117,8 @@ const mapStateToProps = state => {
     selectedTrip: state.selectedTrip,
     selectedPossCon: state.selectedPossCon,
     loggedIn: state.loggedIn,
-    profile: state.profile
+    profile: state.profile,
+    connectionsStatus: state.connectionsStatus
   };
 };
 const mapDispatchToProps = dispatch => {
