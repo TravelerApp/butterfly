@@ -8,7 +8,8 @@
     "server": "nodemon server/server.js",
     "build": "webpack --mode production",
     "create-db": "createdb butterflies; knex migrate:latest",
-    "seed-db": "knex seed:run"
+    "seed-db": "knex seed:run",
+    "reset-db": "knex migrate:rollback; knex migrate:latest; knex seed:run"
   },
   "author": "",
   "license": "ISC",

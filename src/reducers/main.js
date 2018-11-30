@@ -8,7 +8,7 @@ import {
   SELECT_CONNECTION,
   NEW_MESSAGE,
   UPDATE_MESSAGES,
-  UNSELECT_TRIP,
+  //UNSELECT_TRIP,
   LOG_OUT,
   GRAB_COUNTRIES,
   SELECT_COUNTRY,
@@ -34,6 +34,28 @@ const initialState = {
   newUser: true,
   connectionsStatus: null
 };
+
+const buildConnectionsStatuses = function (messages) {
+  let statuses = {
+    active: {},
+    requestSent: {},
+    requestReceived: {}
+  };
+
+  for (let message of messages) {
+    let otherId = message.otheruser.auth_id;
+    let messageCity = message.chat.chat_city;
+    if (message.chat.connected === true) {
+      statuses.active[otherId] = statuses.active[otherId] ? statuses.active[otherId].concat(messageCity) : [messageCity];
+    } else if (message.chat.user2 === message.otheruser.auth_id) {
+      statuses.requestSent[otherId] = statuses.requestSent[otherId] ? statuses.requestSent[otherId].concat(messageCity) : [messageCity];
+    } else {
+      statuses.requestReceived[otherId] = statuses.requestReceived[otherId] ? statuses.requestReceived[otherId].concat(messageCity) : [messageCity];
+    }
+  }
+
+  return statuses;
+}
 
 var rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -85,15 +107,14 @@ var rootReducer = (state = initialState, action) => {
         selectedConnection: newSelectedConnection
       });
     case UPDATE_MESSAGES:
-      // build connectionsStatus object based on action.payload.messages
       return Object.assign({}, state, {
         messages: action.payload,
-        connectionsStatus
+        connectionsStatus: buildConnectionsStatuses(action.payload)
       });
-    case UNSELECT_TRIP:
-      return Object.assign({}, state, {
-        selectedTrip: null
-      });
+    // case UNSELECT_TRIP:
+    //   return Object.assign({}, state, {
+    //     selectedTrip: null
+    //   });
     case LOG_IN:
       return Object.assign({}, state, {
         loggedIn: action.payload
@@ -117,28 +138,13 @@ var rootReducer = (state = initialState, action) => {
         connectionsStatus: null
       });
     case GRAB_EVERYTHING:
-
-      let connectionsStatus = {
-        active: {},
-        connectionRequestSent: {},
-        connectionRequestReceived: {}
-      };
-      for (let message of action.payload.messages) {
-        if (message.chat.connected === true) {
-          connectionsStatus.active[message.otheruser.auth_id] = message.chat.chat_city;
-        } else if (message.chat.user2 === message.otheruser.auth_id) {
-          connectionsStatus.connectionRequestSent[message.otheruser.auth_id] = message.chat.chat_city;
-        } else {
-          connectionsStatus.connectionRequestReceived[message.otheruser.auth_id] = message.chat.chat_city;
-        }
-      }
-
+      // let statuses = buildConnectionsStatuses(action.payload.messages);
       return Object.assign({}, state, {
         cities: action.payload.cities,
         profile: action.payload.profile,
         currentTrips: action.payload.upcomingTrips || [],
         messages: action.payload.messages,
-        connectionsStatus,
+        connectionsStatus: buildConnectionsStatuses(action.payload.messages),
         selectedTrip: null,
         selectedPossCon: null,
         selectedConnection: null

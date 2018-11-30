@@ -49,6 +49,7 @@ class Mess extends React.Component {
     this.props.renderNewMessageAction(chatToUpdate);
     // send call to database to update chat object
     axios.patch('/message', {
+      action: 'new message',
       user: this.props.loggedIn,
       viewCountToUpdate: userViewToUpdate,
       chat: chatToUpdate

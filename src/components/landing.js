@@ -12,7 +12,7 @@ class Landing extends Component {
 
       this.props.saveGoogleId(4); //response.googleId
       axios
-        .post("/user", { auth_id: response.googleId })
+        .post("/user", { auth_id: '4' }) //{ auth_id: response.googleId }
         .then(results => {
           console.log("success!");
           console.log(this.props);

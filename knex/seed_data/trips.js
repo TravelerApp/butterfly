@@ -16,7 +16,7 @@ module.exports = [{
   trip_user: '1',
   trip_city: 3,
   trip_start: '2019-03-06',
-  trip_end: '2019-03-12',
+  trip_end: '2019-03-18',
   purpose: 'planning on eating my weight in al pastor'
 },
 {
@@ -155,8 +155,8 @@ module.exports = [{
 {
   trip_user: '4',
   trip_city: 3,
-  trip_start: '2019-04-14',
-  trip_end: '2019-04-22',
+  trip_start: '2019-03-14',
+  trip_end: '2019-03-22',
   purpose: 'hoping to avoid seeing anyone I know'
 },
 {

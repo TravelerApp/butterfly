@@ -157,36 +157,45 @@ createTrip = trip => {
 
 // ----------------MESSAGES CREATE/UPDATE/FETCH----------------
 createChat = chat => {
+  // double check that the user1/user2/city combo does not already exist in the database
+  // if it does not:
   return knex("chats")
     .insert({
       user1: chat.sender,
       user2: chat.receiver,
       messages: chat.messages,
-      current_length: 1,
-      lastViewed1: 1,
-      lastViewed2: 0,
       chat_city: chat.chat_city
     })
-    .returning(["chat_id", "user2"])
-    .then(chatInfo => {
-      return getChatObjectWithOtherUser({
-        chat_id: chatInfo[0].chat_id,
-        otheruser: chatInfo[0].user2
-      });
+    .then(data => {
+      return getAllChatsForUser(`${chat.sender}`);
     });
 };
 
 updateChat = update => {
   console.log(update);
-  return knex("chats").where({chat_id: update.chat.chat_id})
+  if (update.action === 'complete connection') {
+    return knex('chats').where({
+      user1: update.user1,
+      user2:  update.user2,
+      chat_city: update.chat_city
+    }).update({
+      connected: true
+    })
+    .then(data => {
+    return getAllChatsForUser(`${update.user2}`);
+    })
+  }
+  if (update.action === 'new message') {
+    return knex("chats").where({chat_id: update.chat.chat_id})
     .update({
       messages: update.chat.messages,
       current_length: update.chat.current_length,
       [update.viewCountToUpdate]: update.chat[update.viewCountToUpdate]
-  })
-  .then(data => {
+    })
+    .then(data => {
     return getAllChatsForUser(`${update.user}`);
-  })
+    })
+  }
 };
 
 module.exports = {

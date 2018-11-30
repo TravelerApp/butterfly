@@ -3,61 +3,94 @@ import Nav from "./navBar.js";
 import Trip from "./eachTrip.js";
 import axios from "axios";
 import Poss from "./possibleConnections.js";
-import SelProfile from "./userProfile.js";
+import ConnProfile from "./userProfile.js";
 import { connect } from "react-redux";
 import {
   SELECT_TRIP,
   SELECT_POSS_CON,
-  UNSELECT_TRIP
+  UNSELECT_TRIP,
+  UPDATE_MESSAGES
 } from "../actions/actions.js";
 
 class Next extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   selected: null
-    // };
   }
+
   componentDidMount() {
     console.log('currentTrips mounting props:', this.props);
   }
+
   handleTripClick(value) {
-    console.log("redux", value);
-    // this.setState({
-    //   selected: value
-    // });
     this.props.selectTripAction(value);
     this.props.selectPossConAction(null);
   }
+
   handlePossConClick(value) {
-    console.log(value, "clicked user");
     this.props.selectPossConAction(value);
   }
-  handleConnectButton(value) {
-    console.log("Making a Connection with: ", value);
-    axios
-      .post("/message", {
-        sender: this.props.loggedIn,
-        receiver: value.connectionProfile.auth_id,
-        messages: {
-          messages: [
-            // {
-            //   author: this.props.loggedIn,
-            //   text: `Hey there, ${
-            //     this.props.profile.username
-            //   } would like to connect with you!`,
-            //   timestamp: Date.now()
-            // }
-          ]
-        },
-        chat_city: value.connectionTrip.trip_city
+
+
+  // -> When (button clicked) to make connection:
+	// -> if auth_id(of possibleConnection) is in CONNECTION_STATUSES.connectionRequestReceived
+	// 	 -> sets selectedPossCon to null (selectpossconaction)
+	// 	 -> call database to update the chat and set CONNECTION:TRUE
+	// 		 -> access chat record by finding unique occurrence of user1/user2/city
+	// 		 -> update connection:TRUE
+	// 	-> query database for allchatsforUser, return them, update the store
+	// 		-> updating store's messages AND connection_statues object
+	// 	[[[[-> NOTIFY USER THAT THEY CAN NOW MESSAGE THIS PERSON???]]]]
+	// 	(This person will now be available in your messages page)
+	// -> if they are NOT in CONNECTION_STATUSES.connectionRequestReceived
+	// 	-> sets selectedPossCon to null (selectpossconaction)
+	// 	-> make axios call to database
+	// 		-> check chat table for where you are user2, they are user1, and the city ids match
+	// 			-> if that is already there follow the instructions above (take that chat object that was found, turn connection to true, get all chats for user, return, update stores messages and conneciton_status object)
+	// 			-> if you don't find this unique occurrence already there
+	// 				-> create initial chat object (with NO messages, and boolean CONNECTION:FALSE)
+	// 				-> have this call return allChats, update the store
+	// 				-> updating store's messages AND connection_statues object
+
+  handleConnectButton(connection) {
+    console.log('making connection with:', connection)
+    console.log("connectionsstatus object:", this.props.connectionsStatus);
+
+    let connectionId = connection.connectionProfile.auth_id;
+    let connectionCity = connection.connectionTrip.trip_city;
+    let pending = this.props.connectionsStatus.requestReceived;
+
+    this.props.selectPossConAction(null);
+
+    if (connectionId in pending && pending[connectionId].includes(connectionCity)) {
+      axios.patch("/message", {
+        action: 'complete connection',
+        user1: connectionId,
+        user2: this.props.loggedIn,
+        chat_city: connectionCity
       })
-      .then(chat => {
-        console.log("successful initial chat", chat);
+      .then(allChats => {
+        console.log("successful connection attempt made", allChats);
+        this.props.updateMessagesAction(allChats.data);
       })
       .catch(err => {
         console.log("error in initial chat request", err);
       });
+    } else {
+      axios.post("/message", {
+        sender: this.props.loggedIn,
+        receiver: connectionId,
+        messages: {
+          messages: []},
+        chat_city: connectionCity
+      })
+      .then(allChats => {
+        console.log("successful connection attempt made", allChats);
+        this.props.updateMessagesAction(allChats.data);
+      })
+      .catch(err => {
+        console.log("error in initial chat request", err);
+      });
+    }
   }
 
   render() {
@@ -72,13 +105,28 @@ class Next extends React.Component {
           }
         </h3>
         <button onClick={() => this.handleTripClick(null)}>Go Back</button>
-        <SelProfile
+        <ConnProfile
           data={this.props.selectedPossCon}
           handleClick={this.handleConnectButton.bind(this)}
         />
         <h3>Potential Connections</h3>
-        {/*  before mapping out, filter selectedTrip connections for users who are in the connected users array */}
-        {this.props.selectedTrip.connections.map((possCon, i) => (
+        {this.props.selectedTrip.connections
+        .filter(possCon => {
+          let testId = possCon.connectionProfile.auth_id;
+          let testCity = possCon.connectionTrip.trip_city;
+          if (!(testId in this.props.connectionsStatus.active || testId in this.props.connectionsStatus.requestSent)) {
+            return true;
+          } else {
+            if (testId in this.props.connectionsStatus.active && this.props.connectionsStatus.active[testId].includes(testCity)) {
+              return false;
+            }
+            if (testId in this.props.connectionsStatus.requestSent && this.props.connectionsStatus.requestSent[testId].includes(testCity)) {
+              return false;
+            }
+            return true;
+          }
+        })
+        .map((possCon, i, filtered) => (
           <Poss
             value={possCon}
             connection={possCon.connectionProfile.username}
@@ -89,9 +137,7 @@ class Next extends React.Component {
           />
         ))}
       </div>
-    ) :
-    // ADD another ternary here that checks if if there are NO current trips saved (either array is empty or value is null),
-    //   -> we display somehting like "add trips to view possible connections"
+    ) : this.props.currentTrips.length ?
     (
       <div>
         <Nav />
@@ -107,9 +153,16 @@ class Next extends React.Component {
           />
         ))}
       </div>
+    ) : (
+    <div>
+      <Nav />
+      Find people heading to the same places you are and then you can chat with them here!
+    </div>
     );
   }
 }
+
+//---------------------------- REDUX ----------------------------
 const mapStateToProps = state => {
   return {
     cities: state.cities,
@@ -121,6 +174,7 @@ const mapStateToProps = state => {
     connectionsStatus: state.connectionsStatus
   };
 };
+
 const mapDispatchToProps = dispatch => {
   return {
     selectTripAction: trip => {
@@ -129,8 +183,11 @@ const mapDispatchToProps = dispatch => {
     selectPossConAction: possCon => {
       dispatch({ type: SELECT_POSS_CON, payload: possCon });
     },
-    unselectTripAction: trip => {
-      dispatch({ type: UNSELECT_TRIP, payload: trip });
+    // unselectTripAction: trip => {
+    //   dispatch({ type: UNSELECT_TRIP, payload: trip });
+    // },
+    updateMessagesAction: messages => {
+      dispatch({ type: UPDATE_MESSAGES, payload: messages });
     }
   };
 };
