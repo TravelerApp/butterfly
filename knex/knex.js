@@ -32,27 +32,25 @@ const getUserForOverlap = function(overlap) {
 };
 
 const getConnections = function(trip, blockedUsers) {
-  //    AND trip_user != :user_trip_user
-  console.log(Object.keys(blockedUsers).concat(trip.details.trip_user));
+  let filteredUsers = Object.keys(blockedUsers).concat(trip.details.trip_user)
+    .map(user => `CAST(${user} AS varchar)`).join(',');
   return knex
-    .raw(
-      `
+  .raw(
+    `
     SELECT * from trips
     WHERE trip_start <= :user_end::date
     AND trip_end >= :user_start::date
-    AND trip_city = :user_trip_city
+    AND trip_city = ${trip.details.trip_city}
+    AND trip_user not in (${filteredUsers})
     `,
-      {
-        user_start: trip.details.trip_start,
-        user_end: trip.details.trip_end,
-        user_trip_city: trip.details.trip_city,
-//        user_trip_user: trip.details.trip_user
-      }
-    )
-    .whereNotIn('trip_user', [Object.keys(blockedUsers).concat(trip.details.trip_user)])
-    .then(overlaps => {
-      return Promise.all(overlaps.rows.map(getUserForOverlap));
-    })
+    {
+      user_start: trip.details.trip_start,
+      user_end: trip.details.trip_end,
+    }
+  )
+  .then(overlaps => {
+    return Promise.all(overlaps.rows.map(getUserForOverlap));
+  })
   .then(formattedConnections => {
     trip.connections = formattedConnections;
     return trip;

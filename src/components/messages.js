@@ -6,8 +6,6 @@ import { connect } from "react-redux";
 import { SELECT_CONNECTION, NEW_MESSAGE, UPDATE_MESSAGES } from "../actions/actions.js";
 import axios from 'axios';
 
-// write final save new message route to DB.
-
 class Mess extends React.Component {
   constructor(props) {
     super(props);
@@ -218,8 +216,8 @@ class Mess extends React.Component {
     ) :
     (<div>
       <Nav />
-      Find people heading to the same places you are and then you can chat with them here!
-    </div>);
+      {this.props.sortedMessageData.ongoingMessages.length ? 'Select a connection to see their messages' : 'Find people heading to the same places you are and then you can chat with them here!'}
+      </div>);
   }
 }
 
