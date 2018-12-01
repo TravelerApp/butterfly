@@ -20,8 +20,12 @@ class Create extends React.Component {
         { name: "Shopping", checked: false },
         { name: "Food", checked: false }
       ],
-      currentCountry: "Select your origin country .."
+      currentCountry: "Select your origin country ..",
+      selectedFile: null,
+      imageUrl: ""
     };
+    this.fileUploadHandler= this.fileUploadHandler.bind(this);
+    this.handleselectedFile = this.handleselectedFile.bind(this);
     this.interestChanged = this.interestChanged.bind(this);
     this.submit = this.submit.bind(this);
     this.fullNameChanged = this.fullNameChanged.bind(this);
@@ -54,6 +58,7 @@ class Create extends React.Component {
     });
   }
   submit() {
+    
     const formattedInterests = {};
     this.state.interests.forEach(int => {
       formattedInterests[int.name] = int.checked;
@@ -62,6 +67,7 @@ class Create extends React.Component {
       auth_id: this.props.loggedIn,
       username: this.state.fullName,
       user_country: this.state.originCountry,
+      picture: this.state.imageUrl,
       primary_lang: this.state.primaryLanguage,
       interests: formattedInterests
     };
@@ -77,6 +83,20 @@ class Create extends React.Component {
         console.log("Error in profile creation: ", err);
       });
   }
+  handleselectedFile(event) {
+    event.preventDefault();
+    this.setState({ selectedFile: event.target.files[0] }, () => this.fileUploadHandler());
+
+  }
+
+  fileUploadHandler(e) {
+    console.log('fileUploadHandler was called ..');
+    const fd = new FormData();
+    fd.append("image", this.state.selectedFile, this.state.selectedFile.name);
+    axios.post("http://localhost:3000/image-upload", fd).then(res => {
+      this.setState({ imageUrl: res.data.imageUrl });
+    });
+  }
   render() {
     return this.props.profile.username ? (
       <Redirect to="/add" />
@@ -91,6 +111,8 @@ class Create extends React.Component {
             placeholder="your name here .."
             onChange={this.fullNameChanged}
           />
+          <h3>Profile Picture: </h3>
+          <input type="file" onChange={this.handleselectedFile} />
           <p>Origin country: </p>
           <select onChange={this.orginCountryChanged.bind(this)}>
             <option>{this.state.currentCountry}</option>
@@ -122,6 +144,7 @@ class Create extends React.Component {
               </div>
             ))}
           </div>
+          
           <input
             type="button"
             value="Create my profile"
