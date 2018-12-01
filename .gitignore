@@ -3,3 +3,4 @@ dist/
 package-lock.json
 config.js
 .env
+aws.config.js
