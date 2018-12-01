@@ -30,34 +30,13 @@ class Next extends React.Component {
     this.props.selectPossConAction(value);
   }
 
-
-  // -> When (button clicked) to make connection:
-	// -> if auth_id(of possibleConnection) is in CONNECTION_STATUSES.connectionRequestReceived
-	// 	 -> sets selectedPossCon to null (selectpossconaction)
-	// 	 -> call database to update the chat and set CONNECTION:TRUE
-	// 		 -> access chat record by finding unique occurrence of user1/user2/city
-	// 		 -> update connection:TRUE
-	// 	-> query database for allchatsforUser, return them, update the store
-	// 		-> updating store's messages AND connection_statues object
-	// 	[[[[-> NOTIFY USER THAT THEY CAN NOW MESSAGE THIS PERSON???]]]]
-	// 	(This person will now be available in your messages page)
-	// -> if they are NOT in CONNECTION_STATUSES.connectionRequestReceived
-	// 	-> sets selectedPossCon to null (selectpossconaction)
-	// 	-> make axios call to database
-	// 		-> check chat table for where you are user2, they are user1, and the city ids match
-	// 			-> if that is already there follow the instructions above (take that chat object that was found, turn connection to true, get all chats for user, return, update stores messages and conneciton_status object)
-	// 			-> if you don't find this unique occurrence already there
-	// 				-> create initial chat object (with NO messages, and boolean CONNECTION:FALSE)
-	// 				-> have this call return allChats, update the store
-	// 				-> updating store's messages AND connection_statues object
-
   handleConnectButton(connection) {
     console.log('making connection with:', connection)
-    console.log("connectionsstatus object:", this.props.connectionsStatus);
+    console.log("sortedMessageData object:", this.props.sortedMessageData);
 
     let connectionId = connection.connectionProfile.auth_id;
     let connectionCity = connection.connectionTrip.trip_city;
-    let pending = this.props.connectionsStatus.requestReceived;
+    let pending = this.props.sortedMessageData.requestReceived;
 
     this.props.selectPossConAction(null);
 
@@ -114,13 +93,13 @@ class Next extends React.Component {
         .filter(possCon => {
           let testId = possCon.connectionProfile.auth_id;
           let testCity = possCon.connectionTrip.trip_city;
-          if (!(testId in this.props.connectionsStatus.active || testId in this.props.connectionsStatus.requestSent)) {
+          if (!(testId in this.props.sortedMessageData.active || testId in this.props.sortedMessageData.requestSent)) {
             return true;
           } else {
-            if (testId in this.props.connectionsStatus.active && this.props.connectionsStatus.active[testId].includes(testCity)) {
+            if (testId in this.props.sortedMessageData.active && this.props.sortedMessageData.active[testId].includes(testCity)) {
               return false;
             }
-            if (testId in this.props.connectionsStatus.requestSent && this.props.connectionsStatus.requestSent[testId].includes(testCity)) {
+            if (testId in this.props.sortedMessageData.requestSent && this.props.sortedMessageData.requestSent[testId].includes(testCity)) {
               return false;
             }
             return true;
@@ -162,6 +141,7 @@ class Next extends React.Component {
   }
 }
 
+
 //---------------------------- REDUX ----------------------------
 const mapStateToProps = state => {
   return {
@@ -171,7 +151,7 @@ const mapStateToProps = state => {
     selectedPossCon: state.selectedPossCon,
     loggedIn: state.loggedIn,
     profile: state.profile,
-    connectionsStatus: state.connectionsStatus
+    sortedMessageData: state.sortedMessageData
   };
 };
 

@@ -32,29 +32,36 @@ const initialState = {
   currentCities: ["select a country to see cities"],
   tripAdded: false,
   newUser: true,
-  connectionsStatus: null
+  sortedMessageData: null
 };
 
-const buildConnectionsStatuses = function (messages) {
-  let statuses = {
+const sortMessageData = function (messages) {
+  let sortedMessages = {
     active: {},
     requestSent: {},
-    requestReceived: {}
+    requestReceived: {},
+    ongoingMessages: [],
+    newConnections: []
   };
 
   for (let message of messages) {
     let otherId = message.otheruser.auth_id;
     let messageCity = message.chat.chat_city;
     if (message.chat.connected === true) {
-      statuses.active[otherId] = statuses.active[otherId] ? statuses.active[otherId].concat(messageCity) : [messageCity];
+      sortedMessages.active[otherId] = sortedMessages.active[otherId] ? sortedMessages.active[otherId].concat(messageCity) : [messageCity];
+      if (message.chat.messages.messages.length === 0) {
+        sortedMessages.newConnections.push(message);
+      } else {
+        sortedMessages.ongoingMessages.push(message);
+      }
     } else if (message.chat.user2 === message.otheruser.auth_id) {
-      statuses.requestSent[otherId] = statuses.requestSent[otherId] ? statuses.requestSent[otherId].concat(messageCity) : [messageCity];
+      sortedMessages.requestSent[otherId] = sortedMessages.requestSent[otherId] ? sortedMessages.requestSent[otherId].concat(messageCity) : [messageCity];
     } else {
-      statuses.requestReceived[otherId] = statuses.requestReceived[otherId] ? statuses.requestReceived[otherId].concat(messageCity) : [messageCity];
+      sortedMessages.requestReceived[otherId] = sortedMessages.requestReceived[otherId] ? sortedMessages.requestReceived[otherId].concat(messageCity) : [messageCity];
     }
   }
 
-  return statuses;
+  return sortedMessages;
 }
 
 var rootReducer = (state = initialState, action) => {
@@ -109,7 +116,7 @@ var rootReducer = (state = initialState, action) => {
     case UPDATE_MESSAGES:
       return Object.assign({}, state, {
         messages: action.payload,
-        connectionsStatus: buildConnectionsStatuses(action.payload)
+        sortedMessageData: sortMessageData(action.payload)
       });
     // case UNSELECT_TRIP:
     //   return Object.assign({}, state, {
@@ -135,19 +142,18 @@ var rootReducer = (state = initialState, action) => {
         currentCities: null,
         tripAdded: false,
         newUser: true,
-        connectionsStatus: null
+        sortedMessageData: null
       });
     case GRAB_EVERYTHING:
-      // let statuses = buildConnectionsStatuses(action.payload.messages);
       return Object.assign({}, state, {
         cities: action.payload.cities,
         profile: action.payload.profile,
         currentTrips: action.payload.upcomingTrips || [],
-        messages: action.payload.messages,
-        connectionsStatus: buildConnectionsStatuses(action.payload.messages),
+        messages: action.payload.messages || [],
+        sortedMessageData: sortMessageData(action.payload.messages),
         selectedTrip: null,
         selectedPossCon: null,
-        selectedConnection: null
+        selectedConnection: null,
       });
     default:
       return state;

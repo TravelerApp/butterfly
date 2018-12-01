@@ -31,7 +31,9 @@ const getUserForOverlap = function(overlap) {
     });
 };
 
-const getConnections = function(trip) {
+const getConnections = function(trip, blockedUsers) {
+  //    AND trip_user != :user_trip_user
+  console.log(Object.keys(blockedUsers).concat(trip.details.trip_user));
   return knex
     .raw(
       `
@@ -39,43 +41,57 @@ const getConnections = function(trip) {
     WHERE trip_start <= :user_end::date
     AND trip_end >= :user_start::date
     AND trip_city = :user_trip_city
-    AND trip_user != :user_trip_user
     `,
       {
         user_start: trip.details.trip_start,
         user_end: trip.details.trip_end,
         user_trip_city: trip.details.trip_city,
-        user_trip_user: trip.details.trip_user
+//        user_trip_user: trip.details.trip_user
       }
     )
+    .whereNotIn('trip_user', [Object.keys(blockedUsers).concat(trip.details.trip_user)])
     .then(overlaps => {
-      //filter overlaps.rows agains blocked array/object
       return Promise.all(overlaps.rows.map(getUserForOverlap));
     })
   .then(formattedConnections => {
     trip.connections = formattedConnections;
     return trip;
   })
+  .catch(err => console.log('error in getConnections:', err))
   }
 
-  const getAllChatsForUser = function(auth_id) {
-    // given an auth_id, get that profile, access the blocked users array/object
+  const getAccessToBlockedArray = function(auth_id) {
+    return knex.select('blocked').from('users').where({auth_id: `${auth_id}`})
+    .then(blocked => blocked[0].blocked)
+  }
+
+  const getAllChatsForUser = async function(auth_id) {
+    let blockedForUser = await getAccessToBlockedArray(auth_id);
     return knex.select('chat_id', 'user1', 'user2', 'updated_at').from('chats')
     .then(allChats => {
-          // chat=> chat[user1] === auth_id || chat[user2] === auth_id
-          // add to filter - && !blockedarray.includes(chat[user1]) || !blockedarray.includes(chat[user2])
-          // add to filter - && !(chat[user1] in blockedObject) || !(chat[user2] in blockedObject)
-          let myChats = allChats.filter(chat => Object.values(chat).includes(auth_id));
-          let sortedChats = myChats.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
-          let chatRequests = sortedChats.map(chat => {
-            let otheruser = chat.user1 === `${auth_id}` ? chat.user2 : chat.user1;
-            return {
-              chat_id: chat.chat_id,
-              otheruser
-            }
-          })
-        return Promise.all(chatRequests.map(getChatObjectWithOtherUser))
+      let myChats = allChats.filter(chat => Object.values(chat).includes(auth_id) && !((chat.user1 in blockedForUser) || (chat.user2 in blockedForUser)));
+      let sortedChats = myChats.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+      let chatRequests = sortedChats.map(chat => {
+      let otheruser = chat.user1 === `${auth_id}` ? chat.user2 : chat.user1;
+        return {
+          chat_id: chat.chat_id,
+          otheruser
+        }
       })
+      return Promise.all(chatRequests.map(getChatObjectWithOtherUser))
+    })
+    .catch(err => console.log('err in getAllChatsForUser:', err))
+  }
+
+  const getAllTripsForUser = async function(auth_id) {
+    let blockedForUser = await getAccessToBlockedArray(auth_id);
+    return knex.select().from("trips").where("trip_user", `${auth_id}`)
+    .then(userTrips => {
+      let userTripsArray = userTrips.map(userTrip => {
+        return { details: userTrip, connections: [] };
+      });
+      return Promise.all(userTripsArray.map((userTrip) => getConnections(userTrip, blockedForUser)));
+    })
   }
 
 
@@ -89,19 +105,8 @@ const getAllUserInformation = auth_id => {
     //get user's chats
     getAllChatsForUser(auth_id),
     // get trips and all related data
-    knex
-    // given an auth_id, get that profile, access the blocked users array
-      .select()
-      .from("trips")
-      .where("trip_user", `${auth_id}`)
-      .then(userTrips => {
-        let userTripsArray = userTrips.map(userTrip => {
-          return { details: userTrip, connections: [] };
-        });
-        // make getConnections take an array of blocked users?
-        return Promise.all(userTripsArray.map(getConnections));
-      })
-  ];
+    getAllTripsForUser(auth_id)
+    ];
 
   return Promise.all(initialQueries)
     .then(completedQueries => {
@@ -111,7 +116,7 @@ const getAllUserInformation = auth_id => {
           ? completedQueries[1].rows[0]
           : null,
         messages: completedQueries[2].length ? completedQueries[2] : null,
-        upcomingTrips: completedQueries[3].length ? completedQueries[3] : null
+        upcomingTrips: completedQueries[3].length ? completedQueries[3] : null,
       };
     })
     .catch(err => ("error received from get initial query:", err));

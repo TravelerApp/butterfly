@@ -20,12 +20,11 @@ class Mess extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.messages) {
-      console.log('allmessages:', this.props.messages)
-      console.log('messages[0]:', this.props.messages[0])
-      this.props.selectConUserAction(this.props.messages[0]);
-      }
+    // change this once we have notifications working
+    if (this.props.sortedMessageData.ongoingMessages.length) {
+      this.props.selectConUserAction(this.props.sortedMessageData.ongoingMessages[0]);
     }
+  }
 
   send() {
     // create new message object to add to array
@@ -85,8 +84,60 @@ class Mess extends React.Component {
     this.props.selectConUserAction(user);
   }
 
+  renderConnections(){
+    let connectionsList = 'Send some messages and people will show up here';
+
+    if (this.props.sortedMessageData.ongoingMessages.length) {
+      connectionsList = (
+          <ul>
+            {this.props.sortedMessageData.ongoingMessages
+            .map((message, i) =>
+              <li
+                key={i}
+                onClick={this.handleConnectionClick.bind(this, message)}
+              >
+                {message.otheruser.username}
+              </li>)}
+          </ul>
+      )
+    }
+    return (
+    <div className="connectionsDiv">
+      Connections:
+      {connectionsList}
+    </div>
+    )
+  }
+
+  renderNewConnections(){
+    let newConnectionsList = 'No recent connections made';
+
+    if (this.props.sortedMessageData.newConnections.length) {
+      newConnectionsList = (
+          <ul>
+            {this.props.sortedMessageData.newConnections
+            .map((message, i) =>
+              <li
+                key={i}
+                onClick={this.handleConnectionClick.bind(this, message)}
+              >
+                {message.otheruser.username}
+              </li>)}
+          </ul>
+      )
+    }
+    return (
+    <div className="newConnectionsDiv">
+      New Connections:
+      {newConnectionsList}
+    </div>
+    )
+  }
+
   render() {
     console.log('selectedConnection:', this.props.selectedConnection);
+
+
     let messagesToRender;
     if (this.props.selectedConnection === null) {
       messagesToRender = null
@@ -98,8 +149,10 @@ class Mess extends React.Component {
     (
       <div>
         <Nav />
-      <h1>THIS IS YOUR TRIP WITH {this.props.selectedConnection.otheruser.username} TO {this.props.cities[this.props.selectedConnection.chat.chat_city - 1].city}</h1>
-        <div className="containerDiv">
+        {this.renderConnections()}
+        {this.renderNewConnections()}
+        <h1>THIS IS YOUR TRIP WITH {this.props.selectedConnection.otheruser.username} TO {this.props.cities[this.props.selectedConnection.chat.chat_city - 1].city}</h1>
+          <div className="containerDiv">
             { messagesToRender ?
               (<div className="chatWindowDiv" ref="wrap">
               <ul className="chatbox">
@@ -161,19 +214,6 @@ class Mess extends React.Component {
             </div>
           </div>
         <ProfileBox profile={this.props.selectedConnection.otheruser}/>
-        <div className="connectionsDiv">
-          <h3>Connections:</h3>
-          <ul>
-            {this.props.messages.filter(message => message.chat.connected === true)
-            .map((message, i) =>
-              <li
-                key={i}
-                onClick={this.handleConnectionClick.bind(this, message)}
-              >
-                {message.otheruser.username}
-              </li>)}
-          </ul>
-        </div>
       </div>
     ) :
     (<div>
@@ -183,13 +223,16 @@ class Mess extends React.Component {
   }
 }
 
+
+//---------------------------- REDUX ----------------------------
 const mapStateToProps = state => {
   return {
     cities: state.cities,
     messages: state.messages,
     profile: state.profile,
     loggedIn: state.loggedIn,
-    selectedConnection: state.selectedConnection
+    selectedConnection: state.selectedConnection,
+    sortedMessageData: state.sortedMessageData
   };
 };
 

@@ -6,7 +6,8 @@ module.exports = [{
   interests: {hiking:true,tours:false,food:true,museums:true,landmarks:false,nightlife:false},
   is_guide: null,
   primary_lang: 'English',
-  secondary_langs: {secondary:['French']}
+  secondary_langs: {secondary:['French']},
+  blocked: {}
 },
 {
   auth_id: '2',
@@ -16,7 +17,8 @@ module.exports = [{
   interests: {hiking:false,tours:false,food:true,museums:false,landmarks:false,nightlife:true},
   is_guide: null,
   primary_lang: 'English',
-  secondary_langs: {secondary:['Irish', 'German']}
+  secondary_langs: {secondary:['Irish', 'German']},
+  blocked: {}
 },
 {
   auth_id: '3',
@@ -26,7 +28,8 @@ module.exports = [{
   interests: {hiking:false,tours:true,food:true,museums:false,landmarks:true,nightlife:true},
   is_guide: null,
   primary_lang: 'English',
-  secondary_langs: {secondary:['Spanish']}
+  secondary_langs: {secondary:['Spanish']},
+  blocked: {}
 },
 {
   auth_id: '4',
@@ -36,7 +39,8 @@ module.exports = [{
   interests: {hiking:false,tours:false,food:true,museums:false,landmarks:true,nightlife:true},
   is_guide: null,
   primary_lang: 'English',
-  secondary_langs: {secondary:['Chinese']}
+  secondary_langs: {secondary:['Chinese']},
+  blocked: {1: '4'}
 },
 {
   auth_id: '5',
@@ -46,7 +50,8 @@ module.exports = [{
   interests: null,
   is_guide: null,
   primary_lang: null,
-  secondary_langs: null
+  secondary_langs: null,
+  blocked: {}
 },
 {
   auth_id: '6',
@@ -56,5 +61,6 @@ module.exports = [{
   interests: {hiking:false,tours:false,food:true,museums:false,landmarks:true,nightlife:true},
   is_guide: null,
   primary_lang: 'English',
-  secondary_langs: {secondary:['Latvian']}
+  secondary_langs: {secondary:['Latvian']},
+  blocked: {}
 }]
