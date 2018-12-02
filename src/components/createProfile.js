@@ -59,11 +59,14 @@ class Create extends React.Component {
       formattedInterests[int.name] = int.checked;
     });
     const payload = {
+      action: 'create profile',
       auth_id: this.props.loggedIn,
       username: this.state.fullName,
       user_country: this.state.originCountry,
       primary_lang: this.state.primaryLanguage,
       interests: formattedInterests
+      //secondary langs
+      //picture?
     };
     //save to db
     console.log(payload, "<-- payload here before patch");

@@ -15,6 +15,7 @@ class Mess extends React.Component {
     this.send = this.send.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.handleBlock = this.handleBlock.bind(this);
   }
 
   componentDidMount() {
@@ -82,6 +83,26 @@ class Mess extends React.Component {
     this.props.selectConUserAction(user);
   }
 
+  handleBlock(auth_id) {
+    let user = this.props.loggedIn;
+    let userBlocked = this.props.profile.blocked;
+    let toBlock = this.props.selectedConnection.otheruser.auth_id;
+    let otheruserBlocked = this.props.selectedConnection.otheruser.blocked;
+    axios.patch('/user', {
+      action: 'block user',
+      user,
+      newUserBlocked: {...userBlocked, [toBlock]: user},
+      toBlock,
+      newOtheruserBlocked: {...otheruserBlocked, [user]: user}
+    })
+    .then(updatetripsandchats => {
+      // update store's messages array - write new action and reducer and import
+    })
+    .catch(err => {
+      console.log('error returned from call to block user', err);
+    })
+  }
+
   renderConnections(){
     let connectionsList = 'Send some messages and people will show up here';
 
@@ -134,7 +155,6 @@ class Mess extends React.Component {
 
   render() {
     console.log('selectedConnection:', this.props.selectedConnection);
-
 
     let messagesToRender;
     if (this.props.selectedConnection === null) {
@@ -212,6 +232,9 @@ class Mess extends React.Component {
             </div>
           </div>
         <ProfileBox profile={this.props.selectedConnection.otheruser}/>
+        <button onClick={() => this.handleBlock(this.props.selectedConnection.otheruser.auth_id)}>
+        Delete Connection
+        </button>
       </div>
     ) :
     (<div>

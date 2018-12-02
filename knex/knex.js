@@ -125,19 +125,43 @@ const getAllUserInformation = auth_id => {
 postUser = id => knex("users").insert({ auth_id: id });
 
 // update auth_id entry with all profile information
-updateUserProfile = profile => {
-  return knex("users")
-    .where({ auth_id: profile.auth_id })
+updateUserProfile = update => {
+  if (update.action === 'create profile') {
+    return knex("users")
+    .where({ auth_id: update.auth_id })
     .update({
-      username: profile.username,
-      user_country: profile.user_country,
-      picture: profile.picture,
-      interests: profile.interests,
-      is_guide: profile.is_guide,
-      primary_lang: profile.primary_lang,
-      secondary_langs: profile.secondary_langs
+      username: update.username,
+      user_country: update.user_country,
+      picture: update.picture,
+      interests: update.interests,
+      is_guide: update.is_guide,
+      primary_lang: update.primary_lang,
+      secondary_langs: update.secondary_langs,
+      blocked: {}
     })
     .returning("*");
+  }
+  if (update.action === 'block user') {
+    console.log('trying to block user:', update)
+    // action: 'block user',
+    //   user,
+    //   newUserBlocked: {...userBlocked, [toBlock]: user},
+    //   toBlock,
+    //   newOtheruserBlocked: {...otheruserBlocked, [user]: toBlock}
+    let blockQueries = [
+      knex('users').where({auth_id: update.user}).update({blocked: update.newUserBlocked})
+      .then(data => {
+        let updateQueries = [
+          getAllChatsForUser(update.user),
+          getAllTripsForUser(update.user)
+        ]
+        return Promise.all(updateQueries);
+      }),
+      knex('users').where({auth_id: update.toBlock}).update({blocked: update.newOtheruserBlocked})
+    ]
+    return Promise.all(blockQueries)
+    .then(data => console.log(data))
+  }
 };
 
 // ----------------TRIP CREATE----------------

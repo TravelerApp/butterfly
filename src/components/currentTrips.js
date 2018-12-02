@@ -58,8 +58,7 @@ class Next extends React.Component {
       axios.post("/message", {
         sender: this.props.loggedIn,
         receiver: connectionId,
-        messages: {
-          messages: []},
+        messages: {messages: []},
         chat_city: connectionCity
       })
       .then(allChats => {
