@@ -10,9 +10,10 @@ class Landing extends Component {
     const responseGoogle = response => {
       sessionStorage.setItem("banana", response.profileObj.givenName);
 
+      // make sure that saveGoogleId is given a string!!!
       this.props.saveGoogleId(response.googleId); //response.googleId
       axios
-        .post("/user", { auth_id: response.googleId })
+        .post("/user", { auth_id: response.googleId }) //{ auth_id: response.googleId }
         .then(results => {
           console.log("success!");
           console.log(this.props);
@@ -24,13 +25,12 @@ class Landing extends Component {
       axios
         .get(`/initial/${this.props.loggedIn}`)
         .then(res => {
-          console.log(res.data, " res..");
-          setTimeout(() => {
+          //setTimeout(() => {
             this.props.grabEverythingAction(res.data);
-          }, 1000);
-          setTimeout(() => {
-            console.log(this.props, "props after request");
-          }, 2500);
+          //}, 1000);
+          ////setTimeout(() => {
+            //console.log(this.props, "props after request");
+          //}, 2500);
         })
         .catch(err => {
           console.log("Error: ", err);

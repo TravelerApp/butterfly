@@ -70,14 +70,16 @@ class Create extends React.Component {
       picture: this.state.imageUrl,
       primary_lang: this.state.primaryLanguage,
       interests: formattedInterests
+      //secondary langs
+      //picture?
     };
     //save to db
     console.log(payload, "<-- payload here before patch");
     axios
       .patch("/user", payload)
-      .then(response => {
-        console.log(response, "<--returned profile");
-        this.props.saveProfileAction(response.data);
+      .then(profile => {
+        console.log(profile.data, "<--returned profile");
+        this.props.saveProfileAction(profile.data);
       })
       .catch(err => {
         console.log("Error in profile creation: ", err);
