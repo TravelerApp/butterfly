@@ -9,27 +9,30 @@ class Landing extends Component {
   render() {
     const responseGoogle = response => {
       sessionStorage.setItem("banana", response.profileObj.givenName);
-
       this.props.saveGoogleId(response.googleId); //response.googleId
       axios
-        .post("/user", { auth_id: response.googleId })
+        .post("/user", { auth_id: String(response.googleId) })
         .then(results => {
-          console.log("success!");
+          console.log("successsssssss!");
           console.log(this.props);
           console.log(results, "results from new user request");
+          call();
         })
         .catch(err => {
-          console.log("User Exists!", err);
+          console.log("User Existssssssss!", err);
+          call();
         });
+    };
+    const call = () => {
       axios
         .get(`/initial/${this.props.loggedIn}`)
         .then(res => {
-          console.log(res.data, " res..");
+          console.log(res.data, " res..........");
           setTimeout(() => {
             this.props.grabEverythingAction(res.data);
           }, 1000);
           setTimeout(() => {
-            console.log(this.props, "props after request");
+            console.log(this.props, "props after requestttttt");
           }, 2500);
         })
         .catch(err => {
