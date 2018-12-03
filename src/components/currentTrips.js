@@ -11,7 +11,8 @@ import {
   SELECT_POSS_CON,
   UNSELECT_TRIP,
   UPDATE_MESSAGES,
-  UPDATE_BLOCK
+  UPDATE_BLOCK,
+  SELECT_CONNECTION
 } from "../actions/actions.js";
 
 class Next extends React.Component {
@@ -88,6 +89,9 @@ class Next extends React.Component {
     let userBlocked = this.props.profile.blocked;
     let otheruserBlocked = this.props.selectedPossCon.connectionProfile.blocked;
     this.props.selectPossConAction(null);
+    if (this.props.selectedConnection.otheruser.auth_id === toBlock) {
+      this.props.selectConUserAction(null);
+    }
     axios.patch('/block', {
       user,
       newUserBlocked: {...userBlocked, [toBlock]: user},
@@ -147,21 +151,6 @@ class Next extends React.Component {
           <div>
             <h3>Potential Connections</h3>
             {connectionsToRender
-            // .filter(possCon => {
-            //   let testId = possCon.connectionProfile.auth_id;
-            //   let testCity = possCon.connectionTrip.trip_city;
-            //   if (!(testId in this.props.sortedMessageData.active || testId in this.props.sortedMessageData.requestSent)) {
-            //     return true;
-            //   } else {
-            //     if (testId in this.props.sortedMessageData.active && this.props.sortedMessageData.active[testId].includes(testCity)) {
-            //       return false;
-            //     }
-            //     if (testId in this.props.sortedMessageData.requestSent && this.props.sortedMessageData.requestSent[testId].includes(testCity)) {
-            //       return false;
-            //     }
-            //     return true;
-            //   }
-            // })
             .map((possCon, i, filtered) => (
               <Poss
                 value={possCon}
@@ -211,7 +200,8 @@ const mapStateToProps = state => {
     selectedPossCon: state.selectedPossCon,
     loggedIn: state.loggedIn,
     profile: state.profile,
-    sortedMessageData: state.sortedMessageData
+    sortedMessageData: state.sortedMessageData,
+    selectedConnection: state.selectedConnection
   };
 };
 
@@ -231,6 +221,9 @@ const mapDispatchToProps = dispatch => {
     },
     updateAfterBlockAction: updates => {
       dispatch({ type: UPDATE_BLOCK, payload: updates });
+    },
+    selectConUserAction: connection => {
+      dispatch({ type: SELECT_CONNECTION, payload: connection });
     }
   };
 };

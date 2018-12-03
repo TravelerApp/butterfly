@@ -11,9 +11,9 @@ class Landing extends Component {
       sessionStorage.setItem("banana", response.profileObj.givenName);
 
       // make sure that saveGoogleId is given a string!!!
-      this.props.saveGoogleId('4'); //response.googleId
+      this.props.saveGoogleId(response.googleId); //response.googleId
       axios
-        .post("/user", { auth_id: '4' }) //{ auth_id: response.googleId }
+        .post("/user", { auth_id: response.googleId }) //{ auth_id: response.googleId }
         .then(results => {
           console.log("success!");
           console.log(this.props);
