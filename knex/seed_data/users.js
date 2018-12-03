@@ -40,7 +40,7 @@ module.exports = [{
   is_guide: null,
   primary_lang: 'English',
   secondary_langs: {secondary:['Chinese']},
-  blocked: {1: '4'}
+  blocked: {}
 },
 {
   auth_id: '5',

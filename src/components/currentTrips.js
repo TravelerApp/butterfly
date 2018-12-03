@@ -3,18 +3,24 @@ import Nav from "./navBar.js";
 import Trip from "./eachTrip.js";
 import axios from "axios";
 import Poss from "./possibleConnections.js";
-import ConnProfile from "./userProfile.js";
+import PossConnProfile from "./userProfile.js";
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
 import {
   SELECT_TRIP,
   SELECT_POSS_CON,
   UNSELECT_TRIP,
-  UPDATE_MESSAGES
+  UPDATE_MESSAGES,
+  UPDATE_BLOCK
 } from "../actions/actions.js";
 
 class Next extends React.Component {
   constructor(props) {
     super(props);
+    this.handleConnectButton = this.handleConnectButton.bind(this);
+    this.handleBlock = this.handleBlock.bind(this);
+    this.handlePossConClick = this.handlePossConClick.bind(this);
+    this.handleTripClick = this.handleTripClick.bind(this);
   }
 
   componentDidMount() {
@@ -71,7 +77,51 @@ class Next extends React.Component {
     }
   }
 
+  handleBlock(toBlock){
+    // update connections array in selectedTrip for immediate un-rendering of blocked possconn
+    let oldSelectedTripConnections = this.props.selectedTrip.connections.slice();
+    let newSelectedTripConnections = oldSelectedTripConnections.filter(possCon => !(possCon.connectionProfile.auth_id === toBlock));
+    let newSelectedTrip = Object.assign({}, this.props.selectedTrip, {connections: newSelectedTripConnections})
+    this.props.selectTripAction(newSelectedTrip)
+    // package data for call to block connection in database
+    let user = this.props.loggedIn;
+    let userBlocked = this.props.profile.blocked;
+    let otheruserBlocked = this.props.selectedPossCon.connectionProfile.blocked;
+    this.props.selectPossConAction(null);
+    axios.patch('/block', {
+      user,
+      newUserBlocked: {...userBlocked, [toBlock]: user},
+      toBlock,
+      newOtheruserBlocked: {...otheruserBlocked, [user]: user}
+    })
+    .then(updatedTripsAndChats => {
+      // update store's messages array - write new action and reducer and import
+      console.log(updatedTripsAndChats);
+      this.props.updateAfterBlockAction(updatedTripsAndChats.data)
+    })
+    .catch(err => {
+      console.log('error returned from call to block user', err);
+    })
+  }
+
   render() {
+    const connectionsToRender = this.props.selectedTrip ?
+      this.props.selectedTrip.connections.filter(possCon => {
+        let testId = possCon.connectionProfile.auth_id;
+        let testCity = possCon.connectionTrip.trip_city;
+        if (!(testId in this.props.sortedMessageData.active || testId in this.props.sortedMessageData.requestSent)) {
+          return true;
+        } else {
+          if (testId in this.props.sortedMessageData.active && this.props.sortedMessageData.active[testId].includes(testCity)) {
+            return false;
+          }
+          if (testId in this.props.sortedMessageData.requestSent && this.props.sortedMessageData.requestSent[testId].includes(testCity)) {
+            return false;
+          }
+          return true;
+        }
+      }) : [];
+
     return this.props.selectedTrip ? (
       <div>
         <Nav />
@@ -83,37 +133,47 @@ class Next extends React.Component {
           }
         </h3>
         <button onClick={() => this.handleTripClick(null)}>Go Back</button>
-        <ConnProfile
-          data={this.props.selectedPossCon}
-          handleClick={this.handleConnectButton.bind(this)}
-        />
-        <h3>Potential Connections</h3>
-        {this.props.selectedTrip.connections
-        .filter(possCon => {
-          let testId = possCon.connectionProfile.auth_id;
-          let testCity = possCon.connectionTrip.trip_city;
-          if (!(testId in this.props.sortedMessageData.active || testId in this.props.sortedMessageData.requestSent)) {
-            return true;
-          } else {
-            if (testId in this.props.sortedMessageData.active && this.props.sortedMessageData.active[testId].includes(testCity)) {
-              return false;
-            }
-            if (testId in this.props.sortedMessageData.requestSent && this.props.sortedMessageData.requestSent[testId].includes(testCity)) {
-              return false;
-            }
-            return true;
-          }
-        })
-        .map((possCon, i, filtered) => (
-          <Poss
-            value={possCon}
-            connection={possCon.connectionProfile.username}
-            from={possCon.connectionProfile.user_country}
-            purpose={possCon.connectionTrip.purpose}
-            key={i}
-            click={this.handlePossConClick.bind(this)}
+        {this.props.selectedPossCon ?
+          <PossConnProfile
+            possCon={this.props.selectedPossCon}
+            handleClick={this.handleConnectButton}
+            handleBlock={this.handleBlock}
           />
-        ))}
+          : connectionsToRender.length ?
+            'select a possible connection to view their profile and reach out'
+            : 'no connections found for your upcoming trip :('
+        }
+        {connectionsToRender.length ?
+          <div>
+            <h3>Potential Connections</h3>
+            {connectionsToRender
+            // .filter(possCon => {
+            //   let testId = possCon.connectionProfile.auth_id;
+            //   let testCity = possCon.connectionTrip.trip_city;
+            //   if (!(testId in this.props.sortedMessageData.active || testId in this.props.sortedMessageData.requestSent)) {
+            //     return true;
+            //   } else {
+            //     if (testId in this.props.sortedMessageData.active && this.props.sortedMessageData.active[testId].includes(testCity)) {
+            //       return false;
+            //     }
+            //     if (testId in this.props.sortedMessageData.requestSent && this.props.sortedMessageData.requestSent[testId].includes(testCity)) {
+            //       return false;
+            //     }
+            //     return true;
+            //   }
+            // })
+            .map((possCon, i, filtered) => (
+              <Poss
+                value={possCon}
+                connection={possCon.connectionProfile.username}
+                from={possCon.connectionProfile.user_country}
+                purpose={possCon.connectionTrip.purpose}
+                key={i}
+                click={this.handlePossConClick}
+              />
+            ))}
+          </div>
+        : ''}
       </div>
     ) : this.props.currentTrips.length ?
     (
@@ -127,14 +187,15 @@ class Next extends React.Component {
             trip={this.props.cities[trip.details.trip_city - 1].city}
             country={this.props.cities[trip.details.trip_city - 1].country}
             key={i}
-            click={this.handleTripClick.bind(this)}
+            click={this.handleTripClick}
           />
         ))}
       </div>
     ) : (
     <div>
       <Nav />
-      Find people heading to the same places you are and then you can chat with them here!
+      Enter trip information to find possible PALS to have FUN with while your TRAVELING
+      <button ><Link to="/add">ADD A TRIP</Link></button>
     </div>
     );
   }
@@ -167,6 +228,9 @@ const mapDispatchToProps = dispatch => {
     // },
     updateMessagesAction: messages => {
       dispatch({ type: UPDATE_MESSAGES, payload: messages });
+    },
+    updateAfterBlockAction: updates => {
+      dispatch({ type: UPDATE_BLOCK, payload: updates });
     }
   };
 };

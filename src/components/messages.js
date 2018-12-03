@@ -3,8 +3,9 @@ import Nav from "./navBar.js";
 import Connected from "./connected.js";
 import ProfileBox from './profileBox.js';
 import { connect } from "react-redux";
-import { SELECT_CONNECTION, NEW_MESSAGE, UPDATE_MESSAGES, UPDATE_BLOCK } from "../actions/actions.js";
+import { SELECT_CONNECTION, NEW_MESSAGE, UPDATE_MESSAGES, UPDATE_BLOCK, SELECT_TRIP } from "../actions/actions.js";
 import axios from 'axios';
+import moment from 'moment';
 
 class Mess extends React.Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class Mess extends React.Component {
     let newMessage = {
       author: `${this.props.loggedIn}`,
       text: this.state.text,
-      timestamp: Date.now()
+      timestamp: new Date().toISOString()
     }
     // craft new chat object with which to update state and database
     let oldChat =this.props.selectedConnection.chat;
@@ -85,24 +86,27 @@ class Mess extends React.Component {
   }
 
   handleBlock(toBlock) {
-    let user = this.props.loggedIn;
-    let userBlocked = this.props.profile.blocked;
-    let otheruserBlocked = this.props.selectedConnection.otheruser.blocked;
-    this.props.selectConUserAction(null)
-    axios.patch('/block', {
-      user,
-      newUserBlocked: {...userBlocked, [toBlock]: user},
-      toBlock,
-      newOtheruserBlocked: {...otheruserBlocked, [user]: user}
+    if (confirm('are you realllllly sure? this person will be gone FOREVERRRRR')) {
+      let user = this.props.loggedIn;
+      let userBlocked = this.props.profile.blocked;
+      let otheruserBlocked = this.props.selectedConnection.otheruser.blocked;
+      this.props.selectConUserAction(null);
+      this.props.selectTripAction(null);
+      axios.patch('/block', {
+        user,
+        newUserBlocked: {...userBlocked, [toBlock]: user},
+        toBlock,
+        newOtheruserBlocked: {...otheruserBlocked, [user]: user}
+      })
+      .then(updatedTripsAndChats => {
+        // update store's messages array - write new action and reducer and import
+        console.log(updatedTripsAndChats);
+        this.props.updateAfterBlockAction(updatedTripsAndChats.data)
+      })
+      .catch(err => {
+        console.log('error returned from call to block user', err);
     })
-    .then(updatedTripsAndChats => {
-      // update store's messages array - write new action and reducer and import
-      console.log(updatedTripsAndChats);
-      this.props.updateAfterBlockAction(updatedTripsAndChats.data)
-    })
-    .catch(err => {
-      console.log('error returned from call to block user', err);
-    })
+    }
   }
 
   renderConnections(){
@@ -210,6 +214,9 @@ class Mess extends React.Component {
                           >
                             {message.text}
                           </p>
+                          <p className="messageDate">
+                            {message.timestamp ? moment(message.timestamp).fromNow() : ''}
+                          </p>
                         </li>
                       )
                     )}
@@ -277,7 +284,10 @@ const mapDispatchToProps = dispatch => {
     },
     updateAfterBlockAction: updates => {
       dispatch({ type: UPDATE_BLOCK, payload: updates });
-    }
+    },
+    selectTripAction: trip => {
+      dispatch({ type: SELECT_TRIP, payload: trip });
+    },
   };
 };
 
