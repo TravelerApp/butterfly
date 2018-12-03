@@ -8,6 +8,9 @@ const ConnProfile = props => {
       <button onClick={() => props.handleClick(props.data)}>
         Make Connection
       </button>
+      <button onClick={() => this.handleBlock(this.props.selectedConnection.otheruser.auth_id)}>
+        They don't look very fun to meeeeeee
+      </button>
     </div>
   ) : (
     <div>

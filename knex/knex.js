@@ -126,8 +126,7 @@ postUser = id => knex("users").insert({ auth_id: id });
 
 // update auth_id entry with all profile information
 updateUserProfile = update => {
-  if (update.action === 'create profile') {
-    return knex("users")
+  return knex("users")
     .where({ auth_id: update.auth_id })
     .update({
       username: update.username,
@@ -140,29 +139,33 @@ updateUserProfile = update => {
       blocked: {}
     })
     .returning("*");
-  }
-  if (update.action === 'block user') {
-    console.log('trying to block user:', update)
-    // action: 'block user',
-    //   user,
-    //   newUserBlocked: {...userBlocked, [toBlock]: user},
-    //   toBlock,
-    //   newOtheruserBlocked: {...otheruserBlocked, [user]: toBlock}
-    let blockQueries = [
-      knex('users').where({auth_id: update.user}).update({blocked: update.newUserBlocked})
-      .then(data => {
-        let updateQueries = [
-          getAllChatsForUser(update.user),
-          getAllTripsForUser(update.user)
-        ]
-        return Promise.all(updateQueries);
-      }),
-      knex('users').where({auth_id: update.toBlock}).update({blocked: update.newOtheruserBlocked})
-    ]
-    return Promise.all(blockQueries)
-    .then(data => console.log(data))
-  }
 };
+
+// block two auth_ids from each other
+blockUser = blockInfo => {
+  console.log('trying to block user:', blockInfo)
+  let blockQueries = [
+    knex('users').where({auth_id: blockInfo.user}).update({blocked: blockInfo.newUserBlocked})
+    .then(data => {
+      let updateQueries = [
+        getAllChatsForUser(blockInfo.user),
+        getAllTripsForUser(blockInfo.user),
+        knex.raw(`SELECT * FROM users WHERE auth_id = :auth_id`, {auth_id: blockInfo.user})
+      ]
+      return Promise.all(updateQueries);
+    }),
+    knex('users').where({auth_id: blockInfo.toBlock}).update({blocked: blockInfo.newOtheruserBlocked})
+  ]
+  return Promise.all(blockQueries)
+  .then(updates => {
+    return {
+      messages: updates[0][0],
+      trips: updates[0][1],
+      profile: updates[0][2].rows[0]
+    }
+  })
+}
+
 
 // ----------------TRIP CREATE----------------
 // add a new trip to db, and return that trip with connections
@@ -226,10 +229,11 @@ updateChat = update => {
 };
 
 module.exports = {
+  getAllUserInformation,
   postUser,
   updateUserProfile,
+  blockUser,
   createTrip,
-  getAllUserInformation,
   createChat,
-  updateChat
+  updateChat,
 };

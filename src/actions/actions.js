@@ -15,4 +15,5 @@ export const SELECT_COUNTRY = "SELECT_COUNTRY";
 export const SELECT_CITIES = "SELECT_CITIES";
 export const TOGGLE_ADDED = "TOGGLE_ADDED";
 export const LOG_IN = "LOG_IN";
+export const UPDATE_BLOCK = "UPDATE_BLOCK"
 //store.dispatch({type: ACTION_TYPE, payload: DATA_YOURE_SENDING})

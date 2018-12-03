@@ -14,7 +14,8 @@ import {
   SELECT_COUNTRY,
   SELECT_CITIES,
   TOGGLE_ADDED,
-  LOG_IN
+  LOG_IN,
+  UPDATE_BLOCK
 } from "../actions/actions.js";
 
 const initialState = {
@@ -44,20 +45,22 @@ const sortMessageData = function (messages) {
     newConnections: []
   };
 
-  for (let message of messages) {
-    let otherId = message.otheruser.auth_id;
-    let messageCity = message.chat.chat_city;
-    if (message.chat.connected === true) {
-      sortedMessages.active[otherId] = sortedMessages.active[otherId] ? sortedMessages.active[otherId].concat(messageCity) : [messageCity];
-      if (message.chat.messages.messages.length === 0) {
-        sortedMessages.newConnections.push(message);
+  if (messages) {
+    for (let message of messages) {
+      let otherId = message.otheruser.auth_id;
+      let messageCity = message.chat.chat_city;
+      if (message.chat.connected === true) {
+        sortedMessages.active[otherId] = sortedMessages.active[otherId] ? sortedMessages.active[otherId].concat(messageCity) : [messageCity];
+        if (message.chat.messages.messages.length === 0) {
+          sortedMessages.newConnections.push(message);
+        } else {
+          sortedMessages.ongoingMessages.push(message);
+        }
+      } else if (message.chat.user2 === message.otheruser.auth_id) {
+        sortedMessages.requestSent[otherId] = sortedMessages.requestSent[otherId] ? sortedMessages.requestSent[otherId].concat(messageCity) : [messageCity];
       } else {
-        sortedMessages.ongoingMessages.push(message);
+        sortedMessages.requestReceived[otherId] = sortedMessages.requestReceived[otherId] ? sortedMessages.requestReceived[otherId].concat(messageCity) : [messageCity];
       }
-    } else if (message.chat.user2 === message.otheruser.auth_id) {
-      sortedMessages.requestSent[otherId] = sortedMessages.requestSent[otherId] ? sortedMessages.requestSent[otherId].concat(messageCity) : [messageCity];
-    } else {
-      sortedMessages.requestReceived[otherId] = sortedMessages.requestReceived[otherId] ? sortedMessages.requestReceived[otherId].concat(messageCity) : [messageCity];
     }
   }
 
@@ -117,6 +120,13 @@ var rootReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         messages: action.payload,
         sortedMessageData: sortMessageData(action.payload)
+      });
+    case UPDATE_BLOCK:
+      return Object.assign({}, state, {
+        profile: action.payload.profile,
+        currentTrips: action.payload.trips,
+        messages: action.payload.messages,
+        sortedMessageData: sortMessageData(action.payload.messages)
       });
     // case UNSELECT_TRIP:
     //   return Object.assign({}, state, {

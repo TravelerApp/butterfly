@@ -59,7 +59,6 @@ class Create extends React.Component {
       formattedInterests[int.name] = int.checked;
     });
     const payload = {
-      action: 'create profile',
       auth_id: this.props.loggedIn,
       username: this.state.fullName,
       user_country: this.state.originCountry,
@@ -72,14 +71,15 @@ class Create extends React.Component {
     console.log(payload, "<-- payload here before patch");
     axios
       .patch("/user", payload)
-      .then(response => {
-        console.log(response, "<--returned profile");
-        this.props.saveProfileAction(response.data);
+      .then(profile => {
+        console.log(profile.data, "<--returned profile");
+        this.props.saveProfileAction(profile.data);
       })
       .catch(err => {
         console.log("Error in profile creation: ", err);
       });
   }
+
   render() {
     return this.props.profile.username ? (
       <Redirect to="/add" />

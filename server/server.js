@@ -67,6 +67,18 @@ app.patch("/user", (req, res) => {
     });
 });
 
+app.patch("/block", (req, res) => {
+  db.blockUser(req.body)
+    .then(allTripsAndChats => {
+      console.log("user's profile successfully blocked. new trips/chats:", allTripsAndChats);
+      res.status(200).json(allTripsAndChats);
+    })
+    .catch(err => {
+      console.log("error received trying to update user's profile:", err);
+      res.status(400).send(err);
+    });
+});
+
 // ----------------TRIPS TABLE----------------
 app.post("/trip", (req, res) => {
   console.log(req.body);
