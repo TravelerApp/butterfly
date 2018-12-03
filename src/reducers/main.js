@@ -112,7 +112,7 @@ var rootReducer = (state = initialState, action) => {
     case NEW_MESSAGE:
       let newSelectedConnection = Object.assign({}, state.selectedConnection, {
         chat: action.payload
-      })
+      });
       return Object.assign({}, state, {
         selectedConnection: newSelectedConnection
       });

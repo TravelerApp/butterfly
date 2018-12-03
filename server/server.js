@@ -5,6 +5,8 @@ const axios = require("axios");
 const path = require("path");
 const db = require("../knex/knex.js");
 const app = express();
+const upload = require("./upload.js");
+const singleUpload = upload.single("image");
 
 let port = process.env.PORT || 3000;
 
@@ -121,6 +123,17 @@ app.patch("/message", (req, res) => {
     });
 });
 
+// ------------ UPLOAD A PICTURE ---------------
+
+app.post("/image-upload", (req, res) => {
+  singleUpload(req, res, err => {
+    if (err) {
+      throw err;
+    } else {
+      res.json({ "imageUrl": req.file.location });
+    }
+  });
+});
 // ------------SERVE APP AND LISTEN------------
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../dist/index.html"));
@@ -129,3 +142,5 @@ app.get("/*", (req, res) => {
 app.listen(port, () => {
   console.log("Now listening on port " + port + "!");
 });
+
+
