@@ -59,7 +59,7 @@ class Add extends React.Component {
   renderCities(countryName) {
     //console.log("tick", countryName);
     let allCities = [];
-    data.data.forEach(element => {
+    this.props.cities.forEach(element => {
       if (element.country === countryName) {
         allCities.push(element);
       }
@@ -70,8 +70,8 @@ class Add extends React.Component {
     this.props.selectCityAction(allCities[0].city);
   }
   handleAddToMyTripsClick() {
-    // console.log("adding to trips");
-    // console.log(this.props, "clicked!");
+    console.log("adding to trips");
+    console.log(this.props, "clicked!");
 
     //this.setState({ tripAdded: true });
 
@@ -79,7 +79,7 @@ class Add extends React.Component {
     this.props.toggleTripAddedAction(true);
   }
   handleSaveTripClick(value) {
-    //console.log(this.props, "props here");
+    console.log(this.props, "props here");
     let indexOfCity;
     this.props.cities.forEach(element => {
       if (element.city === this.props.currentCity) {
