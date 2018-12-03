@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "dempse35/butterfly:docker",
+    "Name": "dempse35/butterfly:latest",
     "Update": "true"
   },
   "Ports": [
