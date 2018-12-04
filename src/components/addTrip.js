@@ -24,6 +24,7 @@ class Add extends React.Component {
   }
   componentDidMount() {
     //console.log(this.props, "PROPS ON ADD MOUNT");
+    //setInterval(() => {console.log('calledDidMountfunction for getting messages')}, 3000);
     let uniqueCountries = [];
     this.props.cities.forEach(element => {
       if (!uniqueCountries.includes(element.country)) {
