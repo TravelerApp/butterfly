@@ -18,33 +18,23 @@ import {
 class Add extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   allCountries: [],
-    //   currentCountry: "select a country",
-    //   currentCities: ["select a country to see cities"],
-    //   tripAdded: false
-    //};
     this.handleAddToMyTripsClick = this.handleAddToMyTripsClick.bind(this);
     this.renderCities = this.renderCities.bind(this);
     this.countrySelected = this.countrySelected.bind(this);
   }
   componentDidMount() {
-    console.log(this.props, "PROPS ON ADD MOUNT");
+    //console.log(this.props, "PROPS ON ADD MOUNT");
+    //setInterval(() => {console.log('calledDidMountfunction for getting messages')}, 3000);
     let uniqueCountries = [];
-    // change this to use cities from store ************************
     this.props.cities.forEach(element => {
       if (!uniqueCountries.includes(element.country)) {
         uniqueCountries.push(element.country);
       }
     });
-    //this.setState({ allCountries: uniqueCountries });
     this.props.grabCountriesAction(uniqueCountries);
   }
 
   countrySelected(e) {
-    // this.setState({ currentCountry: e.target.value }, () => {
-    //   this.renderCities(this.state.currentCountry);
-    // });
     this.props.selectCountryAction(e.target.value);
     setTimeout(() => {
       console.log(this.props.currentCountry, "delayed");
@@ -64,7 +54,6 @@ class Add extends React.Component {
         allCities.push(element);
       }
     });
-    //this.setState({ currentCities: allCities });
     console.log(allCities, "<---cities");
     this.props.selectCitiesAction(allCities);
     this.props.selectCityAction(allCities[0].city);
@@ -72,10 +61,6 @@ class Add extends React.Component {
   handleAddToMyTripsClick() {
     console.log("adding to trips");
     console.log(this.props, "clicked!");
-
-    //this.setState({ tripAdded: true });
-
-    //this.props.selectCityAction(document.getElementById("reason").value);
     this.props.toggleTripAddedAction(true);
   }
   handleSaveTripClick(value) {

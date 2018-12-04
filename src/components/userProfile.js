@@ -1,20 +1,18 @@
 import React from "react";
 import ProfileBox from './profileBox.js';
 
-const UserProfile = props => {
-  return props.data ? (
+const PossConnProfile = props => {
+  return (
     <div>
-      <ProfileBox profile={props.data.connectionProfile} />
-      <button onClick={() => props.handleClick(props.data)}>
+      <ProfileBox profile={props.possCon.connectionProfile} />
+      <button onClick={() => props.handleClick(props.possCon)}>
         Make Connection
-      </button>{" "}
-      {/*pass down func onClick, send out all the deets in a payload */}
-    </div>
-  ) : (
-    <div>
-      <h5>Select A Possible Connection To View Their Profile!</h5>
+      </button>
+      <button onClick={() => props.handleBlock(props.possCon.connectionProfile.auth_id)}>
+        They don't look very fun to meeeeeee
+      </button>
     </div>
   );
 };
 
-export default UserProfile;
+export default PossConnProfile;

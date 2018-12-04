@@ -8,31 +8,64 @@ import {
   SELECT_CONNECTION,
   NEW_MESSAGE,
   UPDATE_MESSAGES,
-  UNSELECT_TRIP,
+  //UNSELECT_TRIP,
   LOG_OUT,
   GRAB_COUNTRIES,
   SELECT_COUNTRY,
   SELECT_CITIES,
   TOGGLE_ADDED,
-  LOG_IN
+  LOG_IN,
+  UPDATE_BLOCK
 } from "../actions/actions.js";
 
 const initialState = {
   cities: null,
-  loggedIn: null, //user unique id (payload from login return)
-  profile: null, // name, picture, country, language, interests
-  currentTrips: [], //array of trips
-  messages: null, // array of messages
-  selectedTrip: null, // current trip view
-  selectedPossCon: null, // possible connections user list
-  selectedConnection: null, // this is the connection whose message history you are currently viewing
+  loggedIn: null,
+  profile: null,
+  currentTrips: null,
+  messages: null,
+  selectedTrip: null,
+  selectedPossCon: null,
+  selectedConnection: null,
   countries: ["test"],
   currentCountry: "select a country",
   currentCity: null,
   currentCities: ["select a country to see cities"],
   tripAdded: false,
-  newUser: true
+  newUser: true,
+  sortedMessageData: null
 };
+
+const sortMessageData = function (messages) {
+  let sortedMessages = {
+    active: {},
+    requestSent: {},
+    requestReceived: {},
+    ongoingMessages: [],
+    newConnections: []
+  };
+
+  if (messages) {
+    for (let message of messages) {
+      let otherId = message.otheruser.auth_id;
+      let messageCity = message.chat.chat_city;
+      if (message.chat.connected === true) {
+        sortedMessages.active[otherId] = sortedMessages.active[otherId] ? sortedMessages.active[otherId].concat(messageCity) : [messageCity];
+        if (message.chat.messages.messages.length === 0) {
+          sortedMessages.newConnections.push(message);
+        } else {
+          sortedMessages.ongoingMessages.push(message);
+        }
+      } else if (message.chat.user2 === message.otheruser.auth_id) {
+        sortedMessages.requestSent[otherId] = sortedMessages.requestSent[otherId] ? sortedMessages.requestSent[otherId].concat(messageCity) : [messageCity];
+      } else {
+        sortedMessages.requestReceived[otherId] = sortedMessages.requestReceived[otherId] ? sortedMessages.requestReceived[otherId].concat(messageCity) : [messageCity];
+      }
+    }
+  }
+
+  return sortedMessages;
+}
 
 var rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -79,18 +112,26 @@ var rootReducer = (state = initialState, action) => {
     case NEW_MESSAGE:
       let newSelectedConnection = Object.assign({}, state.selectedConnection, {
         chat: action.payload
-      })
+      });
       return Object.assign({}, state, {
         selectedConnection: newSelectedConnection
       });
     case UPDATE_MESSAGES:
       return Object.assign({}, state, {
-        messages: action.payload
+        messages: action.payload,
+        sortedMessageData: sortMessageData(action.payload)
       });
-    case UNSELECT_TRIP:
+    case UPDATE_BLOCK:
       return Object.assign({}, state, {
-        selectedTrip: null
+        profile: action.payload.profile,
+        currentTrips: action.payload.trips,
+        messages: action.payload.messages,
+        sortedMessageData: sortMessageData(action.payload.messages)
       });
+    // case UNSELECT_TRIP:
+    //   return Object.assign({}, state, {
+    //     selectedTrip: null
+    //   });
     case LOG_IN:
       return Object.assign({}, state, {
         loggedIn: action.payload
@@ -107,17 +148,22 @@ var rootReducer = (state = initialState, action) => {
         selectedConnection: null,
         countries: null,
         currentCountry: null,
-        currentCities: null
+        curentCity: null,
+        currentCities: null,
+        tripAdded: false,
+        newUser: true,
+        sortedMessageData: null
       });
     case GRAB_EVERYTHING:
       return Object.assign({}, state, {
         cities: action.payload.cities,
         profile: action.payload.profile,
         currentTrips: action.payload.upcomingTrips || [],
-        messages: action.payload.messages,
+        messages: action.payload.messages || [],
+        sortedMessageData: sortMessageData(action.payload.messages),
         selectedTrip: null,
         selectedPossCon: null,
-        selectedConnection: null
+        selectedConnection: null,
       });
     default:
       return state;
