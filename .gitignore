@@ -1,10 +1,10 @@
 node_modules/
 dist/
 package-lock.json
-config.js
+# config.js
 .env
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
-aws.config.js
+# aws.config.js
