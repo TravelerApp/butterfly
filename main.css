@@ -1,3 +1,117 @@
+/* CSS reset */
+
+/* body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+fieldset, img {
+  border: 0;
+}
+
+input {
+  border: 1px solid #b0b0b0;
+  padding: 3px 5px 4px;
+  color: #979797;
+  width: 190px;
+}
+
+address, caption, cite, code, dfn, th, var {
+  font-style: normal;
+  font-weight: normal;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+caption, th {
+  text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+q:before, q:after {
+  content: '';
+}
+
+abbr, acronym {
+  border: 0;
+} */
+
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers*/
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+
+
+/* ABDULLAH STYLES - LANDING PAGE / ADDTRIP */
+
+/* LANDING PAGE */
+
 .cb-slideshow, .cb-slideshow:after {
   position: fixed;
   width: 100%;
@@ -433,116 +547,6 @@
 
 
 
-
-/* CSS reset */
-
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
-  margin: 0;
-  padding: 0;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-fieldset, img {
-  border: 0;
-}
-
-input {
-  border: 1px solid #b0b0b0;
-  padding: 3px 5px 4px;
-  color: #979797;
-  width: 190px;
-}
-
-address, caption, cite, code, dfn, th, var {
-  font-style: normal;
-  font-weight: normal;
-}
-
-ol, ul {
-  list-style: none;
-}
-
-caption, th {
-  text-align: left;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-size: 100%;
-  font-weight: normal;
-}
-
-q:before, q:after {
-  content: '';
-}
-
-abbr, acronym {
-  border: 0;
-}
-
-/* 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: none;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-/* article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-    display: block;
-}
-body {
-    line-height: 1;
-}
-ol, ul {
-    list-style: none;
-}
-blockquote, q {
-    quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-    content: '';
-    content: none;
-}
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-*,
-*:before,
-*:after {
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
-} */ */
-
-
-
 /* General Demo Style */
 body {
   font-family: Constantia, Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
@@ -598,7 +602,7 @@ a {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
 }
 
-/* Header Style */
+/* LANDING PAGE HEADER */
 
 .codrops-top {
   padding-top: 10px;
@@ -725,28 +729,6 @@ p.codrops-demos a.current-demo, p.codrops-demos a.current-demo:hover {
   cursor: pointer;
 }
 
-.nav-link {
-  float: left;
-  display: block;
-  color: #ddd;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-}
-
-.nav-link:hover {
-  color: #fff;
-  cursor: pointer;
-}
-
-.nav-div {
-  background-color: #000;
-  height: 35px;
-  padding: 2px;
-}
-
 .actionButton {
   border: none;
   color: white;
@@ -768,16 +750,8 @@ p.codrops-demos a.current-demo, p.codrops-demos a.current-demo:hover {
   color: white;
 }
 
-/* select */
-
-/* -------------------- Page Styles (not required) */
-
-div {
-  /* margin: 20px; */
-}
 
 /* -------------------- Select Box Styles: bavotasan.com Method (with special adaptations by ericrasch.com) */
-
 /* -------------------- Source: http://bavotasan.com/2011/style-select-box-using-only-css/ */
 
 .styled-select {
@@ -869,7 +843,6 @@ div {
 }
 
 /* -------------------- Select Box Styles: danielneumann.com Method */
-
 /* -------------------- Source: http://danielneumann.com/blog/how-to-style-dropdown-with-css-only/ */
 
 #mainselection select {
@@ -896,7 +869,6 @@ div {
 }
 
 /* -------------------- Select Box Styles: stackoverflow.com Method */
-
 /* -------------------- Source: http://stackoverflow.com/a/5809186 */
 
 select#soflow, select#soflow-color {
@@ -929,3 +901,33 @@ select#soflow-color {
   border-radius: 20px;
   padding-left: 15px;
 }
+
+/* JAMES STYLES */
+
+/* NAV */
+.nav-link {
+  float: left;
+  display: block;
+  color: #ddd;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+}
+
+.nav-link:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+.nav-div {
+  background-color: #000;
+  height: 35px;
+  padding: 2px;
+}
+
+/* CHRIS AND ALBERTO STYLES */
+/* MESSAGES */
+
+/* UPCOMING TRIPS */
