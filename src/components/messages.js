@@ -21,7 +21,7 @@ class Mess extends React.Component {
   }
 
   componentDidMount() {
-    // change this once we have notifications working
+    console.log('mounting')
     if (this.props.sortedMessageData.ongoingMessages.length) {
       this.props.selectConUserAction(this.props.sortedMessageData.ongoingMessages[0]);
     }
