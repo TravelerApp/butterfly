@@ -14,6 +14,9 @@ class Self extends React.Component {
         <div>Name: {this.props.profile.username}</div>
         <div>Home Country: {this.props.profile.user_country}</div>
         <div>Primary Language: {this.props.profile.primary_lang}</div>
+        <div>
+          What you look like: <img src={this.props.profile.picture} />
+        </div>
         {/* <div>Your Interests: {this.props.profile.interests}</div> */}
       </div>
     );

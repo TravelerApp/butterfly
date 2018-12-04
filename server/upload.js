@@ -1,10 +1,10 @@
 const aws = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
-const keys = require('../aws.config.js');
+const KEYS = process.env.KEYS;
+//const keys = require('../aws.config.js');
 
-
-aws.config.update(keys);
+aws.config.update(KEYS);
 
 var s3 = new aws.S3();
 
