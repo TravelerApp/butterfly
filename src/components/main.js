@@ -10,7 +10,7 @@ class Main extends React.Component {
     super(props);
   }
   componentDidMount() {
-    console.log(this.props, "props on main mount");
+    //console.log(this.props, "props on main mount");
   }
   render() {
     return this.props.profile.username ? (

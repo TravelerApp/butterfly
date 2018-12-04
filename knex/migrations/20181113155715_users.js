@@ -18,10 +18,11 @@ exports.up = knex =>
       table.string('username')//.notNullable();
       table.string('user_country');
       table.string('picture');
-      table.json('interests')//.notNullable();
+      table.json('interests');//.notNullable();
       table.boolean('is_guide').defaultTo(false);
       table.string('primary_lang')//.notNullable();
       table.json('secondary_langs');
+      table.json('blocked')
       table.timestamps(true, true);
   })
   .then(() => knex.raw(onUpdateTrigger('users')));

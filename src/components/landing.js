@@ -13,13 +13,13 @@ class Landing extends Component {
       axios
         .post("/user", { auth_id: String(response.googleId) })
         .then(results => {
-          console.log("successsssssss!");
+          console.log('successsssssss!');
           console.log(this.props);
-          console.log(results, "results from new user request");
+          console.log(results, 'results from new user request');
           call();
         })
         .catch(err => {
-          console.log("User Existssssssss!", err);
+          console.log('User Existssssssss!', err);
           call();
         });
     };
@@ -27,85 +27,85 @@ class Landing extends Component {
       axios
         .get(`/initial/${this.props.loggedIn}`)
         .then(res => {
-          console.log(res.data, " res..........");
+          console.log(res.data, ' res..........');
           setTimeout(() => {
             this.props.grabEverythingAction(res.data);
           }, 1000);
           setTimeout(() => {
-            console.log(this.props, "props after requestttttt");
+            console.log(this.props, 'props after requestttttt');
           }, 2500);
         })
         .catch(err => {
-          console.log("Error: ", err);
+          console.log('Error: ', err);
         });
     };
 
     const failure = response => {
-      console.log("failing, ", response);
+      console.log('failing, ', response);
     };
     return this.props.profile ? (
-      <Redirect to="/main" />
+      <Redirect to='/main' />
     ) : (
-      <div>
-        <ul class="cb-slideshow">
-          <li>
-            <span>Image 01</span>
-            <div>
-              <h3>Travel</h3>
-            </div>
-          </li>
-          <li>
-            <span>Image 02</span>
-            <div>
-              <h3>Explore The World</h3>
-            </div>
-          </li>
-          <li>
-            <span>Image 03</span>
-            <div>
-              <h3>Make new friends</h3>
-            </div>
-          </li>
-          <li>
-            <span>Image 04</span>
-            <div>
-              <h3>Make unforgettable memories</h3>
-            </div>
-          </li>
-          <li>
-            <span>Image 05</span>
-            <div>
-              <h3>Find people with same interests</h3>
-            </div>
-          </li>
-          <li>
-            <span>Image 06</span>
-            <div>
-              <h3>Live the adventure</h3>
-            </div>
-          </li>
-        </ul>
+        <div>
+          <ul class='cb-slideshow'>
+            <li>
+              <span>Image 01</span>
+              <div>
+                <h3>Travel</h3>
+              </div>
+            </li>
+            <li>
+              <span>Image 02</span>
+              <div>
+                <h3>Explore The World</h3>
+              </div>
+            </li>
+            <li>
+              <span>Image 03</span>
+              <div>
+                <h3>Make new friends</h3>
+              </div>
+            </li>
+            <li>
+              <span>Image 04</span>
+              <div>
+                <h3>Make unforgettable memories</h3>
+              </div>
+            </li>
+            <li>
+              <span>Image 05</span>
+              <div>
+                <h3>Find people with same interests</h3>
+              </div>
+            </li>
+            <li>
+              <span>Image 06</span>
+              <div>
+                <h3>Live the adventure</h3>
+              </div>
+            </li>
+          </ul>
 
-        <div class="container">
-          <div class="codrops-top">
-            <a>
-              <p>THE TRAVELER APP</p>
-            </a>
-            <span class="right">
-              <GoogleLogin
-                className="login"
-                clientId="602387760234-beo1e7542ieb47m24do30g4ick9bp9kl.apps.googleusercontent.com"
-                buttonText="Login / Signup"
-                onSuccess={responseGoogle}
-                onFailure={failure}
-              />
-            </span>
-            <div class="clr" />
+          <div class='container'>
+            <div class='codrops-top'>
+              <a>
+                <p>THE TRAVELER APP</p>
+              </a>
+              <span class='right'>
+                <GoogleLogin
+                  className='login'
+                  clientId='602387760234-beo1e7542ieb47m24do30g4ick9bp9kl.apps.googleusercontent.com'
+                  buttonText='Login / Signup'
+                  onSuccess={responseGoogle}
+                  onFailure={failure}
+                />
+              </span>
+              <div class='clr' />
+            </div>
+            <header />
           </div>
-          <header />
         </div>
-      </div>
-    );
+      );
   }
 }
 const mapStateToProps = state => {

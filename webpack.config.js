@@ -12,7 +12,11 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: "babel-loader",
+          // this query below was added so that we can use object spread operator not really sure if it belongs here but it seems to work  ¯\_(ツ)_/¯
+          query: {
+            plugins:[ 'transform-object-rest-spread' ]
+          }
         }
       },
       {
