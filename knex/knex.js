@@ -169,7 +169,8 @@ blockUser = blockInfo => {
 
 // ----------------TRIP CREATE----------------
 // add a new trip to db, and return that trip with connections
-createTrip = trip => {
+createTrip = async function (trip) {
+  let blockedForUser = await getAccessToBlockedArray(trip.trip_user);
   return knex("trips")
     .insert({
       trip_user: trip.trip_user,
@@ -180,7 +181,7 @@ createTrip = trip => {
     })
     .returning("*")
     .then(createdTrip => {
-      return getConnections({ details: createdTrip[0], connections: [] });
+      return getConnections({ details: createdTrip[0], connections: [] }, blockedForUser);
     });
 };
 

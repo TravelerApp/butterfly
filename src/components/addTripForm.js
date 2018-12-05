@@ -48,10 +48,11 @@ export default class AddTripForm extends Component {
           value="Save your Trip"
           onClick={() =>
             this.props.handleClick({
-              Start: this.state.startDate._d,
-              End: this.state.endDate._d,
-              Reason: document.getElementById("reason").value,
-              Destination: this.props.currentCities
+              start: this.state.startDate._d,
+              end: this.state.endDate._d,
+              reason: document.getElementById("reason").value,
+              /// wutttt
+              //destination: this.props.currentCities
             })
           }
         />
