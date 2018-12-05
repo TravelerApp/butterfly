@@ -33,8 +33,9 @@ class Create extends React.Component {
     this.primaryLanguageChanged = this.primaryLanguageChanged.bind(this);
   }
   componentDidMount() {
+    console.log(this.props, "<--on create")
     let uniqueCountries = [];
-    data.data.forEach(element => {
+    this.props.cities.forEach(element => {
       if (!uniqueCountries.includes(element.country)) {
         uniqueCountries.push(element.country);
       }
@@ -161,7 +162,8 @@ const mapStateToProps = state => {
   return {
     profile: state.profile,
     countries: state.countries,
-    loggedIn: state.loggedIn
+    loggedIn: state.loggedIn,
+    cities: state.cities
   };
 };
 const mapDispatchToProps = dispatch => {
