@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import Nav from "./navBar.js";
-import data from "../../data.js";
 import AddTripForm from "./addTripForm.js";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -46,11 +45,9 @@ class Add extends React.Component {
 
   renderCities(countryName) {
     let allCities = [];
-    // where is this coming from???!?!
-    console.log(data);
-    data.data.forEach(element => {
-      if (element.country === countryName) {
-        allCities.push(element);
+    this.props.cities.forEach(city => {
+      if (city.country === countryName) {
+        allCities.push(city);
       }
     });
     this.props.selectCitiesAction(allCities);
