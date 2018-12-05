@@ -16,9 +16,12 @@ class Create extends React.Component {
       interests: [
         { name: "Hiking", checked: false },
         { name: "Night Life", checked: false },
-        { name: "Museums and history", checked: false },
+        { name: "Tourist", checked: false },
         { name: "Shopping", checked: false },
-        { name: "Food", checked: false }
+        { name: "Monuments", checked: false },
+        { name: "Historic", checked: false },
+        { name: "Foodie", checked: false },
+        { name: "Business", checked: false }
       ],
       currentCountry: "Select your origin country ..",
       selectedFile: null,
