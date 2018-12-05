@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { GoogleLogout } from "react-google-login";
 
 const Nav = props => {
-  const handleLogout = () => {
+  const handleLogout = (e) => {
+    e.preventDefault();
     sessionStorage.clear();
     localStorage.clear();
     let auth2 = gapi.auth2.getAuthInstance();
@@ -25,7 +26,8 @@ const Nav = props => {
       <Link className="nav-link" to="/viewprofile">
         Profile
       </Link>
-      <GoogleLogout onLogoutSuccess={handleLogout} />
+      <span onClick={handleLogout}>LOGOUT</span>
+      {/* <GoogleLogout onLogoutSuccess={handleLogout} /> */}
     </div>
   );
 };
