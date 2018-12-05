@@ -80,7 +80,7 @@ class Add extends React.Component {
         this.props.addTripAction(res.data);
         this.props.toggleTripAddedAction(false);
         this.props.selectCountryAction('select a country');
-        this.props.selectCitiesAction(["select a country to see cities"]);
+        this.props.selectCitiesAction([{city: "select a country to see cities"}]);
         //need to redirect to upcoming trips
         this.props.history.push('/next');
       })
