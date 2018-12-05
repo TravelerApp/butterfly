@@ -24,7 +24,7 @@ class Create extends React.Component {
       selectedFile: null,
       imageUrl: ""
     };
-    this.fileUploadHandler= this.fileUploadHandler.bind(this);
+    this.fileUploadHandler = this.fileUploadHandler.bind(this);
     this.handleselectedFile = this.handleselectedFile.bind(this);
     this.interestChanged = this.interestChanged.bind(this);
     this.submit = this.submit.bind(this);
@@ -34,7 +34,7 @@ class Create extends React.Component {
   }
   componentDidMount() {
     let uniqueCountries = [];
-    data.data.forEach(element => {
+    this.props.cities.forEach(element => {
       if (!uniqueCountries.includes(element.country)) {
         uniqueCountries.push(element.country);
       }
@@ -58,7 +58,6 @@ class Create extends React.Component {
     });
   }
   submit() {
-    
     const formattedInterests = {};
     this.state.interests.forEach(int => {
       formattedInterests[int.name] = int.checked;
@@ -87,12 +86,13 @@ class Create extends React.Component {
   }
   handleselectedFile(event) {
     event.preventDefault();
-    this.setState({ selectedFile: event.target.files[0] }, () => this.fileUploadHandler());
-
+    this.setState({ selectedFile: event.target.files[0] }, () =>
+      this.fileUploadHandler()
+    );
   }
 
   fileUploadHandler(e) {
-    console.log('fileUploadHandler was called ..');
+    console.log("fileUploadHandler was called ..");
     const fd = new FormData();
     fd.append("image", this.state.selectedFile, this.state.selectedFile.name);
     axios.post("http://localhost:3000/image-upload", fd).then(res => {
@@ -146,7 +146,7 @@ class Create extends React.Component {
               </div>
             ))}
           </div>
-          
+
           <input
             type="button"
             value="Create my profile"
@@ -161,7 +161,8 @@ const mapStateToProps = state => {
   return {
     profile: state.profile,
     countries: state.countries,
-    loggedIn: state.loggedIn
+    loggedIn: state.loggedIn,
+    cities: state.cities
   };
 };
 const mapDispatchToProps = dispatch => {
