@@ -3,7 +3,7 @@ import axios from "axios";
 import Nav from "./navBar.js";
 import data from "../../data.js";
 import AddTripForm from "./addTripForm.js";
-import { Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   ADD_TRIP,
@@ -37,61 +37,58 @@ class Add extends React.Component {
   countrySelected(e) {
     this.props.selectCountryAction(e.target.value);
     setTimeout(() => {
-      console.log(this.props.currentCountry, "delayed");
       this.renderCities(this.props.currentCountry);
-    }, 100); //on state/props did update?
+    }, 100);
   }
   citySelected(e) {
-    console.log(e.target.value, "<--see me?");
     this.props.selectCityAction(e.target.value);
   }
 
   renderCities(countryName) {
-    console.log("tick", countryName);
     let allCities = [];
+    // where is this coming from???!?!
+    console.log(data);
     data.data.forEach(element => {
       if (element.country === countryName) {
         allCities.push(element);
       }
     });
-    console.log(allCities, "<---cities");
     this.props.selectCitiesAction(allCities);
     this.props.selectCityAction(allCities[0].city);
   }
+
   handleAddToMyTripsClick() {
-    console.log("adding to trips");
-    console.log(this.props, "clicked!");
     this.props.toggleTripAddedAction(true);
   }
   handleSaveTripClick(value) {
-    console.log(this.props, "props here");
     let indexOfCity;
     this.props.cities.forEach(element => {
       if (element.city === this.props.currentCity) {
         indexOfCity = element.city_id;
       }
     });
-    console.log(indexOfCity, "<--- success?");
-    value.Destination = this.props.currentCity;
     axios
       .post("/trip", {
         trip_user: this.props.loggedIn,
         trip_city: indexOfCity,
-        trip_start: value.Start,
-        trip_end: value.End,
-        purpose: value.Reason
+        trip_start: value.start,
+        trip_end: value.end,
+        purpose: value.reason
       })
       .then(res => {
         console.log("after request", res.data);
         this.props.addTripAction(res.data);
         this.props.toggleTripAddedAction(false);
-
-        //addtrip action, update state, redirect to upcoming trips
+        this.props.selectCountryAction('select a country');
+        this.props.selectCitiesAction(["select a country to see cities"]);
+        //need to redirect to upcoming trips
+        this.props.history.push('/next');
       })
       .catch(err => {
         console.log("error in save trip request", err);
       });
   }
+
   render() {
     return this.props.tripAdded ? (
       <div>
@@ -176,7 +173,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Add);
+)(Add));

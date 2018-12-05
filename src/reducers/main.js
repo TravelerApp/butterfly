@@ -30,7 +30,7 @@ const initialState = {
   countries: ["test"],
   currentCountry: "select a country",
   currentCity: null,
-  currentCities: ["select a country to see cities"],
+  currentCities: [{city: "select a country to see cities"}],
   tripAdded: false,
   newUser: true,
   sortedMessageData: null
