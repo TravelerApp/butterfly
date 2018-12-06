@@ -1421,9 +1421,12 @@ select#soflow-color {
 }
 
 #profileBoxInfo div {
-  word-break: break-wo
-  rd;
+  word-break: break-word;
 }
+
+
+
+
 .jamesCreatePage {
   background-color: rgb(39, 38, 38);
   width: 100%;
