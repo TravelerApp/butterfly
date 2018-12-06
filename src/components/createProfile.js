@@ -102,7 +102,7 @@ class Create extends React.Component {
     console.log("fileUploadHandler was called ..");
     const fd = new FormData();
     fd.append("image", this.state.selectedFile, this.state.selectedFile.name);
-    axios.post("http://localhost:3000/image-upload", fd).then(res => {
+    axios.post("/image-upload", fd).then(res => {
       this.setState({
         imageUrl: res.data.imageUrl,
         currentPicture: res.data.imageUrl
