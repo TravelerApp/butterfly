@@ -5,7 +5,7 @@ import axios from "axios";
 import Poss from "./possibleConnections.js";
 import PossConnProfile from "./userProfile.js";
 import { connect } from "react-redux";
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {
   SELECT_TRIP,
   SELECT_POSS_CON,
@@ -184,7 +184,7 @@ class Next extends React.Component {
       <Nav />
       <div id='upcomingTripsContainer'>
         <h2 id='upcomingTripsTitle'>Submit trip information and find like-minded travellers to meet up with!</h2>
-        <span id='noTripsButton button'><Link to="/add">Add a Trip</Link></span>
+        <span id='noTripsButton' onClick={()=>{this.props.history.push('/add')}}>Add a Trip</span>
       </div>
     </div>
     ) : 'loading';
@@ -226,7 +226,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Next);
+)(Next));
