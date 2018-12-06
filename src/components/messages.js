@@ -283,11 +283,8 @@ class Mess extends React.Component {
                 >Remove</span>
                 </div>
               </div>
-              {this.state.displayMessages ? (
-                <div id="selectedConnectionChat">
-                  {/* <h1>MESSAGES WITH {this.props.selectedConnection.otheruser.username} ABOUT YOUR TRIP TO {this.props.cities[this.props.selectedConnection.chat.chat_city - 1].city}</h1> */}
-                  {messagesToRender ? (
-                    <ul className="selectedConnectionMessages">
+              {this.state.displayMessages ? messagesToRender ?
+                    (<ul id="chatBox">
                       {messagesToRender.map((message, i) => (
                         <li
                           key={i}
@@ -304,9 +301,13 @@ class Mess extends React.Component {
                                 : this.props.selectedConnection.otheruser
                                     .picture
                             }
-                            className="picture"
+                            className={
+                              this.props.profile.auth_id === message.author
+                                ? "senderPicture"
+                                : "receiverPicture"
+                            }
                           />
-                          <p className="senderName">
+                          <p className="messageName">
                             {this.props.profile.auth_id !== message.author
                               ? this.props.selectedConnection.otheruser.username
                               : this.props.profile.username}
@@ -315,29 +316,25 @@ class Mess extends React.Component {
                           <p
                             className={
                               this.props.profile.auth_id === message.author
-                                ? "receiverMessageText"
-                                : "senderMessageText"
+                                ? "senderText"
+                                : "receiverText"
                             }
                           >
                             {message.text}
                           </p>
-                          <p className="messageDate">
+                          <p
+                            className="messageStamp">
                             {message.timestamp
                               ? moment(message.timestamp).fromNow()
                               : ""}
                           </p>
                         </li>
                       ))}
-                    </ul>
-                  ) : (
-                    <div className="selectedConnectionEmptyMessages">
+                    </ul>) :
+                    (<div className="selectedConnectionEmptyMessages">
                       SEND A MESSAGE, GET THE CONVERSATION GOING!!!!!!!!
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <ProfileBox profile={this.props.selectedConnection.otheruser} />
-              )}
+                    </div>) : 
+                    (<ProfileBox profile={this.props.selectedConnection.otheruser} />)}
               <div className="chatFormDiv">
                 <form onSubmit={this.handleSubmit}>
                   <input
