@@ -73,7 +73,6 @@ class Create extends React.Component {
       picture: this.state.imageUrl,
       primary_lang: this.state.primaryLanguage,
       interests: formattedInterests
-      //secondary langs
     };
     //save to db
     console.log(payload, "<-- payload here before patch");
