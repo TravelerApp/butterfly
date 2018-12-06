@@ -43,22 +43,22 @@ module.exports = [{
 {
   trip_user: '1',
   trip_city: 12,
-  trip_start: '2020-08-14',
-  trip_end: '2020-08-25',
+  trip_start: '2020-09-14',
+  trip_end: '2020-09-25',
   purpose: 'give me some overlaps'
 },
 {
   trip_user: '1',
   trip_city: 13,
-  trip_start: '2020-08-14',
-  trip_end: '2020-08-25',
+  trip_start: '2020-10-14',
+  trip_end: '2020-10-25',
   purpose: 'i want to swim with sharks'
 },
 {
   trip_user: '2',
   trip_city: 1,
-  trip_start: '2018-12-18',
-  trip_end: '2019-01-07',
+  trip_start: '2018-11-18',
+  trip_end: '2019-12-07',
   purpose: 'celebrating graduation from hack reactor'
 },
 {
