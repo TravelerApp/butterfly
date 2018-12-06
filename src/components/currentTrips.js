@@ -131,7 +131,7 @@ class Next extends React.Component {
           <div id='sidebar'>
             <div id='selectedTripHead'>
               <span>Your Trip to: {this.props.cities[this.props.selectedTrip.details.trip_city - 1].city}</span>
-              <button onClick={() => this.handleTripClick(null)}>Go Back</button>
+              <button onClick={() => this.handleTripClick(null)}>All Trips</button>
             </div>
             <ul id='possibleConnectionsList'>
             {connectionsToRender
@@ -159,7 +159,7 @@ class Next extends React.Component {
             </div>
             <ProfileBox profile={this.props.selectedPossCon.connectionProfile} />
              {/* ADD THESE to CSS RULESET ONCE CSS IS UPDATED */}
-            <div id='selectedConnectionPurpose'>{this.props.selectedPossCon.connectionTrip.purpose}</div>
+            <div id='selectedConnectionPurpose'>"{this.props.selectedPossCon.connectionTrip.purpose}"</div>
             </div>) : connectionsToRender.length ?
             (<div id='selectedPossibleConnectionBox'>
               <div id='noPossibleConnectionSelected'> Select a possible connection to view their profile and reach out</div>
