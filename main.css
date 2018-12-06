@@ -188,6 +188,135 @@ table {
 
 /* ABDULLAH STYLES - LANDING PAGE / ADDTRIP */
 
+/* ADD TRIP */
+
+.add-trip-container-div {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: #ADADAD
+}
+
+.add-trip-form-header {
+  width: 90%;
+  margin: auto;
+}
+
+.form-div {
+  width: 35%;
+  margin: auto;
+  margin-top: 5%;
+  background-color: #FFFFFF;
+  padding: 20px;
+}
+
+.select-country-div {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+  width: 90%;
+  padding: 20px;
+}
+.select-country-p{
+  margin-bottom: 10px;
+}
+
+.please-select-p {
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.add-trip-select {
+  margin-top: 15px;
+  width: 70%;
+  height: 5em;
+  border: 1px solid #ADADAD;
+  margin-right: 0px;
+}
+
+.add-trip-select:hover {
+  border: 2px solid #4096ee;
+}
+
+.add-to-my-trips-button-div {
+  width: 90%;
+  height: fit-content;
+  margin: auto;
+  margin-top: 80px;
+}
+
+.add-to-my-trips-button {
+  background: linear-gradient(to bottom, #7abcff 0%, #4096ee 100%);
+  border-radius: 3%;
+  font-size: 18px;
+  color: white;
+  height: 3em;
+  width: 100%;
+}
+
+.add-to-my-trips-button:hover {
+  background: linear-gradient(to bottom, #4096ee 100%, #7abcff 0%);
+  border-radius: 3%;
+  font-size: 18px;
+  color: white;
+  height: 3em;
+  width: 100%;
+}
+
+.from-to-div {
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+
+.date-picker {
+  margin-top: 0px;
+  height: 2em;
+  border: 1px solid #ADADAD;
+  margin-right: 0px;
+}
+
+.trip-reason-div {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4%;
+  width: 90%;
+}
+
+.trip-reason-lable {
+  display: block;
+}
+
+.trip-reason-text-area {
+  margin-left: auto;
+  margin-right: auto;
+  height: 14em;
+  width: 99%;
+  font-size: 18px;
+}
+
+.save-your-trip-button-div {
+  width: 90%;
+  height: fit-content;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.save-your-trip-button {
+  background: linear-gradient(to bottom, #7abcff 0%, #4096ee 100%);
+  border-radius: 3%;
+  font-size: 18px;
+  color: white;
+  height: 3em;
+  width: 100%;
+}
+
+.save-your-trip-button:hover {
+  background: linear-gradient(to bottom, #4096ee 100%, #7abcff 0%);
+}
 /* LANDING PAGE */
 
 .cb-slideshow,

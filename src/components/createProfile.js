@@ -36,6 +36,7 @@ class Create extends React.Component {
     this.primaryLanguageChanged = this.primaryLanguageChanged.bind(this);
   }
   componentDidMount() {
+    console.log(this.props, "<--on create")
     let uniqueCountries = [];
     this.props.cities.forEach(element => {
       if (!uniqueCountries.includes(element.country)) {
