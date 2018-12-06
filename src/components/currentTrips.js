@@ -152,8 +152,10 @@ class Next extends React.Component {
           (<div id='selectedPossibleConnectionBox'>
                 {/* ADD THESE to CSS RULESET ONCE CSS IS UPDATED */}
             <div id='selectedPossibleConnectionButtons'>
-              <span className='selectPossibleConnectionButton button' onClick={() => this.handleConnectButton(this.props.selectedPossCon)}>Connect</span>
-              <span className='selectPossibleConnectionButton button' onClick={() => this.handleBlock(this.props.selectedPossCon.connectionProfile.auth_id)}>No Thanks</span>
+              <div id='possibleButtonsContainer'>
+                <span className='selectPossibleConnectionButton button' onClick={() => this.handleConnectButton(this.props.selectedPossCon)}>Connect</span>
+                <span className='selectPossibleConnectionButton button' onClick={() => this.handleBlock(this.props.selectedPossCon.connectionProfile.auth_id)}>No Thanks</span>
+              </div>
             </div>
             <ProfileBox profile={this.props.selectedPossCon.connectionProfile} />
              {/* ADD THESE to CSS RULESET ONCE CSS IS UPDATED */}

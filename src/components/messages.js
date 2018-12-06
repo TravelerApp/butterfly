@@ -228,10 +228,20 @@ class Mess extends React.Component {
           {this.state.displayConnections ? this.renderConnections() : this.renderNewConnections()}
           {this.props.selectedConnection ?
             (<div id='selectedConnectionBox'>
-              <div id='selectedConnectionButtons'>
-                <span className='selectConnectionButton button' onClick={this.toggleMessagesView}>Messages</span>
-                <span className='selectConnectionButton button' onClick={this.toggleProfileView}>Profile</span>
-                <span className='selectConnectionButton button' onClick={() => this.handleBlock(this.props.selectedConnection.otheruser.auth_id)}>Delete Connection</span>
+              <div id="selectedConnectionButtons">
+                <div id='buttonsContainer'>
+                <span className="button" onClick={this.toggleMessagesView}>Messages</span>
+                <span className="button" onClick={this.toggleProfileView}>Profile</span>
+                <span
+                  className="button"
+                  id="delete"
+                  onClick={() =>
+                    this.handleBlock(
+                      this.props.selectedConnection.otheruser.auth_id
+                    )
+                  }
+                >Remove</span>
+                </div>
               </div>
               {this.state.displayMessages ?
                 (<div className="selectedConnectionChat">

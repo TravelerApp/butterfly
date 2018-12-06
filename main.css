@@ -1346,37 +1346,50 @@ select#soflow-color {
 }
 
 /* Selected Connection Box Buttons */
-#selectedConnectionButtons {
+#selectedConnectionButtons,
+#selectedPossibleConnectionButtons {
   grid-row: 1/2;
-  justify-self: center;
-  align-self: stretch;
-  vertical-align: center;
-  text-align: center;
   width: 100%;
-  display: flex;
   height: 100%;
-  justify-content: center;
-  align-content: center;
-}
-#selectedConnectionButtons > span {
-  border: 1px solid #4c4c4c;
-  background-color: white;
-  color: #4c4c4c;
-  margin-right: 35x;
-  height: 80%;
-  margin-left: 35px;
-  display: flex;
-  width: 15%;
-  text-align: center;
-  justify-content: center;
-  border-radius: 4px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  justify-items: center;
   align-items: center;
 }
-
-#selectedConnectionButtons > span:hover {
+#buttonsContainer {
+  grid-column: 2 / 3;
+  border-bottom: 1px solid #4c4c4c;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+}
+#possibleButtonsContainer {
+  grid-column: 2 / 3;
+  border-bottom: 1px solid #4c4c4c;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+}
+#buttonsContainer > span,
+#possibleButtonsContainer > span {
+  color: #4c4c4c;
+  background-color: white;
+  padding: 0.3rem 1rem;
+  text-align: center;
+  border: 1px solid #4c4c4c;
+  border-radius: 4px;
+}
+#buttonsContainer > span:hover {
   background-color: #4c4c4c;
   color: white;
 }
+
 
 #selectedConnectionChat {
   grid-row: 2/3;
