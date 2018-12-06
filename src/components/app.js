@@ -45,12 +45,12 @@ const App = () => (
           sessionStorage.getItem("banana") ? <Create /> : <Redirect to="/" />
         }
       />
-      <Route
+      {/* <Route
         path="/viewprofile"
         render={() =>
           sessionStorage.getItem("banana") ? <ViewSelf /> : <Redirect to="/" />
         }
-      />
+      /> */}
       <Route component={NotFound} />
     </Switch>
   </BrowserRouter>

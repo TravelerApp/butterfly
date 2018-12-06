@@ -1,6 +1,6 @@
 import React from "react";
 const ProfileBox = ({ profile }) => {
-  let interests = Object.keys(profile.interests).filter(
+let interests = Object.keys(profile.interests).filter(
     key => profile.interests[key]
   );
 
@@ -23,10 +23,11 @@ const ProfileBox = ({ profile }) => {
         </div>
       </div>
       <div id="profileBoxInterests">
-        <div>Interests</div>
+        <div>Interests:
         {interests.map(interest => (
           <span>{interest}</span>
         ))}
+        </div>
       </div>
     </div>
   );
