@@ -1545,6 +1545,7 @@ select#soflow-color {
   align-self: start;
   margin-top: 2rem;
   margin-left: 15rem;
+  margin-right: 15rem;
   height: 100%;
   max-height: 100%;
   display: flex;
