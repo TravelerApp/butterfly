@@ -1399,8 +1399,86 @@ select#soflow-color {
 
 /* CHAT WINDOW */
 
-#selectedConnectionChat {
-  grid-row: 2/3;
+#chatBox {
+  grid-row: 2 / 3;
+  height: 100%;
+  max-height: 100%;
+  width: 100%;
+  position: absolute;
+  overflow: auto;
+  display: grid;
+  grid-row-gap: 1rem;
+  align-items:center;
+  padding: 0 5px;
+  padding-top: 1rem;
+}
+
+.senderMessage {
+  justify-self: end;
+  display: grid;
+  grid-template-columns: 1fr 4rem;
+  /* grid-template-rows: 1fr 1fr 1fr; */
+  max-width: 70%;
+  justify-items: end;
+}
+
+.receiverMessage {
+  justify-self: start;
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  /* grid-template-rows: 1fr 1fr 1fr; */
+  max-width: 70%;
+  justify-items: start;
+}
+
+.senderPicture {
+  grid-column: 2 / 3;
+  grid-row: 1 / 4;
+  max-height: 4rem;
+  max-width: 4rem;
+}
+.receiverPicture {
+  grid-column: 1 / 2;
+  grid-row: 1 / 4;
+  max-height: 4rem;
+  max-width: 4rem;
+}
+
+.messageName {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #4c4c4c;
+}
+
+.senderText {
+  font-size: 1rem;
+  background-color: #393E46;
+  color: white;
+  padding: 5px 8px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 4px 3px -3px #4c4c4c;
+	   -moz-box-shadow: 0 4px 3px -3px #4c4c4c;
+          box-shadow: 0 4px 3px -3px #4c4c4c;
+  display: flex;
+  flex-direction: column;
+}
+
+.receiverText {
+  font-size: 1rem;
+  background-color: #C4E3CB;
+  color: #4c4c4c;
+  padding: 5px 8px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 4px 3px -3px #4c4c4c;
+	   -moz-box-shadow: 0 4px 3px -3px #4c4c4c;
+          box-shadow: 0 4px 3px -3px #4c4c4c;
+  display: flex;
+  flex-direction: column;
+}
+
+.messageStamp {
+  font-size: 0.7rem;
+  color: #4c4c4c;
 }
 
 /* SEND MESSAGE INPUT */
