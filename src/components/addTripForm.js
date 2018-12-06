@@ -20,6 +20,7 @@ export default class AddTripForm extends Component {
     });
   }
   handleEndDateChange(endDate) {
+    //adding comment to be deleted later
     this.setState({
       endDate: endDate
     });
