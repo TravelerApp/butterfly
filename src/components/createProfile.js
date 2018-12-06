@@ -10,7 +10,7 @@ class Create extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPicture: 'https://nfsmods.xyz/img/noavatar.png'
+      currentPicture: "https://nfsmods.xyz/img/noavatar.png",
       fullName: "",
       allCountries: [],
       primaryLanguage: ["Select a language .."],
