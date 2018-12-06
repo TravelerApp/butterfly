@@ -129,8 +129,10 @@ app.patch("/message", (req, res) => {
 // ------------ UPLOAD A PICTURE ---------------
 
 app.post("/image-upload", (req, res) => {
+  console.log("hitting the server");
   singleUpload(req, res, err => {
     if (err) {
+      console.log(err);
       throw err;
     } else {
       res.json({ imageUrl: req.file.location });
