@@ -186,8 +186,11 @@ table {
   box-sizing: border-box;
 }
 
-html, body, #app, #app>div {
-  height: 100%
+html,
+body,
+#app,
+#app > div {
+  height: 100%;
 }
 /* ABDULLAH STYLES - LANDING PAGE / ADDTRIP */
 
@@ -197,7 +200,7 @@ html, body, #app, #app>div {
   position: fixed;
   height: 100%;
   width: 100%;
-  background-color: #ADADAD
+  background-color: #adadad;
 }
 
 .add-trip-form-header {
@@ -209,7 +212,7 @@ html, body, #app, #app>div {
   width: 35%;
   margin: auto;
   margin-top: 5%;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   padding: 20px;
 }
 
@@ -220,7 +223,7 @@ html, body, #app, #app>div {
   width: 90%;
   padding: 20px;
 }
-.select-country-p{
+.select-country-p {
   margin-bottom: 10px;
 }
 
@@ -235,7 +238,7 @@ html, body, #app, #app>div {
   margin-top: 15px;
   width: 70%;
   height: 5em;
-  border: 1px solid #ADADAD;
+  border: 1px solid #adadad;
   margin-right: 0px;
 }
 
@@ -278,7 +281,7 @@ html, body, #app, #app>div {
 .date-picker {
   margin-top: 0px;
   height: 2em;
-  border: 1px solid #ADADAD;
+  border: 1px solid #adadad;
   margin-right: 0px;
 }
 
@@ -1146,8 +1149,6 @@ select#soflow-color {
 
 /* JAMES STYLES */
 
-
-
 /* CHRIS AND ALBERTO STYLES */
 #topContainer {
   display: grid;
@@ -1421,10 +1422,8 @@ select#soflow-color {
 }
 
 #profileBoxInfo div {
-  word-break: break-wo
-  rd;
+  word-break: break-wo rd;
 }
-=======
 .jamesCreatePage {
   background-color: rgb(39, 38, 38);
   width: 100%;
