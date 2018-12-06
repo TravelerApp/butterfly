@@ -74,7 +74,6 @@ class Create extends React.Component {
       primary_lang: this.state.primaryLanguage,
       interests: formattedInterests
       //secondary langs
-      //picture?
     };
     //save to db
     console.log(payload, "<-- payload here before patch");
@@ -107,7 +106,7 @@ class Create extends React.Component {
     return this.props.profile.username ? (
       <Redirect to="/add" />
     ) : (
-      <div className="jamesCreatePage">
+sCreatePage">
         <div className="jamesInputForm">
           <h1 className="jamesCreateTitle">Tell us about yourself:</h1>
           <form className="createProfileForm">
