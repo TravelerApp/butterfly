@@ -12,20 +12,24 @@ const Nav = props => {
     });
   };
   return (
-    <div className="nav-div">
-      <Link className="nav-link" to="/add">
-        Add Trip
-      </Link>
-      <Link className="nav-link" to="/next">
-        Upcoming Trips
-      </Link>
-      <Link className="nav-link" to="/mess">
-        Messages
-      </Link>
-      <Link className="nav-link" to="/viewprofile">
-        Profile
-      </Link>
-      <GoogleLogout onLogoutSuccess={handleLogout} />
+    <div className= 'nav'>
+      <img className='logo' src='https://images.vexels.com/media/users/3/135535/isolated/preview/b79e409078ebfbc02e8615b2ed5938c6-butterfly-icon-by-vexels.png'/>
+      <div className="nav-links">
+        <Link className="nav-link" to="/add">
+          Add Trip
+        </Link>
+        <Link className="nav-link" to="/next">
+          Upcoming Trips
+        </Link>
+        <Link className="nav-link" to="/mess">
+          Messages
+        </Link>
+        <Link className="nav-link" to="/viewprofile">
+          Profile
+        </Link>
+        <span className='nav-link' onClick={handleLogout}>Logout</span>
+      </div>
+      {/* <GoogleLogout className='logout' onLogoutSuccess={handleLogout} /> */}
     </div>
   );
 };

@@ -1,4 +1,329 @@
-.cb-slideshow, .cb-slideshow:after {
+/* CSS reset */
+
+/* body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+fieldset, img {
+  border: 0;
+}
+
+input {
+  border: 1px solid #b0b0b0;
+  padding: 3px 5px 4px;
+  color: #979797;
+  width: 190px;
+}
+
+address, caption, cite, code, dfn, th, var {
+  font-style: normal;
+  font-weight: normal;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+caption, th {
+  text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+q:before, q:after {
+  content: '';
+}
+
+abbr, acronym {
+  border: 0;
+} */
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers*/
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html, body, #app, #app>div {
+  height: 100%
+}
+/* ABDULLAH STYLES - LANDING PAGE / ADDTRIP */
+
+/* ADD TRIP */
+
+.add-trip-container-div {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: #ADADAD
+}
+
+.add-trip-form-header {
+  width: 90%;
+  margin: auto;
+}
+
+.form-div {
+  width: 35%;
+  margin: auto;
+  margin-top: 5%;
+  background-color: #FFFFFF;
+  padding: 20px;
+}
+
+.select-country-div {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+  width: 90%;
+  padding: 20px;
+}
+.select-country-p{
+  margin-bottom: 10px;
+}
+
+.please-select-p {
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.add-trip-select {
+  margin-top: 15px;
+  width: 70%;
+  height: 5em;
+  border: 1px solid #ADADAD;
+  margin-right: 0px;
+}
+
+.add-trip-select:hover {
+  border: 2px solid #4096ee;
+}
+
+.add-to-my-trips-button-div {
+  width: 90%;
+  height: fit-content;
+  margin: auto;
+  margin-top: 80px;
+}
+
+.add-to-my-trips-button {
+  background: linear-gradient(to bottom, #7abcff 0%, #4096ee 100%);
+  border-radius: 3%;
+  font-size: 18px;
+  color: white;
+  height: 3em;
+  width: 100%;
+}
+
+.add-to-my-trips-button:hover {
+  background: linear-gradient(to bottom, #4096ee 100%, #7abcff 0%);
+  border-radius: 3%;
+  font-size: 18px;
+  color: white;
+  height: 3em;
+  width: 100%;
+}
+
+.from-to-div {
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+
+.date-picker {
+  margin-top: 0px;
+  height: 2em;
+  border: 1px solid #ADADAD;
+  margin-right: 0px;
+}
+
+.trip-reason-div {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4%;
+  width: 90%;
+}
+
+.trip-reason-lable {
+  display: block;
+}
+
+.trip-reason-text-area {
+  margin-left: auto;
+  margin-right: auto;
+  height: 14em;
+  width: 99%;
+  font-size: 18px;
+}
+
+.save-your-trip-button-div {
+  width: 90%;
+  height: fit-content;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.save-your-trip-button {
+  background: linear-gradient(to bottom, #7abcff 0%, #4096ee 100%);
+  border-radius: 3%;
+  font-size: 18px;
+  color: white;
+  height: 3em;
+  width: 100%;
+}
+
+.save-your-trip-button:hover {
+  background: linear-gradient(to bottom, #4096ee 100%, #7abcff 0%);
+}
+/* LANDING PAGE */
+
+.cb-slideshow,
+.cb-slideshow:after {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -8,7 +333,7 @@
 }
 
 .cb-slideshow:after {
-  content: '';
+  content: "";
   /* background: transparent url(../images/pattern.png) repeat top left; */
 }
 
@@ -47,7 +372,7 @@
 }
 
 .cb-slideshow li div h3 {
-  font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+  font-family: "BebasNeueRegular", "Arial Narrow", Arial, sans-serif;
   font-size: 160px;
   padding: 0 30px;
   line-height: 120px;
@@ -55,7 +380,7 @@
 }
 
 .cb-slideshow li:nth-child(1) span {
-  background-image: url(https://20dqe434dcuq54vwy1wai79h-wpengine.netdna-ssl.com/wp-content/uploads/2017/11/Eiffel-Tower-Joakim-Leroy-iStock.jpg)
+  background-image: url(https://20dqe434dcuq54vwy1wai79h-wpengine.netdna-ssl.com/wp-content/uploads/2017/11/Eiffel-Tower-Joakim-Leroy-iStock.jpg);
 }
 
 .cb-slideshow li:nth-child(2) span {
@@ -166,7 +491,7 @@
     -webkit-transform: scale(1.1) translateY(-100%);
   }
   100% {
-    opacity: 0
+    opacity: 0;
   }
 }
 
@@ -193,7 +518,7 @@
     -moz-transform: scale(1.1) translateY(-100%);
   }
   100% {
-    opacity: 0
+    opacity: 0;
   }
 }
 
@@ -220,7 +545,7 @@
     -o-transform: scale(1.1) translateY(-100%);
   }
   100% {
-    opacity: 0
+    opacity: 0;
   }
 }
 
@@ -247,7 +572,7 @@
     -ms-transform: scale(1.1) translateY(-100%);
   }
   100% {
-    opacity: 0
+    opacity: 0;
   }
 }
 
@@ -274,7 +599,7 @@
     -transform: scale(1.1) translateY(-100%);
   }
   100% {
-    opacity: 0
+    opacity: 0;
   }
 }
 
@@ -296,10 +621,10 @@
     -webkit-transform: translateY(100%);
   }
   25% {
-    opacity: 0
+    opacity: 0;
   }
   100% {
-    opacity: 0
+    opacity: 0;
   }
 }
 
@@ -321,10 +646,10 @@
     -moz-transform: translateY(100%);
   }
   25% {
-    opacity: 0
+    opacity: 0;
   }
   100% {
-    opacity: 0
+    opacity: 0;
   }
 }
 
@@ -346,10 +671,10 @@
     -o-transform: translateY(100%);
   }
   25% {
-    opacity: 0
+    opacity: 0;
   }
   100% {
-    opacity: 0
+    opacity: 0;
   }
 }
 
@@ -371,10 +696,10 @@
     -ms-transform: translateY(100%);
   }
   25% {
-    opacity: 0
+    opacity: 0;
   }
   100% {
-    opacity: 0
+    opacity: 0;
   }
 }
 
@@ -396,10 +721,10 @@
     transform: translateY(100%);
   }
   25% {
-    opacity: 0
+    opacity: 0;
   }
   100% {
-    opacity: 0
+    opacity: 0;
   }
 }
 
@@ -411,13 +736,13 @@
 
 @media screen and (max-width: 1140px) {
   .cb-slideshow li div h3 {
-    font-size: 100px
+    font-size: 100px;
   }
 }
 
 @media screen and (max-width: 600px) {
   .cb-slideshow li div h3 {
-    font-size: 50px
+    font-size: 50px;
   }
 }
 
@@ -431,66 +756,12 @@
   font-style: normal;
 } */
 
-/* CSS reset */
-
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
-  margin: 0;
-  padding: 0;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-fieldset, img {
-  border: 0;
-}
-
-input {
-  border: 1px solid #b0b0b0;
-  padding: 3px 5px 4px;
-  color: #979797;
-  width: 190px;
-}
-
-address, caption, cite, code, dfn, th, var {
-  font-style: normal;
-  font-weight: normal;
-}
-
-ol, ul {
-  list-style: none;
-}
-
-caption, th {
-  text-align: left;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-size: 100%;
-  font-weight: normal;
-}
-
-q:before, q:after {
-  content: '';
-}
-
-abbr, acronym {
-  border: 0;
-}
-
 /* General Demo Style */
-
 body {
-  font-family: Constantia, Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
+  font-family: Constantia, Palatino, "Palatino Linotype", "Palatino LT STD",
+    Georgia, serif;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 16px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -512,7 +783,7 @@ a {
   clear: both;
 }
 
-.container>header {
+.container > header {
   padding: 30px 30px 10px 20px;
   margin: 0px 20px 10px 20px;
   position: relative;
@@ -521,8 +792,8 @@ a {
   text-align: left;
 }
 
-.container>header h1 {
-  font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+.container > header h1 {
+  font-family: "BebasNeueRegular", "Arial Narrow", Arial, sans-serif;
   font-size: 35px;
   line-height: 35px;
   position: relative;
@@ -532,16 +803,18 @@ a {
   padding: 0px 0px 5px 0px;
 }
 
-.container>header h1 span {}
+.container > header h1 span {
+}
 
-.container>header h2, p.info {
+.container > header h2,
+p.info {
   font-size: 16px;
   font-style: italic;
   color: #f8f8f8;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
 }
 
-/* Header Style */
+/* LANDING PAGE HEADER */
 
 .codrops-top {
   padding-top: 10px;
@@ -586,7 +859,9 @@ p.codrops-demos {
   padding: 15px 0px;
 }
 
-p.codrops-demos a, p.codrops-demos a.current-demo, p.codrops-demos a.current-demo:hover {
+p.codrops-demos a,
+p.codrops-demos a.current-demo,
+p.codrops-demos a.current-demo:hover {
   display: inline-block;
   border: 1px solid #6d0019;
   padding: 4px 10px 3px;
@@ -603,8 +878,20 @@ p.codrops-demos a, p.codrops-demos a.current-demo, p.codrops-demos a.current-dem
   border-radius: 5px;
   background: #a90329;
   background: -moz-linear-gradient(top, #a90329 0%, #8f0222 44%, #6d0019 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #a90329), color-stop(44%, #8f0222), color-stop(100%, #6d0019));
-  background: -webkit-linear-gradient(top, #a90329 0%, #8f0222 44%, #6d0019 100%);
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0%, #a90329),
+    color-stop(44%, #8f0222),
+    color-stop(100%, #6d0019)
+  );
+  background: -webkit-linear-gradient(
+    top,
+    #a90329 0%,
+    #8f0222 44%,
+    #6d0019 100%
+  );
   background: -o-linear-gradient(top, #a90329 0%, #8f0222 44%, #6d0019 100%);
   background: -ms-linear-gradient(top, #a90329 0%, #8f0222 44%, #6d0019 100%);
   background: linear-gradient(top, #a90329 0%, #8f0222 44%, #6d0019 100%);
@@ -617,8 +904,20 @@ p.codrops-demos a:hover {
 p.codrops-demos a:active {
   background: #6d0019;
   background: -moz-linear-gradient(top, #6d0019 0%, #8f0222 56%, #a90329 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #6d0019), color-stop(56%, #8f0222), color-stop(100%, #a90329));
-  background: -webkit-linear-gradient(top, #6d0019 0%, #8f0222 56%, #a90329 100%);
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0%, #6d0019),
+    color-stop(56%, #8f0222),
+    color-stop(100%, #a90329)
+  );
+  background: -webkit-linear-gradient(
+    top,
+    #6d0019 0%,
+    #8f0222 56%,
+    #a90329 100%
+  );
   background: -o-linear-gradient(top, #6d0019 0%, #8f0222 56%, #a90329 100%);
   background: -ms-linear-gradient(top, #6d0019 0%, #8f0222 56%, #a90329 100%);
   background: linear-gradient(top, #6d0019 0%, #8f0222 56%, #a90329 100%);
@@ -627,15 +926,16 @@ p.codrops-demos a:active {
   box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
 }
 
-p.codrops-demos a.current-demo, p.codrops-demos a.current-demo:hover {
-  color: #A5727D;
+p.codrops-demos a.current-demo,
+p.codrops-demos a.current-demo:hover {
+  color: #a5727d;
   background: #6d0019;
 }
 
 /* Media Queries */
 
 @media screen and (max-width: 767px) {
-  .container>header {
+  .container > header {
     text-align: center;
   }
   p.codrops-demos {
@@ -668,28 +968,6 @@ p.codrops-demos a.current-demo, p.codrops-demos a.current-demo:hover {
   cursor: pointer;
 }
 
-.nav-link {
-  float: left;
-  display: block;
-  color: #ddd;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-}
-
-.nav-link:hover {
-  color: #fff;
-  cursor: pointer;
-}
-
-.nav-div {
-  background-color: #000;
-  height: 35px;
-  padding: 2px;
-}
-
 .actionButton {
   border: none;
   color: white;
@@ -711,16 +989,7 @@ p.codrops-demos a.current-demo, p.codrops-demos a.current-demo:hover {
   color: white;
 }
 
-/* select */
-
-/* -------------------- Page Styles (not required) */
-
-div {
-  /* margin: 20px; */
-}
-
 /* -------------------- Select Box Styles: bavotasan.com Method (with special adaptations by ericrasch.com) */
-
 /* -------------------- Source: http://bavotasan.com/2011/style-select-box-using-only-css/ */
 
 .styled-select {
@@ -812,19 +1081,18 @@ div {
 }
 
 /* -------------------- Select Box Styles: danielneumann.com Method */
-
 /* -------------------- Source: http://danielneumann.com/blog/how-to-style-dropdown-with-css-only/ */
 
 #mainselection select {
   border: 0;
-  color: #EEE;
+  color: #eee;
   background: transparent;
   font-size: 20px;
   font-weight: bold;
   padding: 2px 10px;
   width: 378px;
   *width: 350px;
-  *background: #58B14C;
+  *background: #58b14c;
   -webkit-appearance: none;
 }
 
@@ -835,24 +1103,26 @@ div {
   -webkit-border-radius: 9px 9px 9px 9px;
   border-radius: 9px 9px 9px 9px;
   box-shadow: 1px 1px 11px #330033;
-  background: #58B14C url("http://i62.tinypic.com/15xvbd5.png") no-repeat scroll 319px center;
+  background: #58b14c url("http://i62.tinypic.com/15xvbd5.png") no-repeat scroll
+    319px center;
 }
 
 /* -------------------- Select Box Styles: stackoverflow.com Method */
-
 /* -------------------- Source: http://stackoverflow.com/a/5809186 */
 
-select#soflow, select#soflow-color {
+select#soflow,
+select#soflow-color {
   -webkit-appearance: button;
   -webkit-border-radius: 2px;
   -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
   -webkit-padding-end: 20px;
   -webkit-padding-start: 2px;
   -webkit-user-select: none;
-  background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+  background-image: url(http://i62.tinypic.com/15xvbd5.png),
+    -webkit-linear-gradient(#fafafa, #f4f4f4 40%, #e5e5e5);
   background-position: 97% center;
   background-repeat: no-repeat;
-  border: 1px solid #AAA;
+  border: 1px solid #aaa;
   color: #555;
   font-size: inherit;
   margin: 20px;
@@ -865,10 +1135,410 @@ select#soflow, select#soflow-color {
 
 select#soflow-color {
   color: #fff;
-  background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#779126, #779126 40%, #779126);
+  background-image: url(http://i62.tinypic.com/15xvbd5.png),
+    -webkit-linear-gradient(#779126, #779126 40%, #779126);
   background-color: #779126;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
   padding-left: 15px;
 }
+
+/* JAMES STYLES */
+
+
+
+/* CHRIS AND ALBERTO STYLES */
+#topContainer {
+  display: grid;
+  grid-template-rows: 3rem 1fr;
+  height: 100%;
+  max-height: 100%;
+}
+
+/* NAV */
+.nav {
+  grid-row: 1 /2;
+  display: grid;
+  grid-template-columns: 1fr 10fr;
+  /* height: 10%; */
+  background-color: black;
+  font-family: Helvetica;
+  letter-spacing: 0.2rem;
+  font-size: 0.7rem;
+}
+
+.logo {
+  /* background-image: url('https://images.vexels.com/media/users/3/135535/isolated/preview/b79e409078ebfbc02e8615b2ed5938c6-butterfly-icon-by-vexels.png'); */
+  grid-column: 1 / 2;
+  align-self: center;
+  justify-self: start;
+  max-height: 3rem;
+  max-width: 3rem;
+  margin-left: 2rem;
+}
+
+.nav-links {
+  grid-column: 2 / 3;
+  align-self: center;
+  justify-self: end;
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.nav-link {
+  color: #ddd;
+  margin: 0 1rem;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+/* MESSAGES */
+
+#messagesPageContainer {
+  grid-row: 2 / 3;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  height: 100%;
+  max-height: 100%;
+  border: 2px solid brown;
+}
+
+#sidebar {
+  grid-column: 1 / 2;
+  display: grid;
+  position: relative;
+  grid-template-rows: 35px 1fr;
+  height: 100%;
+  max-height: 100%;
+  border: 2px solid red;
+  min-width: 350px;
+}
+
+#sidebarButtons {
+  grid-row: 1 / 2;
+  align-self: center;
+  justify-self: center;
+  border: 2px solid black;
+  height: 25px;
+}
+
+#connectionsList {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  grid-row: 2 / 3;
+  border: 2px solid blue;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.connectionsListItem {
+  display: block;
+  height: 80px;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-template-rows: 1fr 1fr;
+  border: 2px solid green;
+  justify-items: center;
+  align-items: center;
+}
+
+.connectionsListPicture {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  max-height: 25px;
+  max-width: 25px;
+}
+
+.connectionsListName {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+}
+
+.connectionsListCity {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+#selectedConnectionBox {
+  grid-column: 2 / 3;
+  align-self: center;
+  justify-self: center;
+  border: 2px solid purple;
+  background-color: aquamarine;
+  display: grid;
+  grid-template-rows: 1fr 15fr 2fr;
+  justify-items: center;
+  align-items: center;
+  height: 75%;
+  min-height: 688px;
+  max-height: 75%;
+  width: 60%;
+  max-width: 60%;
+  min-width: 550px;
+}
+
+#noConnectionSelected {
+  grid-row: 1 / 4;
+  border: 2px solid purple;
+  font-weight: 700;
+  font-size: 4rem;
+  text-align: center;
+}
+
+.picture {
+  max-height: 25px;
+  max-width: 25px;
+}
+
+/* UPCOMING TRIPS */
+
+#upcomingTripsContainer {
+  grid-row: 2 / 3;
+  height: 100%;
+  max-height: 100%;
+  display: grid;
+  grid-template-rows: 5rem 1fr;
+}
+
+#upcomingTripsTitle {
+  grid-row: 1 / 2;
+  justify-self: center;
+  align-self: end;
+  font-size: 3.5rem;
+  display: inline-block;
+  border-bottom: 2px solid grey;
+}
+
+#noTripsButton {
+  justify-self: center;
+  align-self: start;
+  margin-top: 1rem;
+}
+
+#upcomingTripsList {
+  justify-self: start;
+  align-self: start;
+  margin-top: 2rem;
+  margin-left: 15rem;
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.tripListTrip > p {
+  display: inline-block;
+}
+
+.tripListTitle {
+  font-size: 2.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid grey;
+}
+
+.tripListDates {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  margin-left: 4rem;
+}
+
+.tripListPurpose {
+  font-size: 2rem;
+  margin-top: 1.5rem;
+  margin-left: 4rem;
+  margin-bottom: 3rem;
+}
+
+/* Profile Box */
+#profileBox {
+  grid-row: 2/3;
+  /* border: 2px solid blue; */
+  display: grid;
+  grid-template-columns: 3fr 4fr;
+  grid-template-rows: 4fr 1fr;
+  justify-self: stretch;
+  align-self: stretch;
+  overflow-wrap: break-word;
+}
+
+#profileBox img {
+  grid-row: 1/2;
+  max-height: 400px;
+  max-width: 400px;
+  grid-column: 1/2;
+  /* border: 2px solid grey; */
+  justify-self: center;
+  align-self: center;
+}
+
+#profileBoxInfo {
+  grid-row: 1/2;
+  grid-column: 2/3;
+  /* border: 2px solid pink; */
+  display: flex;
+  overflow-wrap: break-word;
+  flex-direction: column;
+  font-size: 2rem;
+  /* font-weight: bold; */
+  justify-content: space-around;
+}
+
+#profileBoxInfo span {
+  font-weight: bold;
+}
+
+#profileBoxInterests {
+  grid-row: 2/3;
+  grid-column: 1/3;
+  /* border: 2px solid maroon; */
+  justify-self: stretch;
+  align-self: stretch;
+  text-align: center;
+  border: 2px solid red;
+}
+
+#profileBoxInterests span {
+  /* not 100% this was best practice..referring to the margins */
+  margin-right: 3rem;
+  margin-left: 3rem;
+  font-size: 1.5rem;
+  padding-top: 30px;
+}
+
+#profileBoxInterests div {
+  font-weight: bold;
+  font-size: 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+#profileBoxInfo div {
+  word-break: break-wo
+  rd;
+}
+=======
+.jamesCreatePage {
+  background-color: rgb(39, 38, 38);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+}
+.jamesInputForm {
+  background-color: #a5727d;
+  align-content: center;
+  margin-left: 25%;
+  margin-top: 3%;
+  height: 85%;
+  width: 50%;
+  border: 5px white;
+  border-radius: 5px;
+}
+.jamesCreateTitle {
+  font-size: 35px;
+  font-weight: bolder;
+  text-align: center;
+  margin-top: 5%;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: #aaa;
+}
+#JamesText {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 5%;
+}
+.createProfileForm {
+  width: 80%;
+  margin-left: 30%;
+  margin-top: 5%;
+}
+.JamesCreateButton {
+  margin-top: 15%;
+  margin-left: 10%;
+  width: 20%;
+  height: 5%;
+  background-color: #aaa;
+}
+.JamesCreateButton:hover {
+  cursor: pointer;
+}
+.jamesInterestInput {
+  width: 50%;
+  height: 35%;
+}
+.eachInterest {
+  display: inline-block;
+  width: 49%;
+  margin-top: 2%;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.createInterest {
+  margin-top: 3%;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* CHRIS AND ALBERTO STYLES */
+/* MESSAGES */
+
+/* UPCOMING TRIPS */
