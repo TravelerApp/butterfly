@@ -300,7 +300,7 @@ class Mess extends React.Component {
           ) :
           (<div id='selectedConnectionBox'>
             {this.props.sortedMessageData.ongoingMessages.length ?
-                <div id='noConnectionSelected'> Select a connection to see their messages </div>
+                <div id='noConnectionSelected'>Select a connection to see their messages</div>
               : this.props.sortedMessageData.newConnections.length ?
                 <div id='noConnectionSelected'>Send one of your new connections a message!</div>
               : <div id='noConnectionSelected'>Find people heading to the same places you are and then you can chat with them here!</div>
