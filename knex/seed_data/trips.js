@@ -182,13 +182,6 @@ module.exports = [{
 },
 {
   trip_user: '4',
-  trip_city: 12,
-  trip_start: '2020-08-14',
-  trip_end: '2020-08-25',
-  purpose: 'give me some overlaps'
-},
-{
-  trip_user: '4',
   trip_city: 13,
   trip_start: '2020-08-14',
   trip_end: '2020-08-25',

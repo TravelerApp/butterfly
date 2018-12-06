@@ -12,7 +12,7 @@ exports.up = knex =>
       table.integer('trip_city').references('city_id').inTable('cities').notNullable().onDelete('cascade');
       table.date('trip_start');
       table.date('trip_end');
-      table.string('purpose');
+      table.string('purpose', 5000);
   });
 
 exports.down = knex => knex.schema.dropTable('trips');
