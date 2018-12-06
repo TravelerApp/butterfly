@@ -186,8 +186,11 @@ table {
   box-sizing: border-box;
 }
 
-html, body, #app, #app>div {
-  height: 100%
+html,
+body,
+#app,
+#app > div {
+  height: 100%;
 }
 /* ABDULLAH STYLES - LANDING PAGE / ADDTRIP */
 
@@ -197,7 +200,7 @@ html, body, #app, #app>div {
   position: fixed;
   height: 100%;
   width: 100%;
-  background-color: #ADADAD
+  background-color: #adadad;
 }
 
 .add-trip-form-header {
@@ -209,7 +212,7 @@ html, body, #app, #app>div {
   width: 35%;
   margin: auto;
   margin-top: 5%;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   padding: 20px;
 }
 
@@ -220,7 +223,7 @@ html, body, #app, #app>div {
   width: 90%;
   padding: 20px;
 }
-.select-country-p{
+.select-country-p {
   margin-bottom: 10px;
 }
 
@@ -235,7 +238,7 @@ html, body, #app, #app>div {
   margin-top: 15px;
   width: 70%;
   height: 5em;
-  border: 1px solid #ADADAD;
+  border: 1px solid #adadad;
   margin-right: 0px;
 }
 
@@ -278,7 +281,7 @@ html, body, #app, #app>div {
 .date-picker {
   margin-top: 0px;
   height: 2em;
-  border: 1px solid #ADADAD;
+  border: 1px solid #adadad;
   margin-right: 0px;
 }
 
@@ -1202,7 +1205,7 @@ select#soflow-color {
   grid-template-columns: 1fr 4fr;
   height: 100%;
   max-height: 100%;
-  background-color: cornflowerblue
+  background-color: cornflowerblue;
 }
 
 #sidebar {
@@ -1286,7 +1289,6 @@ select#soflow-color {
   max-width: 90%;
   border-radius: 3px;
 }
-
 
 .connectionsListName {
   grid-column: 2 / 3;
@@ -1387,7 +1389,6 @@ select#soflow-color {
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
 .chatTextBox {
@@ -1493,11 +1494,11 @@ select#soflow-color {
   overflow: auto;
 }
 
-#upcomingTripsList div .tripListTitle{
+#upcomingTripsList div .tripListTitle {
   border-top: 1px solid #4c4c4c;
 }
 
-#upcomingTripsList div:first-child .tripListTitle{
+#upcomingTripsList div:first-child .tripListTitle {
   border: none;
 }
 
@@ -1593,9 +1594,7 @@ select#soflow-color {
   word-break: break-word;
 }
 
-
 /* JAMES STYLES */
-
 
 .jamesCreatePage {
   background-color: rgb(39, 38, 38);
@@ -1603,9 +1602,44 @@ select#soflow-color {
   height: 100%;
   position: fixed;
 }
+.jamesPicBox {
+  position: relative;
+  width: 40%;
+  height: 30%;
+  float: right;
+}
+.JDBOX1 {
+  width: 60%;
+  float: left;
+  position: relative;
+  margin-bottom: 5%;
+}
+.JDBOX2 {
+  width: 100%;
+  height: 35%;
+  clear: both;
+  margin-left: 12%;
+  margin-top: 5%;
+}
+.jamesPic {
+  max-width: 80%;
+  max-height: 100%;
+  position: relative;
+  float: left;
+}
+.jamesNameInput,
+.jamesPicInput,
+.jamesCountryInput,
+.jamesLangInput {
+  margin-left: 20%;
+}
+#JamesText1 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 5%;
+}
 .jamesInputForm {
   background-color: #a5727d;
-  align-content: center;
   margin-left: 25%;
   margin-top: 3%;
   height: 85%;
@@ -1626,30 +1660,29 @@ select#soflow-color {
   font-size: 20px;
   font-weight: bold;
   margin-top: 5%;
+  margin-left: 20%;
 }
 .createProfileForm {
-  width: 80%;
-  margin-left: 30%;
   margin-top: 5%;
 }
 .JamesCreateButton {
-  margin-top: 15%;
-  margin-left: 10%;
   width: 20%;
   height: 5%;
   background-color: #aaa;
+  margin-left: 40%;
+  margin-top: 3%;
 }
 .JamesCreateButton:hover {
   cursor: pointer;
 }
 .jamesInterestInput {
-  width: 50%;
+  width: 90%;
   height: 35%;
 }
 .eachInterest {
   display: inline-block;
-  width: 49%;
-  margin-top: 2%;
+  width: 25%;
+  margin-top: 3%;
 }
 .switch {
   position: relative;
@@ -1708,4 +1741,12 @@ input:checked + .slider:before {
   display: inline-block;
   width: 60px;
   height: 34px;
+}
+/* Profile View */
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
