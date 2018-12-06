@@ -36,7 +36,7 @@ class Create extends React.Component {
     this.primaryLanguageChanged = this.primaryLanguageChanged.bind(this);
   }
   componentDidMount() {
-    console.log(this.props, "<--on create")
+    console.log(this.props, "<--on create");
     let uniqueCountries = [];
     this.props.cities.forEach(element => {
       if (!uniqueCountries.includes(element.country)) {
@@ -106,7 +106,7 @@ class Create extends React.Component {
     return this.props.profile.username ? (
       <Redirect to="/add" />
     ) : (
-sCreatePage">
+      <div className="jamesCreatePage">
         <div className="jamesInputForm">
           <h1 className="jamesCreateTitle">Tell us about yourself:</h1>
           <form className="createProfileForm">
