@@ -186,8 +186,140 @@ table {
   box-sizing: border-box;
 }
 
+html, body, #app, #app>div {
+  height: 100%
+}
 /* ABDULLAH STYLES - LANDING PAGE / ADDTRIP */
 
+/* ADD TRIP */
+
+.add-trip-container-div {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: #ADADAD
+}
+
+.add-trip-form-header {
+  width: 90%;
+  margin: auto;
+}
+
+.form-div {
+  width: 35%;
+  margin: auto;
+  margin-top: 5%;
+  background-color: #FFFFFF;
+  padding: 20px;
+}
+
+.select-country-div {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+  width: 90%;
+  padding: 20px;
+}
+.select-country-p{
+  margin-bottom: 10px;
+}
+
+.please-select-p {
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.add-trip-select {
+  margin-top: 15px;
+  width: 70%;
+  height: 5em;
+  border: 1px solid #ADADAD;
+  margin-right: 0px;
+}
+
+.add-trip-select:hover {
+  border: 2px solid #4096ee;
+}
+
+.add-to-my-trips-button-div {
+  width: 90%;
+  height: fit-content;
+  margin: auto;
+  margin-top: 80px;
+}
+
+.add-to-my-trips-button {
+  background: linear-gradient(to bottom, #7abcff 0%, #4096ee 100%);
+  border-radius: 3%;
+  font-size: 18px;
+  color: white;
+  height: 3em;
+  width: 100%;
+}
+
+.add-to-my-trips-button:hover {
+  background: linear-gradient(to bottom, #4096ee 100%, #7abcff 0%);
+  border-radius: 3%;
+  font-size: 18px;
+  color: white;
+  height: 3em;
+  width: 100%;
+}
+
+.from-to-div {
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+
+.date-picker {
+  margin-top: 0px;
+  height: 2em;
+  border: 1px solid #ADADAD;
+  margin-right: 0px;
+}
+
+.trip-reason-div {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4%;
+  width: 90%;
+}
+
+.trip-reason-lable {
+  display: block;
+}
+
+.trip-reason-text-area {
+  margin-left: auto;
+  margin-right: auto;
+  height: 14em;
+  width: 99%;
+  font-size: 18px;
+}
+
+.save-your-trip-button-div {
+  width: 90%;
+  height: fit-content;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.save-your-trip-button {
+  background: linear-gradient(to bottom, #7abcff 0%, #4096ee 100%);
+  border-radius: 3%;
+  font-size: 18px;
+  color: white;
+  height: 3em;
+  width: 100%;
+}
+
+.save-your-trip-button:hover {
+  background: linear-gradient(to bottom, #4096ee 100%, #7abcff 0%);
+}
 /* LANDING PAGE */
 
 .cb-slideshow,
@@ -629,7 +761,7 @@ body {
   font-family: Constantia, Palatino, "Palatino Linotype", "Palatino LT STD",
     Georgia, serif;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 16px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -1014,16 +1146,50 @@ select#soflow-color {
 
 /* JAMES STYLES */
 
+
+
+/* CHRIS AND ALBERTO STYLES */
+#topContainer {
+  display: grid;
+  grid-template-rows: 3rem 1fr;
+  height: 100%;
+  max-height: 100%;
+}
+
 /* NAV */
+.nav {
+  grid-row: 1 /2;
+  display: grid;
+  grid-template-columns: 1fr 10fr;
+  /* height: 10%; */
+  background-color: black;
+  font-family: Helvetica;
+  letter-spacing: 0.2rem;
+  font-size: 0.7rem;
+}
+
+.logo {
+  /* background-image: url('https://images.vexels.com/media/users/3/135535/isolated/preview/b79e409078ebfbc02e8615b2ed5938c6-butterfly-icon-by-vexels.png'); */
+  grid-column: 1 / 2;
+  align-self: center;
+  justify-self: start;
+  max-height: 3rem;
+  max-width: 3rem;
+  margin-left: 2rem;
+}
+
+.nav-links {
+  grid-column: 2 / 3;
+  align-self: center;
+  justify-self: end;
+  display: grid;
+  grid-auto-flow: column;
+}
+
 .nav-link {
-  float: left;
-  display: block;
   color: #ddd;
-  text-align: center;
-  padding: 14px 16px;
+  margin: 0 1rem;
   text-decoration: none;
-  font-family: Arial, sans-serif;
-  font-size: 11px;
 }
 
 .nav-link:hover {
@@ -1031,12 +1197,234 @@ select#soflow-color {
   cursor: pointer;
 }
 
-.nav-div {
-  background-color: #000;
-  height: 35px;
-  padding: 2px;
+/* MESSAGES */
+
+#messagesPageContainer {
+  grid-row: 2 / 3;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  height: 100%;
+  max-height: 100%;
+  border: 2px solid brown;
 }
 
+#sidebar {
+  grid-column: 1 / 2;
+  display: grid;
+  position: relative;
+  grid-template-rows: 35px 1fr;
+  height: 100%;
+  max-height: 100%;
+  border: 2px solid red;
+  min-width: 350px;
+}
+
+#sidebarButtons {
+  grid-row: 1 / 2;
+  align-self: center;
+  justify-self: center;
+  border: 2px solid black;
+  height: 25px;
+}
+
+#connectionsList {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  grid-row: 2 / 3;
+  border: 2px solid blue;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.connectionsListItem {
+  display: block;
+  height: 80px;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-template-rows: 1fr 1fr;
+  border: 2px solid green;
+  justify-items: center;
+  align-items: center;
+}
+
+.connectionsListPicture {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  max-height: 25px;
+  max-width: 25px;
+}
+
+.connectionsListName {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+}
+
+.connectionsListCity {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+#selectedConnectionBox {
+  grid-column: 2 / 3;
+  align-self: center;
+  justify-self: center;
+  border: 2px solid purple;
+  background-color: aquamarine;
+  display: grid;
+  grid-template-rows: 1fr 15fr 2fr;
+  justify-items: center;
+  align-items: center;
+  height: 75%;
+  min-height: 688px;
+  max-height: 75%;
+  width: 60%;
+  max-width: 60%;
+  min-width: 550px;
+}
+
+#noConnectionSelected {
+  grid-row: 1 / 4;
+  border: 2px solid purple;
+  font-weight: 700;
+  font-size: 4rem;
+  text-align: center;
+}
+
+.picture {
+  max-height: 25px;
+  max-width: 25px;
+}
+
+/* UPCOMING TRIPS */
+
+#upcomingTripsContainer {
+  grid-row: 2 / 3;
+  height: 100%;
+  max-height: 100%;
+  display: grid;
+  grid-template-rows: 5rem 1fr;
+}
+
+#upcomingTripsTitle {
+  grid-row: 1 / 2;
+  justify-self: center;
+  align-self: end;
+  font-size: 3.5rem;
+  display: inline-block;
+  border-bottom: 2px solid grey;
+}
+
+#noTripsButton {
+  justify-self: center;
+  align-self: start;
+  margin-top: 1rem;
+}
+
+#upcomingTripsList {
+  justify-self: start;
+  align-self: start;
+  margin-top: 2rem;
+  margin-left: 15rem;
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.tripListTrip > p {
+  display: inline-block;
+}
+
+.tripListTitle {
+  font-size: 2.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid grey;
+}
+
+.tripListDates {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  margin-left: 4rem;
+}
+
+.tripListPurpose {
+  font-size: 2rem;
+  margin-top: 1.5rem;
+  margin-left: 4rem;
+  margin-bottom: 3rem;
+}
+
+/* Profile Box */
+#profileBox {
+  grid-row: 2/3;
+  /* border: 2px solid blue; */
+  display: grid;
+  grid-template-columns: 3fr 4fr;
+  grid-template-rows: 4fr 1fr;
+  justify-self: stretch;
+  align-self: stretch;
+  overflow-wrap: break-word;
+}
+
+#profileBox img {
+  grid-row: 1/2;
+  max-height: 400px;
+  max-width: 400px;
+  grid-column: 1/2;
+  /* border: 2px solid grey; */
+  justify-self: center;
+  align-self: center;
+}
+
+#profileBoxInfo {
+  grid-row: 1/2;
+  grid-column: 2/3;
+  /* border: 2px solid pink; */
+  display: flex;
+  overflow-wrap: break-word;
+  flex-direction: column;
+  font-size: 2rem;
+  /* font-weight: bold; */
+  justify-content: space-around;
+}
+
+#profileBoxInfo span {
+  font-weight: bold;
+}
+
+#profileBoxInterests {
+  grid-row: 2/3;
+  grid-column: 1/3;
+  /* border: 2px solid maroon; */
+  justify-self: stretch;
+  align-self: stretch;
+  text-align: center;
+  border: 2px solid red;
+}
+
+#profileBoxInterests span {
+  /* not 100% this was best practice..referring to the margins */
+  margin-right: 3rem;
+  margin-left: 3rem;
+  font-size: 1.5rem;
+  padding-top: 30px;
+}
+
+#profileBoxInterests div {
+  font-weight: bold;
+  font-size: 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+#profileBoxInfo div {
+  word-break: break-wo
+  rd;
+}
+=======
 .jamesCreatePage {
   background-color: rgb(39, 38, 38);
   width: 100%;

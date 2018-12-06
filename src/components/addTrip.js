@@ -76,10 +76,12 @@ class Add extends React.Component {
         console.log("after request", res.data);
         this.props.addTripAction(res.data);
         this.props.toggleTripAddedAction(false);
-        this.props.selectCountryAction('select a country');
-        this.props.selectCitiesAction([{city: "select a country to see cities"}]);
+        this.props.selectCountryAction("select a country");
+        this.props.selectCitiesAction([
+          { city: "select a country to see cities" }
+        ]);
         //need to redirect to upcoming trips
-        this.props.history.push('/next');
+        this.props.history.push("/next");
       })
       .catch(err => {
         console.log("error in save trip request", err);
@@ -90,45 +92,54 @@ class Add extends React.Component {
     return this.props.tripAdded ? (
       <div>
         <Nav />
-        <h3>This is The Add Trips Page</h3>
-        {/* ADD selected city to store for reference in this component */}
-        {/* <span>Details for your trip to {this.props.current}</span> */}
         <AddTripForm handleClick={this.handleSaveTripClick.bind(this)} />
       </div>
     ) : (
-      <div>
-        <Nav />
-        <h3>This is The Add Trips Page</h3>
-        <form>
-          <select
-            className="styled-select blue semi-square"
-            onChange={this.countrySelected.bind(this)}
-          >
-            <option>{this.props.currentCountry}</option>
-            {this.props.countries.map((country, i) => (
-              <option key={i} value={country}>
-                {country}
-              </option>
-            ))}
-          </select>
-          <select
-            className="styled-select blue semi-square"
-            onChange={this.citySelected.bind(this)}
-          >
-            {this.props.currentCities.map((city, i) => (
-              <option key={i}>{city.city}</option>
-            ))}
-          </select>
-          <input
-            className="actionButton"
-            type="button"
-            value="Add to my trips"
-            onClick={() => this.handleAddToMyTripsClick()}
-          />
-        </form>
-        {/* <div className="mapWindow">
-          <Map />
-        </div> */}
+      <div className="add-trip-container-div">
+        <div className="navbar-div">
+          <Nav />
+        </div>
+        <div className="form-div">
+          <div className="add-trip-form-header">
+            <p className="please-select-p">
+              Please select a country and a city.
+            </p>
+            <hr />
+          </div>
+          <div className="select-country-div">
+            <p className="select-country-p">Country:</p>
+            <select
+              className="add-trip-select"
+              onChange={this.countrySelected.bind(this)}
+            >
+              <option>{this.props.currentCountry}</option>
+              {this.props.countries.map((country, i) => (
+                <option key={i} value={country}>
+                  {country}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="select-country-div">
+            <p className="select-country-p">City: </p>
+            <select
+              className="add-trip-select"
+              onChange={this.citySelected.bind(this)}
+            >
+              {this.props.currentCities.map((city, i) => (
+                <option key={i}>{city.city}</option>
+              ))}
+            </select>
+          </div>
+          <div className="add-to-my-trips-button-div">
+            <input
+              className="add-to-my-trips-button"
+              type="button"
+              value="Add to my trips"
+              onClick={() => this.handleAddToMyTripsClick()}
+            />
+          </div>
+        </div>
       </div>
     );
   }
@@ -170,7 +181,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Add));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Add)
+);
