@@ -2,10 +2,9 @@ import React from "react";
 import Nav from "./navBar.js";
 import Trip from "./eachTrip.js";
 import axios from "axios";
-import Poss from "./possibleConnections.js";
-import PossConnProfile from "./userProfile.js";
+import ProfileBox from './profileBox.js';
 import { connect } from "react-redux";
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {
   SELECT_TRIP,
   SELECT_POSS_CON,
@@ -37,6 +36,9 @@ class Next extends React.Component {
   }
 
   handleConnectButton(connection) {
+    console.log('making connection with:', connection)
+    console.log("sortedMessageData object:", this.props.sortedMessageData);
+
     let connectionId = connection.connectionProfile.auth_id;
     let connectionCity = connection.connectionTrip.trip_city;
     let pending = this.props.sortedMessageData.requestReceived;
@@ -85,7 +87,7 @@ class Next extends React.Component {
     let userBlocked = this.props.profile.blocked;
     let otheruserBlocked = this.props.selectedPossCon.connectionProfile.blocked;
     this.props.selectPossConAction(null);
-    if (this.props.selectedConnection.otheruser.auth_id === toBlock) {
+    if (this.props.selectedConnection && this.props.selectedConnection.otheruser.auth_id === toBlock) {
       this.props.selectConUserAction(null);
     }
     axios.patch('/block', {
@@ -123,49 +125,56 @@ class Next extends React.Component {
       }) : [];
 
     return this.props.currentTrips ? this.props.selectedTrip ? (
-      <div>
+      <div id ='topContainer'>
         <Nav />
-        <h3>
-          Your Trip to:{" "}
-          {
-            this.props.cities[this.props.selectedTrip.details.trip_city - 1]
-              .city
-          }
-        </h3>
-        <button onClick={() => this.handleTripClick(null)}>Go Back</button>
-        {this.props.selectedPossCon ?
-          <PossConnProfile
-            possCon={this.props.selectedPossCon}
-            handleClick={this.handleConnectButton}
-            handleBlock={this.handleBlock}
-          />
-          : connectionsToRender.length ?
-            'select a possible connection to view their profile and reach out'
-            : 'no connections found for your upcoming trip :('
-        }
-        {connectionsToRender.length ?
-          <div>
-            <h3>Potential Connections</h3>
+        <div id='selectedTripContainer'>
+          <div id='sidebar'>
+            <div id='selectedTripHead'>
+              <span>Your Trip to: {this.props.cities[this.props.selectedTrip.details.trip_city - 1].city}</span>
+              <button onClick={() => this.handleTripClick(null)}>Go Back</button>
+            </div>
+            <ul id='possibleConnectionsList'>
             {connectionsToRender
-            .map((possCon, i, filtered) => (
-              <Poss
-                value={possCon}
-                connection={possCon.connectionProfile.username}
-                from={possCon.connectionProfile.user_country}
-                purpose={possCon.connectionTrip.purpose}
-                key={i}
-                click={this.handlePossConClick}
-              />
-            ))}
+              .map((possCon, i) => (
+                <li
+                  className="connectionsListItem"
+                  key={i}
+                  onClick={() => {this.handlePossConClick(possCon)}}
+                >
+                  <img className="connectionsListPicture" src={possCon.connectionProfile.picture}/>
+                  <span className="connectionsListName">{possCon.connectionProfile.username}</span>
+                  <span className="connectionsListCity">{possCon.connectionProfile.user_country}</span>
+                  <span className="connectionBreak" />
+                </li>))}
+              </ul>
           </div>
-        : ''}
-      </div>
-    ) : this.props.currentTrips.length ?
-    (
-      <div id='topContainer'>
+          {this.props.selectedPossCon ?
+          (<div id='selectedPossibleConnectionBox'>
+                {/* ADD THESE to CSS RULESET ONCE CSS IS UPDATED */}
+            <div id='selectedPossibleConnectionButtons'>
+              <span className='selectPossibleConnectionButton button' onClick={() => this.handleConnectButton(this.props.selectedPossCon)}>Connect</span>
+              <span className='selectPossibleConnectionButton button' onClick={() => this.handleBlock(this.props.selectedPossCon.connectionProfile.auth_id)}>No Thanks</span>
+            </div>
+            <ProfileBox profile={this.props.selectedPossCon.connectionProfile} />
+             {/* ADD THESE to CSS RULESET ONCE CSS IS UPDATED */}
+            <div id='selectedConnectionPurpose'>{this.props.selectedPossCon.connectionTrip.purpose}</div>
+            </div>) : connectionsToRender.length ?
+            (<div id='selectedPossibleConnectionBox'>
+              <div id='noPossibleConnectionSelected'> Select a possible connection to view their profile and reach out</div>
+            </div>
+            ) :
+            (<div id='selectedPossibleConnectionBox'>
+              <div id='noPossibleConnectionSelected'> 'No connections found for your upcoming trip</div>
+            </div>
+            )}
+        </div>
+      </div>) : this.props.currentTrips.length ?
+      (<div id='topContainer'>
         <Nav />
         <div id='upcomingTripsContainer'>
-          <h2 id='upcomingTripsTitle'>Upcoming Trips</h2>
+          <div id='upcomingTripsTitle'>
+            Find Other People to Meet Up With on the Your Trips!
+          </div>
           <div id='upcomingTripsList'>
             {this.props.currentTrips.map((trip, i) => (
               <Trip
@@ -182,9 +191,11 @@ class Next extends React.Component {
     ) : (
     <div id='topContainer'>
       <Nav />
-      <div id='upcomingTripsContainer'>
-        <h2 id='upcomingTripsTitle'>Submit trip information and find like-minded travellers to meet up with!</h2>
-        <span id='noTripsButton button'><Link to="/add">Add a Trip</Link></span>
+      <div id='noTripsContainer'>
+        <div id='upcomingTripsTitle'>
+          Submit trip information to find like-minded travellers!
+        </div>
+        <div id='noTripsButton' className='button' onClick={()=>{console.log('trying to push history'); this.props.history.push('/add')}}>Add a Trip</div>
       </div>
     </div>
     ) : 'loading';
@@ -214,6 +225,9 @@ const mapDispatchToProps = dispatch => {
     selectPossConAction: possCon => {
       dispatch({ type: SELECT_POSS_CON, payload: possCon });
     },
+    // unselectTripAction: trip => {
+    //   dispatch({ type: UNSELECT_TRIP, payload: trip });
+    // },
     updateMessagesAction: messages => {
       dispatch({ type: UPDATE_MESSAGES, payload: messages });
     },
@@ -222,11 +236,11 @@ const mapDispatchToProps = dispatch => {
     },
     selectConUserAction: connection => {
       dispatch({ type: SELECT_CONNECTION, payload: connection });
-    },
+    }
   };
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Next);
+)(Next));
