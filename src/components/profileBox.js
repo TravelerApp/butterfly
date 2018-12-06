@@ -1,19 +1,34 @@
 import React from "react";
+const ProfileBox = ({ profile }) => {
+  let interests = Object.keys(profile.interests).filter(
+    key => profile.interests[key]
+  );
 
-const ProfileBox = ({profile}) => {
-  return profile === null ? ""
-  : (
-    <div>
-      <div>Name: {profile.username}</div>
-      <div>From: {profile.user_country}</div>
-      <div>Language: {profile.primary_lang}</div>
-      {/* Interests: need to go through interest object, display true elements */}
+  return profile === null ? (
+    ""
+  ) : (
+    <div id="profileBox">
+      <img src={profile.picture} />
+      <div id="profileBoxInfo">
+        <div>
+          <span>Name:  </span>
+          {profile.username}{" "}
+        </div>
+        <div>
+          <span>From:  </span>
+          {profile.user_country}
+        </div>
+        <div>
+          <span>Language:  </span> {profile.primary_lang}
+        </div>
+      </div>
+      <div id="profileBoxInterests">
+        <div>Interests</div>
+        {interests.map(interest => (
+          <span>{interest}</span>
+        ))}
+      </div>
     </div>
-  )
+  );
 };
-
 export default ProfileBox;
-
-// let interests={hiking: false, tours: false, food: true, museums: false, landmarks: false};
-// Object.keys(interests).filter(key=>interests.key);
-// take resulting array, map it out ... eventually with icons based on string value

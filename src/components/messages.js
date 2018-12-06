@@ -12,12 +12,17 @@ class Mess extends React.Component {
     super(props);
     this.state = {
       text: "",
-      // local state to switch between connections and new connections???
+      displayConnections: true,
+      displayMessages: true
     };
     this.send = this.send.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
     this.handleBlock = this.handleBlock.bind(this);
+    this.toggleConnectionsView = this.toggleConnectionsView.bind(this);
+    this.toggleNewConnectionsView = this.toggleNewConnectionsView.bind(this);
+    this.toggleMessagesView = this.toggleMessagesView.bind(this);
+    this.toggleProfileView = this.toggleProfileView.bind(this);
   }
 
   componentDidMount() {
@@ -75,6 +80,7 @@ class Mess extends React.Component {
   }
 
   componentDidUpdate() {
+    // <div className="chatWindowDiv" ref="wrap">
     if (this.refs.wrap) {
       var el = this.refs.wrap;
       el.scrollTop = el.scrollHeight;
@@ -82,6 +88,7 @@ class Mess extends React.Component {
   }
 
   handleConnectionClick(user) {
+    // reset state text in case they had typed a message they didn't end up sending
     this.props.selectConUserAction(user);
   }
 
@@ -109,53 +116,98 @@ class Mess extends React.Component {
     }
   }
 
+  toggleConnectionsView() {
+    if(!this.state.displayConnections) {
+      this.setState(prevState => {return {...prevState, displayConnections: true}})
+    }
+  }
+
+  toggleNewConnectionsView() {
+    if(this.state.displayConnections) {
+    this.setState(prevState => {return {...prevState, displayConnections: false}})
+    }
+  }
+
+  toggleMessagesView() {
+    if(!this.state.displayMessages) {
+      this.setState(prevState => {return {...prevState, displayMessages: true}})
+    }
+  }
+
+  toggleProfileView() {
+    if(this.state.displayMessages) {
+    this.setState(prevState => {return {...prevState, displayMessages: false}})
+    }
+  }
+
+
   renderConnections(){
-    let connectionsList = 'Send some messages and people will show up here';
+    let app = this;
+
+    let connectionsList =
+      (<ul id="connectionsList">
+        <li className='connectionsListEmpty'>Send some messages and people will show up here</li>
+      </ul>);
 
     if (this.props.sortedMessageData.ongoingMessages.length) {
       connectionsList = (
-          <ul>
+          <ul id="connectionsList">
             {this.props.sortedMessageData.ongoingMessages
             .map((message, i) =>
-              <li
+              <li className='connectionsListItem'
                 key={i}
                 onClick={this.handleConnectionClick.bind(this, message)}
               >
-                {message.otheruser.username}
+                <img className='connectionsListPicture' src={message.otheruser.picture} />
+                <span className='connectionsListName'>{message.otheruser.username}</span>
+                <span className='connectionsListCity'>{app.props.cities[message.chat.chat_city - 1].city}</span>
               </li>)}
           </ul>
       )
     }
     return (
-    <div className="connectionsDiv">
-      Connections:
-      {connectionsList}
-    </div>
+      <div id='sidebar'>
+        <div id='sidebarButtons'>
+          <span className='messageConnectionsButton' onClick={app.toggleConnectionsView}>Connections</span>
+          <span className='messageConnectionsButton' onClick={app.toggleNewConnectionsView}>New Connections</span>
+        </div>
+        {connectionsList}
+      </div>
     )
   }
 
   renderNewConnections(){
-    let newConnectionsList = 'No recent connections made';
+    let app = this;
+
+    let newConnectionsList =
+      (<ul id="connectionsList">
+        <li className='connectionsListEmpty'>No recent connections made</li>
+      </ul>);
 
     if (this.props.sortedMessageData.newConnections.length) {
       newConnectionsList = (
-          <ul>
+        <ul id="connectionsList">
             {this.props.sortedMessageData.newConnections
             .map((message, i) =>
-              <li
+              <li className='connectionsListItem'
                 key={i}
                 onClick={this.handleConnectionClick.bind(this, message)}
               >
-                {message.otheruser.username}
+                <img className='connectionsListPicture' src={message.otheruser.picture} />
+                <span className='connectionsListName'>{message.otheruser.username}</span>
+                <span className='connectionsListCity'>{app.props.cities[message.chat.chat_city - 1].city}</span>
               </li>)}
           </ul>
       )
     }
     return (
-    <div className="newConnectionsDiv">
-      New Connections:
-      {newConnectionsList}
-    </div>
+      <div id='sidebar'>
+        <div id='sidebarButtons'>
+          <span className='messageConnectionsButton' onClick={app.toggleConnectionsView}>Connections</span>
+          <span className='messageConnectionsButton' onClick={app.toggleNewConnectionsView}>New Connections</span>
+        </div>
+        {newConnectionsList}
+      </div>
     )
   }
 
@@ -169,92 +221,95 @@ class Mess extends React.Component {
       messagesToRender = this.props.selectedConnection.chat.messages.messages.length ? this.props.selectedConnection.chat.messages.messages : null;
     }
 
-    return (
-      <div>
+    return this.props.sortedMessageData ? (
+      <div id= 'topContainer'>
         <Nav />
-        {this.renderConnections()}
-        {this.renderNewConnections()}
-        {this.props.selectedConnection ?
-          (<div>
-            <h1>MESSAGES WITH {this.props.selectedConnection.otheruser.username} ABOUT YOUR TRIP TO {this.props.cities[this.props.selectedConnection.chat.chat_city - 1].city}</h1>
-              <div className="containerDiv">
-                { messagesToRender ?
-                  (<div className="chatWindowDiv" ref="wrap">
-                  <ul className="chatbox">
-                    {messagesToRender.map(
-                      (message, i) => (
-                        <li
-                          key={i}
-                          className={
-                            this.props.profile.auth_id === message.author
-                              ? "senderMessage"
-                              : "receiverMessage"
-                          }
-                        >
-                          <img
-                            src={
-                              this.props.profile.auth_id === message.author
-                                ? this.props.profile.picture
-                                : this.props.selectedConnection.otheruser.picture
-                            }
-                            className="chatPicture"
-                          />
-                          <p className="senderName">
-                            {this.props.profile.auth_id !== message.author
-                              ? this.props.selectedConnection.otheruser.username
-                              : this.props.profile.username}
-                            :{" "}
-                          </p>
-                          <p
-                            className={
-                              this.props.profile.auth_id === message.author
-                                ? "receiverMessageText"
-                                : "senderMessageText"
-                            }
-                          >
-                            {message.text}
-                          </p>
-                          <p className="messageDate">
-                            {message.timestamp ? moment(message.timestamp).fromNow() : ''}
-                          </p>
-                        </li>
-                      )
-                    )}
-                  </ul>
+        <div id='messagesPageContainer'>
+          {this.state.displayConnections ? this.renderConnections() : this.renderNewConnections()}
+          {this.props.selectedConnection ?
+            (<div id='selectedConnectionBox'>
+              <div id='selectedConnectionButtons'>
+                <span className='selectConnectionButton button' onClick={this.toggleMessagesView}>Messages</span>
+                <span className='selectConnectionButton button' onClick={this.toggleProfileView}>Profile</span>
+                <span className='selectConnectionButton button' onClick={() => this.handleBlock(this.props.selectedConnection.otheruser.auth_id)}>Delete Connection</span>
+              </div>
+              {this.state.displayMessages ?
+                (<div className="selectedConnectionChat">
+                  {/* <h1>MESSAGES WITH {this.props.selectedConnection.otheruser.username} ABOUT YOUR TRIP TO {this.props.cities[this.props.selectedConnection.chat.chat_city - 1].city}</h1> */}
+                    {messagesToRender ?
+                      (<ul className="selectedConnectionMessages">
+                          {messagesToRender.map((message, i) =>
+                              (<li
+                                key={i}
+                                className={
+                                  this.props.profile.auth_id === message.author
+                                    ? "senderMessage"
+                                    : "receiverMessage"
+                                }
+                              >
+                              <img
+                                src={
+                                  this.props.profile.auth_id === message.author
+                                    ? this.props.profile.picture
+                                    : this.props.selectedConnection.otheruser.picture
+                                }
+                                  className="picture"
+                                />
+                                <p className="senderName">
+                                  {this.props.profile.auth_id !== message.author
+                                    ? this.props.selectedConnection.otheruser.username
+                                    : this.props.profile.username}
+                                  :{" "}
+                                </p>
+                                <p
+                                  className={
+                                    this.props.profile.auth_id === message.author
+                                      ? "receiverMessageText"
+                                      : "senderMessageText"
+                                  }
+                                >
+                                  {message.text}
+                                </p>
+                                <p className="messageDate">
+                                  {message.timestamp ? moment(message.timestamp).fromNow() : ''}
+                                </p>
+                              </li>
+                            )
+                          )}
+                        </ul>) :
+                  (<div className="selectedConnectionEmptyMessages">SEND A MESSAGE, GET THE CONVERSATION GOING!!!!!!!!</div>)}
                 </div>) :
-              (<div>SEND A MESSAGE, GET THE CONVERSATION GOING!!!!!!!!</div>)
-              }
+              <ProfileBox profile={this.props.selectedConnection.otheruser}/> }
                 <div className="chatFormDiv">
                   <form onSubmit={this.handleSubmit}>
-                    <input
-                      type="text"
-                      className="chatTextBox"
-                      id="chatTextBox"
-                      onChange={this.onChange}
-                      autocomplete="off"
-                    />
-                    <input
-                      type="submit"
-                      value="Send"
-                      className="chatSendButton"
-                    />
-                  </form>
-                </div>
+                  <input
+                    type="text"
+                    className="chatTextBox"
+                    id="chatTextBox"
+                    onChange={this.onChange}
+                    autocomplete="off"
+                  />
+                  <input
+                    type="submit"
+                    value="Send"
+                    className="chatSendButton button"
+                  />
+                </form>
               </div>
-            <ProfileBox profile={this.props.selectedConnection.otheruser}/>
-            <button onClick={() => this.handleBlock(this.props.selectedConnection.otheruser.auth_id)}>
-            Delete Connection
-            </button>
-          </div>
-        ) :
-        (<div>
-          {this.props.sortedMessageData.ongoingMessages.length ? 'Select a connection to see their messages'
-            : this.props.sortedMessageData.newConnections.length ? 'Send one of your new connections a message!'
-            : 'Find people heading to the same places you are and then you can chat with them here!'}
-          </div>)
-        }
+            </div>
+          ) :
+          (<div id='selectedConnectionBox'>
+            {this.props.sortedMessageData.ongoingMessages.length ?
+                <div id='noConnectionSelected'> Select a connection to see their messages </div>
+              : this.props.sortedMessageData.newConnections.length ?
+                <div id='noConnectionSelected'>Send one of your new connections a message!</div>
+              : <div id='noConnectionSelected'>Find people heading to the same places you are and then you can chat with them here!</div>
+              }
+            </div>)
+          }
+        </div>
       </div>
-    )
+    ) : ''
   }
 }
 
@@ -287,7 +342,7 @@ const mapDispatchToProps = dispatch => {
     },
     selectTripAction: trip => {
       dispatch({ type: SELECT_TRIP, payload: trip });
-    },
+    }
   };
 };
 

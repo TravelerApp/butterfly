@@ -34,7 +34,7 @@ class Create extends React.Component {
   }
   componentDidMount() {
     let uniqueCountries = [];
-    data.data.forEach(element => {
+    this.props.cities.forEach(element => {
       if (!uniqueCountries.includes(element.country)) {
         uniqueCountries.push(element.country);
       }
@@ -58,7 +58,6 @@ class Create extends React.Component {
     });
   }
   submit() {
-    
     const formattedInterests = {};
     this.state.interests.forEach(int => {
       formattedInterests[int.name] = int.checked;
@@ -71,7 +70,6 @@ class Create extends React.Component {
       primary_lang: this.state.primaryLanguage,
       interests: formattedInterests
       //secondary langs
-      //picture?
     };
     //save to db
     console.log(payload, "<-- payload here before patch");
@@ -146,7 +144,6 @@ class Create extends React.Component {
               </div>
             ))}
           </div>
-          
           <input
             type="button"
             value="Create my profile"
@@ -161,7 +158,8 @@ const mapStateToProps = state => {
   return {
     profile: state.profile,
     countries: state.countries,
-    loggedIn: state.loggedIn
+    loggedIn: state.loggedIn,
+    cities: state.cities
   };
 };
 const mapDispatchToProps = dispatch => {

@@ -9,9 +9,9 @@ class Landing extends Component {
   render() {
     const responseGoogle = response => {
       sessionStorage.setItem('banana', response.profileObj.givenName);
-      this.props.saveGoogleId(`${response.googleId}`); //response.googleId
+      this.props.saveGoogleId(`4`); //response.googleId
       axios
-        .post("/user", { auth_id: `${response.googleId}` })
+        .post("/user", { auth_id: `4` })
         .then(results => {
           console.log('successsssssss!');
           console.log(this.props);

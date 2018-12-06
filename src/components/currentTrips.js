@@ -9,10 +9,9 @@ import { Link } from 'react-router-dom';
 import {
   SELECT_TRIP,
   SELECT_POSS_CON,
-  UNSELECT_TRIP,
   UPDATE_MESSAGES,
   UPDATE_BLOCK,
-  SELECT_CONNECTION
+  SELECT_CONNECTION,
 } from "../actions/actions.js";
 
 class Next extends React.Component {
@@ -38,9 +37,6 @@ class Next extends React.Component {
   }
 
   handleConnectButton(connection) {
-    console.log('making connection with:', connection)
-    console.log("sortedMessageData object:", this.props.sortedMessageData);
-
     let connectionId = connection.connectionProfile.auth_id;
     let connectionCity = connection.connectionTrip.trip_city;
     let pending = this.props.sortedMessageData.requestReceived;
@@ -126,7 +122,7 @@ class Next extends React.Component {
         }
       }) : [];
 
-    return this.props.selectedTrip ? (
+    return this.props.currentTrips ? this.props.selectedTrip ? (
       <div>
         <Nav />
         <h3>
@@ -166,27 +162,32 @@ class Next extends React.Component {
       </div>
     ) : this.props.currentTrips.length ?
     (
-      <div>
+      <div id='topContainer'>
         <Nav />
-        <h3>Your Upcoming Trips</h3>
-        <h5>CLICK SEE OTHER COOL PEOPLE TRAVELLING TO THE SAME PLACE AT THE SAME TIME!</h5>
-        {this.props.currentTrips.map((trip, i) => (
-          <Trip
-            value={trip}
-            trip={this.props.cities[trip.details.trip_city - 1].city}
-            country={this.props.cities[trip.details.trip_city - 1].country}
-            key={i}
-            click={this.handleTripClick}
-          />
-        ))}
+        <div id='upcomingTripsContainer'>
+          <h2 id='upcomingTripsTitle'>Upcoming Trips</h2>
+          <div id='upcomingTripsList'>
+            {this.props.currentTrips.map((trip, i) => (
+              <Trip
+                trip={trip}
+                city={this.props.cities[trip.details.trip_city - 1].city}
+                country={this.props.cities[trip.details.trip_city - 1].country}
+                key={i}
+                handleClick={this.handleTripClick}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     ) : (
-    <div>
+    <div id='topContainer'>
       <Nav />
-      Enter trip information to find possible PALS to have FUN with while your TRAVELING
-      <button ><Link to="/add">ADD A TRIP</Link></button>
+      <div id='upcomingTripsContainer'>
+        <h2 id='upcomingTripsTitle'>Submit trip information and find like-minded travellers to meet up with!</h2>
+        <span id='noTripsButton button'><Link to="/add">Add a Trip</Link></span>
+      </div>
     </div>
-    );
+    ) : 'loading';
   }
 }
 
@@ -213,9 +214,6 @@ const mapDispatchToProps = dispatch => {
     selectPossConAction: possCon => {
       dispatch({ type: SELECT_POSS_CON, payload: possCon });
     },
-    // unselectTripAction: trip => {
-    //   dispatch({ type: UNSELECT_TRIP, payload: trip });
-    // },
     updateMessagesAction: messages => {
       dispatch({ type: UPDATE_MESSAGES, payload: messages });
     },
@@ -224,7 +222,7 @@ const mapDispatchToProps = dispatch => {
     },
     selectConUserAction: connection => {
       dispatch({ type: SELECT_CONNECTION, payload: connection });
-    }
+    },
   };
 };
 
