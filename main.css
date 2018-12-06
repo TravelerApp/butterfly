@@ -432,6 +432,8 @@ body,
   animation-delay: 30s;
 }
 
+
+
 .cb-slideshow li:nth-child(2) div {
   -webkit-animation-delay: 6s;
   -moz-animation-delay: 6s;
