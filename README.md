@@ -1,6 +1,9 @@
 # Butterfly Effect
 
-One Paragraph of project description goes here
+Ever travel to another country and get that outsider feeling when no one is speaking your language?
+experience something amazing in your travels, but had no one to share the moment with?
+
+This application prevents those feelings from ever happening again.
 
 ## Getting Started
 
@@ -13,7 +16,6 @@ Node, npm, s3 keys, eb instance, ec2 instance
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
 
 get the server started:
 
