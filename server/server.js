@@ -3,13 +3,15 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
 const path = require("path");
+
 const db = require("../knex/knex.js");
 const app = express();
 const upload = require("./upload.js");
 const singleUpload = upload.single("image");
-
+const cors = require("cors");
 let port = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(express.static(__dirname + "/../dist"));
 app.use(bodyParser.json());
 app.use(
